@@ -109,7 +109,8 @@ bool verify_command_mode(char * received){
 }
 
 void print_invalid_command(){
-    uart_print_string("p\r");
+    char cmd[10] = "p\r";
+    uart_print_string(cmd);
 }
 
 void reset_module(){
@@ -120,7 +121,8 @@ void reset_module(){
 
 
 void enter_command_mode(){
-    uart_print_string("$");
+    char cmd[10] = "$";
+    uart_print_string(cmd);
 }
 
 bool verify_exit_command_mode(char * received){
@@ -129,6 +131,7 @@ bool verify_exit_command_mode(char * received){
     char expected[10] = "Err\r\nCMD> ";
     
     memset(received, 0, sizeof(received)); // clear the buffer for the test
+    
     print_invalid_command(); // print a false command to receive a reliable answer
     //_delay_ms(10);
     while(count<strlen(expected)){
