@@ -109,7 +109,7 @@ bool verify_command_mode(char * received){
     return false;
 }
 
-void print_invalid_command(){
+void print_invalid_command(char * received){
     memset(received, 0, sizeof(received)); // clear the buffer for the test
     uart_print_string("p\r");
 }
