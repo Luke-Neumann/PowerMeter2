@@ -650,13 +650,14 @@ int main(void)
     
 
     start_timer0();
+    global_open_start_gate = 1;
     
 
     /* insert your hardware initialization here */
     while(1){
         
         //global_open_start_gate = 1;
-        _delay_ms(5000);
+       // _delay_ms(5000);
         //generate_message();
     }
     return 0;
