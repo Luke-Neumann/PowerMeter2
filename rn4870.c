@@ -96,6 +96,11 @@ bool verify_command_mode(char * received){
     int count = 0;
     int number_of_matching_chars = 0;
     char expected[10] = "Err\r\nCMD> ";
+    
+    memset(received, 0, sizeof(received)); // clear the buffer for the test
+    print_invalid_command();
+    
+    
     while(count<strlen(expected)){
         if(received[count]==expected[count]){ // compare what is inside of the recieved character to the expected character
             ++number_of_matching_chars;

@@ -647,6 +647,8 @@ int main(void)
     _delay_ms(500);
     verifyCmdModeControl_init();
     verifyCmdModeExitControl_init();
+    commandControl_init();
+
     
 
     start_timer0();
