@@ -11,11 +11,10 @@
 #include "global_variables.h"
 #include <stdint.h>
 #include <stdio.h>
+#include "iot_uart.h"
 
 // this initializes values to 0
 #define INITIALIZE_TO_ZERO 0
-
-
 
 // This enumerator will set up all the different states with different integer values automatically upon compilation.
 enum verifyCmdModeStates {enter_init_st, // This is the initial state of the state Machine.
@@ -26,6 +25,47 @@ enum verifyCmdModeStates {enter_init_st, // This is the initial state of the sta
     verify_cmd_finished
 } verifyCmdModeState;
 
+
+// This is a debug state print routine. It will print the names of the states each
+// time tick() is called. It only prints states if they are different than the
+// previous state.
+void debugStatePrint() {
+  static verifyCmdModeStates previousState;
+  static bool firstPass = true;
+  // Only print the message if:
+  // 1. This the first pass and the value for previousState is unknown.
+  // 2. previousState != currentState - this prevents reprinting the same state name over and over.
+  if (previousState != verifyCmdModeState || firstPass) {
+    firstPass = false;                // previousState will be defined, firstPass is false.
+    previousState = verifyCmdModeState;     // keep track of the last state that you were in.
+//    printf("secondsCounter:%d\n\r", (int)secondsCounter);
+    switch(verifyCmdModeState) {            // This prints messages based upon the state that you were in.
+      case enter_init_st: // prints the init state
+        uart_print_string("enter_init_st\n\r");
+        break;
+      case verify_cmd_start_st:
+        uart_print_string("verify_cmd_start_st\n\r");
+        break;
+      case call_verify_cmd_mode_st:
+        uart_print_string("call_verify_cmd_mode_st\n\r");
+        break;
+      case check_verify_cmd_count_st:
+        uart_print_string("check_verify_cmd_count_st\n\r");
+        break;
+      case verify_cmd_time_delay:
+        uart_print_string("verify_cmd_time_delay\n\r");
+        break;
+      case verify_cmd_finished:
+        uart_print_string("verify_cmd_finished\n\r");
+        break;
+     }
+  }
+}
+
+
+
+
+
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
 static uint32_t verify_cmd_count, verify_cmd_delay_count= INITIALIZE_TO_ZERO;
 static uint32_t cmd_limit= 10;
@@ -35,7 +75,7 @@ static uint32_t verify_cmd_delay_limit = 10;
 
 // Standard tick function.
 void verifyCmdModeControl_tick(){
-    //debugStatePrint(); // this prints the current state to make it easier to debug the SM.
+    debugStatePrint(); // this prints the current state to make it easier to debug the SM.
     switch(verifyCmdModeState) { // transitions
         case enter_init_st: // This state will immediately set the current state to the never touched state.
             verifyCmdModeState = verify_cmd_start_st;
