@@ -9,7 +9,7 @@ CLOCK      = 8000000
 
 
 
-PROGRAMMER = -c stk500v2 -P /dev/cu.usbmodem002674262
+PROGRAMMER = -c stk500v2 -P /dev/cu.usbmodem00267422
 OBJECTS    = main.o iot_uart.o iot_twi.o iot_timer.o iot_ads1115.o iot_external_interrupts.o rn4870.o update.o global_variables.o command_control.o verify_cmd_mode_control.o verify_cmd_mode_exit_control.o
 FUSES      = -U lfuse:w:0xf2:m -U hfuse:w:0x91:m -U efuse:w:0xff:m 
 

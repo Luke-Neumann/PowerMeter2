@@ -18,6 +18,53 @@
 
 
 
+//// This is a debug state print routine. It will print the names of the states each
+//// time tick() is called. It only prints states if they are different than the
+//// previous state.
+//void debugStatePrint() {
+//  static commandStates previousState;
+//  static bool firstPass = true;
+//  // Only print the message if:
+//  // 1. This the first pass and the value for previousState is unknown.
+//  // 2. previousState != currentState - this prevents reprinting the same state name over and over.
+//  if (previousState != commandState || firstPass) {
+//    firstPass = false;                // previousState will be defined, firstPass is false.
+//    previousState = commandState;     // keep track of the last state that you were in.
+//    printf("secondsCounter:%d\n\r", (int)secondsCounter);
+//    switch(clockState) {            // This prints messages based upon the state that you were in.
+//      case init_st: // prints the init state
+//        printf("init_st\n\r");
+//        break;
+//      case never_touched_st: // prints the never touched state
+//        printf("never_touched_st\n\r");
+//        break;
+//      case waiting_for_touch_st: // prints the wait for touch state
+//        printf("waiting_for_touch_st\n\r");
+//        break;
+//      case adc_Counter_running_st: // prints the adc counter running state
+//        printf("adc_Counter_running_st\n\r");
+//        break;
+//      case auto_Counter_running_st: // prints the auto counter running state state
+//        printf("auto_Counter_running_st\n\r");
+//        break;
+//      case rate_Counter_runnning_st: // prints the rate counter running state
+//        printf("rate_Counter_runnning_st\n\r");
+//        break;
+//      case rate_Counter_expired_st: // prints the rate counter expired state
+//        printf("rate_Counter_expired_st\n\r");
+//        break;
+//      case add_second_to_clock_st: // prints the add second to clock state
+//          printf("add_second_to_clock_st\n\r");
+//          break;
+//     }
+//  }
+//}
+
+
+
+
+
+
 // This enumerator will set up all the different states with different integer values automatically upon compilation.
 enum commandStates {init_st, // This is the initial state of the state Machine.
     start_gate,
