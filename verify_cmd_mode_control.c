@@ -91,6 +91,7 @@ void verifyCmdModeControl_tick(){
             break;
         case call_verify_cmd_mode_st:
             if (verify_command_mode(received)) {
+                global_verify_cmd_flag = 1;
                 verifyCmdModeState = verify_cmd_finished;
             }
             else{
