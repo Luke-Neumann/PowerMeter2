@@ -102,7 +102,7 @@ void commandControl_tick(){
             }
             break;
         case enter_command_mode_st:
-            if (enter_cmd_count >= 3) { // wait until printing is finished
+            if (enter_cmd_count >= 4) { // wait until printing is finished
                 enter_cmd_count = 0;
                 global_cmd_start_flag = 1; // start the verify cmd mode process
                 commandState = verify_command_mode_st;

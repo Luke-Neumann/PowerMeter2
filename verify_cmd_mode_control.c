@@ -78,7 +78,7 @@ void debugStatePrint() {
 
 // Standard tick function.
 void verifyCmdModeControl_tick(){
-    debugStatePrint(); // this prints the current state to make it easier to debug the SM.
+    //debugStatePrint(); // this prints the current state to make it easier to debug the SM.
     switch(verifyCmdModeState) { // transitions
         case enter_init_st: // This state will immediately set the current state to the never touched state.
             verifyCmdModeState = verify_cmd_start_st;
