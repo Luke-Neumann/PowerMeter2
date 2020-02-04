@@ -26,11 +26,17 @@ enum verifyCmdModeStates {enter_init_st, // This is the initial state of the sta
 } verifyCmdModeState;
 
 
+// here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
+static uint32_t verify_cmd_count, verify_cmd_delay_count= INITIALIZE_TO_ZERO;
+static uint32_t cmd_limit= 10;
+static uint32_t verify_cmd_delay_limit = 10;
+
+
 // This is a debug state print routine. It will print the names of the states each
 // time tick() is called. It only prints states if they are different than the
 // previous state.
 void debugStatePrint() {
-  static verifyCmdModeStates previousState;
+  static enum verifyCmdModeStates previousState;
   static bool firstPass = true;
   // Only print the message if:
   // 1. This the first pass and the value for previousState is unknown.
@@ -66,10 +72,7 @@ void debugStatePrint() {
 
 
 
-// here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
-static uint32_t verify_cmd_count, verify_cmd_delay_count= INITIALIZE_TO_ZERO;
-static uint32_t cmd_limit= 10;
-static uint32_t verify_cmd_delay_limit = 10;
+
 
 
 
