@@ -32,8 +32,7 @@ ISR(INT5_vect) // this is for the external interrupt pin PE5s
 {
     fast_mode(); // run a simple test function to read and print ADC data quickly
 }
-ISR(USART1_RX_vect)
-{
+ISR(USART1_RX_vect){
     //uart_print_string("TRUE");
     char temp[5] = "";
     temp[0] = USART_Receive();
