@@ -112,7 +112,7 @@ bool verify_command_mode(char * received){
     return false;
 }
 
-void print_invalid_command(char * reveived){
+void print_invalid_command(char * received){
     memset(received, 0, sizeof(received)); // clear the buffer for the test
     char cmd[10] = "p\r";
     uart_print_string(cmd);
@@ -137,7 +137,7 @@ bool verify_exit_command_mode(char * received){
     
     memset(received, 0, sizeof(received)); // clear the buffer for the test
     
-    print_invalid_command(); // print a false command to receive a reliable answer
+    print_invalid_command(received); // print a false command to receive a reliable answer
     //_delay_ms(10);
     while(count<strlen(expected)){
         if(received[count]==expected[count]){ // compare what is inside of the recieved character to the expected character
