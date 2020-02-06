@@ -92,13 +92,12 @@ bool check_command_queue(char * commands){
     }
 }
 
+
+
 bool verify_command_mode(char * received){
     int count = 0;
     int number_of_matching_chars = 0;
     char expected[10] = "Err\r\nCMD> ";
-    
-    memset(received, 0, sizeof(received)); // clear the buffer for the test
-    print_invalid_command();
     
     
     while(count<strlen(expected)){
@@ -113,7 +112,8 @@ bool verify_command_mode(char * received){
     return false;
 }
 
-void print_invalid_command(){
+void print_invalid_command(char * reveived){
+    memset(received, 0, sizeof(received)); // clear the buffer for the test
     char cmd[10] = "p\r";
     uart_print_string(cmd);
 }

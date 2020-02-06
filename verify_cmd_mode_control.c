@@ -19,7 +19,9 @@
 // This enumerator will set up all the different states with different integer values automatically upon compilation.
 enum verifyCmdModeStates {enter_init_st, // This is the initial state of the state Machine.
     verify_cmd_start_st,
+    verify_delay_st,
     call_verify_cmd_mode_st,
+    verify_cmd_mode_st,
     check_verify_cmd_count_st,
     verify_cmd_time_delay,
     verify_cmd_finished
@@ -27,10 +29,10 @@ enum verifyCmdModeStates {enter_init_st, // This is the initial state of the sta
 
 
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
-static uint32_t verify_cmd_count, verify_cmd_delay_count= INITIALIZE_TO_ZERO;
+static uint32_t verify_cmd_count, verify_cmd_delay_count, inner_verify_cmd_count= INITIALIZE_TO_ZERO;
 static uint32_t cmd_limit= 10;
 static uint32_t verify_cmd_delay_limit = 10;
-
+static uint32_t inner_limit = 10;
 
 // This is a debug state print routine. It will print the names of the states each
 // time tick() is called. It only prints states if they are different than the
@@ -90,9 +92,22 @@ void verifyCmdModeControl_tick(){
             }
             break;
         case call_verify_cmd_mode_st:
+            print_invalid_command(received);
+            verifyCmdModeState = verify_cmd_mode_st;
+            break;
+        case verify_cmd_mode_st:
             if (verify_command_mode(received)) {
                 global_verify_cmd_flag = 1;
                 verifyCmdModeState = verify_cmd_finished;
+            }
+            else{
+                verifyCmdModeState = verify_delay_st;
+            }
+            break;
+        case verify_delay_st:
+            if (inner_verify_cmd_count < inner_limit) {
+                inner_verify_cmd_count = 0;
+                verifyCmdModeState = verify_cmd_mode_st;
             }
             else{
                 verifyCmdModeState = check_verify_cmd_count_st;
@@ -100,6 +115,7 @@ void verifyCmdModeControl_tick(){
             break;
         case check_verify_cmd_count_st:
             if (verify_cmd_count > cmd_limit) {
+                verify_cmd_count = 0;
                 global_verify_cmd_flag = 2;
                 verifyCmdModeState = verify_cmd_finished;
             }
@@ -110,6 +126,7 @@ void verifyCmdModeControl_tick(){
         case verify_cmd_time_delay:
 
             if (verify_cmd_delay_count>verify_cmd_delay_limit) {
+                verify_cmd_delay_count = 0;
                 verifyCmdModeState = call_verify_cmd_mode_st;
             }
             else{
@@ -135,6 +152,11 @@ void verifyCmdModeControl_tick(){
             break;
         case call_verify_cmd_mode_st:
             verify_cmd_count++;
+            break;
+        case verify_delay_st:
+            inner_verify_cmd_count++;
+            break;
+        case verify_cmd_mode_st:
             break;
         case check_verify_cmd_count_st:
             break;

@@ -16,7 +16,7 @@
 void enter_command_mode();
 void exit_command_mode();
 void exit_command_mode_robustly(char * received);
-void print_invalid_command();
+void print_invalid_command(char * reveived);
 
 bool verify_command_mode(char * received);
 bool check_command_queue(char * commands);
