@@ -83,6 +83,7 @@ void verifyCmdModeControl_tick(){
                 global_verify_cmd_flag = 0;
                 outer_count = 0;
                 inner_count = 0;
+                memset(received, 0, sizeof(received)); // clear the buffer for the test
                 verifyCmdModeState = call_verify_cmd_mode_st;
             }
             break;
@@ -109,6 +110,7 @@ void verifyCmdModeControl_tick(){
             break;
         case outer_delay_st:
             if (outer_count < outer_limit) {
+                inner_count = 0;
                 verifyCmdModeState = call_verify_cmd_mode_st;
             }
             else{
