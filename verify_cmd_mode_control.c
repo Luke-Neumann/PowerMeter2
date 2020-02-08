@@ -21,6 +21,7 @@ enum verifyCmdModeStates {enter_init_st, // This is the initial state of the sta
     verify_cmd_start_st,
     call_verify_cmd_mode_st,
     verify_cmd_mode_st,
+    clear_buffer_st,
     inner_delay_st,
     outer_delay_st,
     verify_cmd_finished
@@ -28,9 +29,10 @@ enum verifyCmdModeStates {enter_init_st, // This is the initial state of the sta
 
 
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
-static uint32_t outer_count, inner_count= INITIALIZE_TO_ZERO;
+static uint32_t outer_count, inner_count, buffer_count= INITIALIZE_TO_ZERO;
 static uint32_t outer_limit = 10;
 static uint32_t inner_limit = 100;
+static uint32_t buffer_delay = 5;
 
 //// This is a debug state print routine. It will print the names of the states each
 //// time tick() is called. It only prints states if they are different than the
@@ -84,7 +86,15 @@ void verifyCmdModeControl_tick(){
                 outer_count = 0;
                 inner_count = 0;
                 memset(received, 0, sizeof(received)); // clear the buffer for the test
+                verifyCmdModeState = clear_buffer_st;
+            }
+            break;
+        case clear_buffer_st:
+            if (buffer_count > buffer_delay) {
                 verifyCmdModeState = call_verify_cmd_mode_st;
+            }
+            else{
+                verifyCmdModeState = clear_buffer_st;
             }
             break;
         case call_verify_cmd_mode_st:
@@ -111,7 +121,7 @@ void verifyCmdModeControl_tick(){
         case outer_delay_st:
             if (outer_count < outer_limit) {
                 inner_count = 0;
-                verifyCmdModeState = call_verify_cmd_mode_st;
+                verifyCmdModeState = clear_buffer_st;
             }
             else{
                 global_verify_cmd_flag = 2;
@@ -131,6 +141,9 @@ void verifyCmdModeControl_tick(){
         case enter_init_st: // This state will immediately set the current state to the never touched state.
             break;
         case verify_cmd_start_st:
+            break;
+        case clear_buffer_st:
+            buffer_count++;
             break;
         case call_verify_cmd_mode_st:
             break;
