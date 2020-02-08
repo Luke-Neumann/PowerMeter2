@@ -115,14 +115,12 @@ void commandControl_tick(){
         case verify_command_mode_st:
 
 
-            if ((global_verify_cmd_flag==1)&&(global_cmd_start_flag==0)){
+            if (global_verify_cmd_flag==1){
                 global_verify_cmd_flag = 0;
-                global_cmd_start_flag = 0;
                 commandState = check_for_commands;
             }
-            else if ((global_verify_cmd_flag == 2)&&(global_cmd_start_flag==0)){
+            else if (global_verify_cmd_flag == 2){
                 global_verify_cmd_flag = 0;
-                global_cmd_start_flag = 0;
                 commandState = check_limit1;
             }
             else{

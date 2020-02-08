@@ -19,56 +19,49 @@
 // This enumerator will set up all the different states with different integer values automatically upon compilation.
 enum verifyCmdModeStates {enter_init_st, // This is the initial state of the state Machine.
     verify_cmd_start_st,
-    verify_delay_st,
     call_verify_cmd_mode_st,
     verify_cmd_mode_st,
-    check_verify_cmd_count_st,
-    verify_cmd_time_delay,
+    inner_delay_st,
+    outer_delay_st,
     verify_cmd_finished
 } verifyCmdModeState;
 
 
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
-static uint32_t verify_cmd_count, verify_cmd_delay_count, inner_verify_cmd_count= INITIALIZE_TO_ZERO;
-static uint32_t cmd_limit= 10;
-static uint32_t verify_cmd_delay_limit = 10;
+static uint32_t outer_count, inner_count= INITIALIZE_TO_ZERO;
+static uint32_t outer_limit = 10;
 static uint32_t inner_limit = 10;
 
-// This is a debug state print routine. It will print the names of the states each
-// time tick() is called. It only prints states if they are different than the
-// previous state.
-void debugStatePrint() {
-  static enum verifyCmdModeStates previousState;
-  static bool firstPass = true;
-  // Only print the message if:
-  // 1. This the first pass and the value for previousState is unknown.
-  // 2. previousState != currentState - this prevents reprinting the same state name over and over.
-  if (previousState != verifyCmdModeState || firstPass) {
-    firstPass = false;                // previousState will be defined, firstPass is false.
-    previousState = verifyCmdModeState;     // keep track of the last state that you were in.
-//    printf("secondsCounter:%d\n\r", (int)secondsCounter);
-    switch(verifyCmdModeState) {            // This prints messages based upon the state that you were in.
-      case enter_init_st: // prints the init state
-        uart_print_string("enter_init_st\n\r");
-        break;
-      case verify_cmd_start_st:
-        uart_print_string("verify_cmd_start_st\n\r");
-        break;
-      case call_verify_cmd_mode_st:
-        uart_print_string("call_verify_cmd_mode_st\n\r");
-        break;
-      case check_verify_cmd_count_st:
-        uart_print_string("check_verify_cmd_count_st\n\r");
-        break;
-      case verify_cmd_time_delay:
-        uart_print_string("verify_cmd_time_delay\n\r");
-        break;
-      case verify_cmd_finished:
-        uart_print_string("verify_cmd_finished\n\r");
-        break;
-     }
-  }
-}
+//// This is a debug state print routine. It will print the names of the states each
+//// time tick() is called. It only prints states if they are different than the
+//// previous state.
+//void debugStatePrint() {
+//  static enum verifyCmdModeStates previousState;
+//  static bool firstPass = true;
+//  // Only print the message if:
+//  // 1. This the first pass and the value for previousState is unknown.
+//  // 2. previousState != currentState - this prevents reprinting the same state name over and over.
+//  if (previousState != verifyCmdModeState || firstPass) {
+//    firstPass = false;                // previousState will be defined, firstPass is false.
+//    previousState = verifyCmdModeState;     // keep track of the last state that you were in.
+////    printf("secondsCounter:%d\n\r", (int)secondsCounter);
+//    switch(verifyCmdModeState) {            // This prints messages based upon the state that you were in.
+//      case enter_init_st: // prints the init state
+//        uart_print_string("enter_init_st\n\r");
+//        break;
+//      case verify_cmd_start_st:
+//        uart_print_string("verify_cmd_start_st\n\r");
+//        break;
+//      case call_verify_cmd_mode_st:
+//        uart_print_string("call_verify_cmd_mode_st\n\r");
+//        break;
+//
+//      case verify_cmd_finished:
+//        uart_print_string("verify_cmd_finished\n\r");
+//        break;
+//     }
+//  }
+//}
 
 
 
@@ -101,44 +94,31 @@ void verifyCmdModeControl_tick(){
                 verifyCmdModeState = verify_cmd_finished;
             }
             else{
-                verifyCmdModeState = verify_delay_st;
+                verifyCmdModeState = inner_delay_st;
             }
             break;
-        case verify_delay_st:
-            if (inner_verify_cmd_count < inner_limit) {
-                inner_verify_cmd_count = 0;
+        case inner_delay_st:
+            if (inner_count < inner_limit) {
                 verifyCmdModeState = verify_cmd_mode_st;
             }
             else{
-                verifyCmdModeState = check_verify_cmd_count_st;
+                verifyCmdModeState = outer_delay_st;
             }
             break;
-        case check_verify_cmd_count_st:
-            if (verify_cmd_count > cmd_limit) {
-                verify_cmd_count = 0;
-                global_verify_cmd_flag = 2;
-                verifyCmdModeState = verify_cmd_finished;
-            }
-            else{
-                verifyCmdModeState = verify_cmd_time_delay;
-            }
-            break;
-        case verify_cmd_time_delay:
-
-            if (verify_cmd_delay_count>verify_cmd_delay_limit) {
-                verify_cmd_delay_count = 0;
+        case outer_delay_st:
+            if (outer_count < outer_limit) {
                 verifyCmdModeState = call_verify_cmd_mode_st;
             }
             else{
-                verifyCmdModeState = verify_cmd_time_delay;
+                global_verify_cmd_flag = 2;
+                verifyCmdModeState = verify_cmd_finished;
             }
             break;
         case verify_cmd_finished:
-            global_cmd_start_flag = 0;
+            outer_count = 0;
+            inner_count = 0;
             verifyCmdModeState = verify_cmd_start_st;
-   
             break;
-
         default:
             // This should never be reached and if it is it will print an message.
             //printf("clockControl_tick state update: hit default\n\r");
@@ -151,17 +131,14 @@ void verifyCmdModeControl_tick(){
         case verify_cmd_start_st:
             break;
         case call_verify_cmd_mode_st:
-            verify_cmd_count++;
             break;
-        case verify_delay_st:
-            inner_verify_cmd_count++;
+        case inner_delay_st:
+            inner_count++;
             break;
         case verify_cmd_mode_st:
             break;
-        case check_verify_cmd_count_st:
-            break;
-        case verify_cmd_time_delay:
-            verify_cmd_delay_count++;
+        case outer_delay_st:
+            outer_count++;
             break;
         case verify_cmd_finished:
             break;
