@@ -83,7 +83,7 @@ enum commandStates {init_st, // This is the initial state of the state Machine.
 } commandState;
 
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
-static uint32_t count1, count2, count3, enter_cmd_count, exit_cmd_count = INITIALIZE_TO_ZERO;
+static uint32_t count1, count2, count3, count4,enter_cmd_count, exit_cmd_count = INITIALIZE_TO_ZERO;
 static uint32_t limit1, limit2, limit3 = 10;
 
 
@@ -177,7 +177,7 @@ void commandControl_tick(){
             break;
         case exit_command_mode_st:
             
-            if (exit_cmd_count >= 3) { // wait until printing is finished
+            if (exit_cmd_count >= 4) { // wait until printing is finished
                 exit_cmd_count = 0;
                 global_exit_cmd_start_flag = 1; // start the verify cmd mode process
                 commandState = verify_command_mode_exited;

@@ -85,7 +85,7 @@ void verifyCmdModeControl_tick(){
                 global_verify_cmd_flag = 0;
                 outer_count = 0;
                 inner_count = 0;
-                memset(received, 0, sizeof(received)); // clear the buffer for the test
+                memset(received, 0, strlen(received)); // clear the buffer for the test
                 verifyCmdModeState = clear_buffer_st;
             }
             break;
