@@ -94,24 +94,60 @@ bool check_command_queue(char * commands){
 
 
 
+//bool verify_command_mode(char * received){
+//    int count = 0;
+//    int number_of_matching_chars = 0;
+//    char expected[20] = "Err\r\nCMD> ";
+//
+//
+//    while(count<strlen(expected)){
+//        if(received[count]==expected[count]){ // compare what is inside of the recieved character to the expected character
+//            ++number_of_matching_chars;
+//        }
+//        ++count;
+//    }
+//
+//    if (number_of_matching_chars == strlen(expected)) {
+//        return true;
+//    }
+//    return false;
+//}
+
+
 bool verify_command_mode(char * received){
     int count = 0;
+    int count1 = 0;
+
     int number_of_matching_chars = 0;
     char expected[20] = "Err\r\nCMD> ";
     
     
-    while(count<strlen(expected)){
-        if(received[count]==expected[count]){ // compare what is inside of the recieved character to the expected character
-            ++number_of_matching_chars;
+    while(count<strlen(received)){
+        if(received[count]==expected[0]){ // compare what is inside of the recieved character to the expected character
+            while (count1<strlen(expected)) {
+                if (received[count+count1]==expected[count1]) {
+                    ++number_of_matching_chars;
+                    if (number_of_matching_chars == strlen(expected)) {
+                        return true;
+                    }
+                }
+                else{
+                    // failed
+                    number_of_matching_chars = 0;
+                    count1 = 0;
+                    break;
+                }
+                ++count1;
+            }
         }
         ++count;
     }
-    
-    if (number_of_matching_chars == strlen(expected)) {
-        return true;
-    }
     return false;
 }
+
+
+
+
 
 void print_invalid_command(char * received){
     char cmd[10] = "p\r";
