@@ -97,7 +97,7 @@ bool check_command_queue(char * commands){
 bool verify_command_mode(char * received){
     int count = 0;
     int number_of_matching_chars = 0;
-    char expected[10] = "Err\r\nCMD> ";
+    char expected[20] = "Err\r\nCMD> ";
     
     
     while(count<strlen(expected)){
@@ -106,6 +106,7 @@ bool verify_command_mode(char * received){
         }
         ++count;
     }
+    
     if (number_of_matching_chars == strlen(expected)) {
         return true;
     }
