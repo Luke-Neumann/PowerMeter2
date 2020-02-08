@@ -30,7 +30,7 @@ enum verifyCmdModeStates {enter_init_st, // This is the initial state of the sta
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
 static uint32_t outer_count, inner_count= INITIALIZE_TO_ZERO;
 static uint32_t outer_limit = 10;
-static uint32_t inner_limit = 10;
+static uint32_t inner_limit = 100;
 
 //// This is a debug state print routine. It will print the names of the states each
 //// time tick() is called. It only prints states if they are different than the
@@ -81,6 +81,8 @@ void verifyCmdModeControl_tick(){
         case verify_cmd_start_st:
             if (global_cmd_start_flag) {
                 global_verify_cmd_flag = 0;
+                outer_count = 0;
+                inner_count = 0;
                 verifyCmdModeState = call_verify_cmd_mode_st;
             }
             break;
@@ -115,8 +117,6 @@ void verifyCmdModeControl_tick(){
             }
             break;
         case verify_cmd_finished:
-            outer_count = 0;
-            inner_count = 0;
             verifyCmdModeState = verify_cmd_start_st;
             break;
         default:
