@@ -75,7 +75,7 @@
 //    }
 //}
 
-void send_command(char ** command){
+void send_command(char *** command){
     int sum = 0;
     char appended_command[200] = "";
     int temp0 = atoi(command[0][0]);
@@ -106,7 +106,7 @@ void send_command(char ** command){
     uart_print_string(appended_command);
 }
 
-bool verify_sent_command(char * received, char ** command){
+bool verify_sent_command(char * received, char *** command){
     int count = 0;
     int count1 = 0;
     int number_of_matching_chars = 0;
