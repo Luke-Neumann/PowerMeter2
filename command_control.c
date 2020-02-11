@@ -177,6 +177,7 @@ void commandControl_tick(){
                 commandState = send_command_st;
             }
             else{
+                count5 = 0;
                 global_command_count_status = false;
                 memset(received, 0, sizeof(received)); // clear the buffer
                 commandState = exit_command_mode_st;
