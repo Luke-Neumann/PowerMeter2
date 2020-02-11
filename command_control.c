@@ -164,11 +164,11 @@ void commandControl_tick(){
             break;
         case check_limit2:
             if (count2>limit2){
-                global_cmd_start_flag = 1; // start the verify cmd mode process
-                commandState = check_limit1;
+                memset(received, 0, sizeof(received)); // clear the buffer
+                commandState = send_command_st;  
             }
             else{
-                commandState = send_command_st;
+                commandState = check_limit1;
             }
             break;
         case check_for_more_commands:
