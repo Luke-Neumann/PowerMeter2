@@ -162,10 +162,11 @@ void commandControl_tick(){
             break;
         case check_limit2:
             if (count2>limit2){
-                commandState = verify_command_received;
+                global_command_count_sequence++;
+                commandState = verify_command_mode_st;
             }
             else{
-                commandState = send_command_st;
+                commandState = verify_command_received;
             }
             break;
         case check_for_more_commands:

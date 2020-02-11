@@ -90,12 +90,14 @@ void send_command(char ** command){
         if (atoi(command[0][0])-i>=0) {
             memcpy(appended_command + sum, command[0][i], strlen(command[0][i]));
             sum += strlen(command[0][i]);
+            uart_print_string("h");
         }
         
         
         if (atoi(command[2][0])-i>=0) {
             memcpy(appended_command + sum, command[2][i], strlen(command[2][i]));
             sum += strlen(command[2][i]);
+            uart_print_string("k");
         }
 
 
