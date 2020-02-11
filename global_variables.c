@@ -65,8 +65,8 @@ int disconnect_flag = 0;
 int connect_flag = 0;
 int send_data_flag = 0;
 
-int global_command_count_sequence = 2; // starts at 1
-
+int global_command_count_sequence = 2;
+bool global_command_count_status = true;
 
 char * commandPtr[15] = {
     device_name,

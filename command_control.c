@@ -84,7 +84,7 @@ enum commandStates {init_st, // This is the initial state of the state Machine.
 } commandState;
 
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
-static uint32_t count1, count2, count3, count4,enter_cmd_count, exit_cmd_count = INITIALIZE_TO_ZERO;
+static uint32_t count1, count2, count3, count4, count5,enter_cmd_count, exit_cmd_count = INITIALIZE_TO_ZERO;
 static uint32_t limit1, limit2, limit3, limit4 = 5;
 
 
@@ -138,7 +138,7 @@ void commandControl_tick(){
             }
             break;
         case check_for_commands:
-            if (global_command_count_sequence > 0){
+            if (global_command_count_sequence > count5){
                 
                 memset(received, 0, sizeof(received)); // clear the buffer
                 commandState = send_command_st;
@@ -150,12 +150,12 @@ void commandControl_tick(){
             break;
         case send_command_st:
                 // call send command
-                send_command(command_queue[global_command_count_sequence-1]);
+                send_command(command_queue[count5]);
                 commandState = verify_command_received;
             break;
         case verify_command_received:
-            if (verify_sent_command(received, command_queue[global_command_count_sequence-1])){
-                global_command_count_sequence--;
+            if (verify_sent_command(received, command_queue[count5])){
+                count5++;
                 commandState = check_for_more_commands;
             }
             else {
@@ -172,11 +172,12 @@ void commandControl_tick(){
             }
             break;
         case check_for_more_commands:
-            if (global_command_count_sequence > 0) {
+            if (global_command_count_sequence > count5) {
                 
                 commandState = send_command_st;
             }
             else{
+                global_command_count_status = false;
                 memset(received, 0, sizeof(received)); // clear the buffer
                 commandState = exit_command_mode_st;
             }

@@ -86,7 +86,7 @@ extern int send_data_flag;
 
 
 extern int global_command_count_sequence;
-
+extern bool global_command_count_status;
 extern char * commandPtr[15];
 
 
