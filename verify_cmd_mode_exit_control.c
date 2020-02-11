@@ -106,11 +106,11 @@ void verifyCmdModeExitControl_tick(){
             break;
         case verify_exit_cmd_mode_st:
             if (verify_command_mode(received)) {
-                global_verify_exit_cmd_flag = 1;
-                verifyExitCmdModeState = verify_exit_cmd_finished;
+                verifyExitCmdModeState = inner_exit_delay_st;
             }
             else{
-                verifyExitCmdModeState = inner_exit_delay_st;
+                global_verify_exit_cmd_flag = 1;
+                verifyExitCmdModeState = verify_exit_cmd_finished;
             }
             break;
         case inner_exit_delay_st:
