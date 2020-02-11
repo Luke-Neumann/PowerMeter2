@@ -137,8 +137,9 @@ void commandControl_tick(){
             }
             break;
         case check_for_commands:
-            if (global_command_count_sequence >= 0){
+            if (global_command_count_sequence > 0){
                 global_command_count_sequence--;
+                memset(received, 0, sizeof(received)); // clear the buffer
                 commandState = send_command_st;
             }
             else {
@@ -152,7 +153,7 @@ void commandControl_tick(){
                 commandState = verify_command_received;
             break;
         case verify_command_received:
-            if (verify_sent_command(received, start_AD_dptr)){
+            if (verify_sent_command(received, command_queue[global_command_count_sequence])){
                 commandState = check_for_more_commands;
             }
             else {
@@ -168,7 +169,7 @@ void commandControl_tick(){
             }
             break;
         case check_for_more_commands:
-            if (global_command_count_sequence >= 0) {
+            if (global_command_count_sequence > 0) {
                 global_command_count_sequence--;
                 commandState = send_command_st;
             }

@@ -65,7 +65,7 @@ int disconnect_flag = 0;
 int connect_flag = 0;
 int send_data_flag = 0;
 
-int global_command_count_sequence = 1;
+int global_command_count_sequence = 1; // starts at 1
 
 
 char * commandPtr[15] = {
