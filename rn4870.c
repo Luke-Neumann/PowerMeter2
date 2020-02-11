@@ -115,8 +115,8 @@ bool verify_sent_command(char * received, char *** command){
     int i;
     for (i = 1; i < atoi(command[1][0])+1; i++){
         
-        memcpy(expected + sum, command[0][i], strlen(command[0][i]));
-        sum += strlen(command[0][i]);
+        memcpy(expected + sum, command[1][i], strlen(command[1][i]));
+        sum += strlen(command[1][i]);
     }
     
 
