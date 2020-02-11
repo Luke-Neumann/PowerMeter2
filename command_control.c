@@ -168,7 +168,7 @@ void commandControl_tick(){
             }
             break;
         case check_for_more_commands:
-            if (check_command_queue(global_command_count_sequence >= 0)) {
+            if (global_command_count_sequence >= 0) {
                 global_command_count_sequence--;
                 commandState = send_command_st;
             }

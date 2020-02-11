@@ -82,8 +82,8 @@ void send_command(char ** command){
     int temp1 = atoi(command[2][0]);
     int temp2 = 0;
     temp2 = temp1 > temp0 ? temp1:temp0;
-    
-    for (int i = 1; i < temp2+1; i++){
+    int i;
+    for (i = 1; i < temp2+1; i++){
         
 
         
@@ -112,7 +112,8 @@ bool verify_sent_command(char * received, char ** command){
     int sum = 0;
     
     // assemble messeage
-    for (int i = 1; i < atoi(command[1][0])+1; i++){
+    int i;
+    for (i = 1; i < atoi(command[1][0])+1; i++){
         
         memcpy(expected + sum, command[0][i], strlen(command[0][i]));
         sum += strlen(command[0][i]);

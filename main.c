@@ -652,7 +652,7 @@ int main(void)
     
 
     start_timer0();
-    
+    global_open_start_gate = 1;
     
 
     /* insert your hardware initialization here */
