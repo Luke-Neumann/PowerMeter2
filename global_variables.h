@@ -108,6 +108,29 @@ extern char ** start_AD_dptr[5];
 /*................................*/
 
 
+// special command pointer tree for setting device name
+/*...............................................................................*/
+// commands
+char set_name_cmd0[20];
+char set_name_cmd1[20];
+char set_name_cmd2[20];
+// expected return values
+char set_name_exp0[20];
+char set_name_exp1[20];
+// read and writable data
+char set_name_spec0[20];
+
+
+// combine into pointer array
+char * set_name_cmd_ptr[5];
+char * set_name_exp_ptr[5];
+char * set_name_spec_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** set_name_dptr[5];
+/*...............................................................................*/
+
+
 
 extern char *** command_queue[5];
 

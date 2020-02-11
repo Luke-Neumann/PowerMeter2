@@ -65,7 +65,7 @@ int disconnect_flag = 0;
 int connect_flag = 0;
 int send_data_flag = 0;
 
-int global_command_count_sequence = 1; // starts at 1
+int global_command_count_sequence = 2; // starts at 1
 
 
 char * commandPtr[15] = {
@@ -102,6 +102,34 @@ char ** start_AD_dptr[5] = {
 /*...............................................................................*/
 
 
+// special command pointer tree for setting device name
+/*...............................................................................*/
+// commands
+char set_name_cmd0[20] = "1"; // indicates size of this command branch
+char set_name_cmd1[20] = "SN,";
+char set_name_cmd2[20] = "\r";
+// expected return values
+char set_name_exp0[20] = "1"; // indicates size of this expected values branch
+char set_name_exp1[20] = "AOK\r\nCMD> ";
+// read and writable data
+char set_name_spec0[20] = "1"; // indicates size of this data branch
+
+
+// combine into pointer array
+char * set_name_cmd_ptr[5] = {start_AD_cmd0,start_AD_cmd1};
+char * set_name_exp_ptr[5] = {start_AD_exp0,start_AD_exp1};
+char * set_name_spec_ptr[5] = {start_AD_spec0, device_name};
+
+// combine into a pointer of a pointer array
+char ** set_name_dptr[5] = {
+    set_name_cmd_ptr,
+    set_name_exp_ptr,
+    set_name_spec_ptr,
+};
+/*...............................................................................*/
+
+
 char *** command_queue[5] = {
-    start_AD_dptr // first in line
+    start_AD_dptr, // first in line
+    set_name_dptr
 };
