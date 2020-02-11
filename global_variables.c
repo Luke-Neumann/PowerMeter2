@@ -85,7 +85,7 @@ char start_AD_cmd0[20] = "1"; // indicates size of this command branch
 char start_AD_cmd1[20] = "A,0014\r";
 // expected return values
 char start_AD_exp0[20] = "1"; // indicates size of this expected values branch
-char start_AD_exp1[20] = "AOK\r";
+char start_AD_exp1[20] = "AOK\r\nCMD> ";
 // read and writable data
 char start_AD_spec0[20] = "0"; // indicates size of this data branch
 

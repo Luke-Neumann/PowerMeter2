@@ -78,13 +78,14 @@ enum commandStates {init_st, // This is the initial state of the state Machine.
     check_for_more_commands,
     exit_command_mode_st,
     check_limit3,
+    check_limit4,
     verify_command_mode_exited,
     reset_module
 } commandState;
 
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
 static uint32_t count1, count2, count3, count4,enter_cmd_count, exit_cmd_count = INITIALIZE_TO_ZERO;
-static uint32_t limit1, limit2, limit3 = 10;
+static uint32_t limit1, limit2, limit3, limit4 = 5;
 
 
 // Standard tick function.
@@ -138,7 +139,7 @@ void commandControl_tick(){
             break;
         case check_for_commands:
             if (global_command_count_sequence > 0){
-                global_command_count_sequence--;
+                
                 memset(received, 0, sizeof(received)); // clear the buffer
                 commandState = send_command_st;
             }
@@ -149,29 +150,30 @@ void commandControl_tick(){
             break;
         case send_command_st:
                 // call send command
-                send_command(command_queue[global_command_count_sequence]);
+                send_command(command_queue[global_command_count_sequence-1]);
                 commandState = verify_command_received;
             break;
         case verify_command_received:
-            if (verify_sent_command(received, command_queue[global_command_count_sequence])){
+            if (verify_sent_command(received, command_queue[global_command_count_sequence-1])){
+                global_command_count_sequence--;
                 commandState = check_for_more_commands;
             }
             else {
-                commandState = check_limit2;
+                commandState = check_limit4;
             }
             break;
         case check_limit2:
             if (count2>limit2){
-                global_command_count_sequence++;
+                global_cmd_start_flag = 1; // start the verify cmd mode process
                 commandState = verify_command_mode_st;
             }
             else{
-                commandState = verify_command_received;
+                commandState = send_command_st;
             }
             break;
         case check_for_more_commands:
             if (global_command_count_sequence > 0) {
-                global_command_count_sequence--;
+                
                 commandState = send_command_st;
             }
             else{
@@ -214,6 +216,14 @@ void commandControl_tick(){
             else{
                 memset(received, 0, sizeof(received)); // clear the buffer
                 commandState = exit_command_mode_st;
+            }
+            break;
+        case check_limit4:
+            if (count4<limit4){
+                commandState = verify_command_received;
+            }
+            else{
+                commandState = check_limit2;
             }
             break;
         case reset_module:
@@ -259,6 +269,9 @@ void commandControl_tick(){
             break;
         case check_limit3:
             count3++;
+            break;
+        case check_limit4:
+            count4++;
             break;
         case reset_module:
             break;
