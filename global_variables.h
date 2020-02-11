@@ -33,7 +33,7 @@
 extern uint16_t overFlowCount;
 extern uint16_t overFlowCount1;
 
-extern char commands[10][50];
+
 extern char received[512];
 extern char UUID[130];
 extern char UUID_1[130];
@@ -58,8 +58,8 @@ extern char device_address[50];
 extern char server_address[50];
 extern char server_address_type[5];
 extern char password[30];
-extern uint32_t sample_interval;
-extern int32_t number_of_samples_per_interva;
+extern char sample_interval[20];
+extern char number_of_samples_per_interval[20];
 
 
 extern const float VPS;
@@ -85,10 +85,30 @@ extern int connect_flag;
 extern int send_data_flag;
 
 
+extern int global_command_count_sequence;
+
+extern char * commandPtr[15];
+
+
+// special command cluster
+/*................................*/
+extern char start_AD_cmd0[20];
+extern char start_AD_cmd1[20];
+
+extern char start_AD_exp0[20];
+extern char start_AD_exp1[20];
+
+extern char start_AD_spec0[20];
+
+extern char * start_AD_cmd_ptr[5];
+extern char * start_AD_exp_ptr[5];
+extern char * start_AD_spec_ptr[5];
+
+extern char ** start_AD_dptr[5];
+/*................................*/
 
 
 
-
-
+extern char *** command_queue[5];
 
 #endif /* global_variables_h */

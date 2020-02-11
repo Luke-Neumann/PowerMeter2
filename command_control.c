@@ -96,7 +96,7 @@ void commandControl_tick(){
             break;
         case start_gate:
             if (global_open_start_gate) {
-                global_open_start_gate = 0;
+                
                 memset(received, 0, sizeof(received)); // clear the buffer
                 commandState = enter_command_mode_st;
             }
@@ -137,7 +137,8 @@ void commandControl_tick(){
             }
             break;
         case check_for_commands:
-            if (check_command_queue(*commands)){
+            if (global_command_count_sequence >= 0){
+                global_command_count_sequence--;
                 commandState = send_command_st;
             }
             else {
@@ -147,11 +148,11 @@ void commandControl_tick(){
             break;
         case send_command_st:
                 // call send command
-                send_command(*commands);
+                send_command(command_queue[global_command_count_sequence]);
                 commandState = verify_command_received;
             break;
         case verify_command_received:
-            if (verify_sent_command(received, *commands)){
+            if (verify_sent_command(received, start_AD_dptr)){
                 commandState = check_for_more_commands;
             }
             else {
@@ -167,7 +168,8 @@ void commandControl_tick(){
             }
             break;
         case check_for_more_commands:
-            if (check_command_queue(*commands)) {
+            if (check_command_queue(global_command_count_sequence >= 0)) {
+                global_command_count_sequence--;
                 commandState = send_command_st;
             }
             else{
@@ -191,6 +193,7 @@ void commandControl_tick(){
             if ((global_verify_exit_cmd_flag==1)&&(global_exit_cmd_start_flag==0)){
                 global_verify_exit_cmd_flag = 0;
                 global_exit_cmd_start_flag = 0;
+                global_open_start_gate = 0;
                 commandState = start_gate;
             }
             else if ((global_verify_exit_cmd_flag == 2)&&(global_exit_cmd_start_flag==0)){

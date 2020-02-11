@@ -75,22 +75,74 @@
 //    }
 //}
 
-void send_command(char * command){
+void send_command(char ** command){
+    int sum = 0;
+    char appended_command[200] = "";
+    int temp0 = atoi(command[0][0]);
+    int temp1 = atoi(command[2][0]);
+    int temp2 = 0;
+    temp2 = temp1 > temp0 ? temp1:temp0;
     
+    for (int i = 1; i < temp2+1; i++){
+        
+
+        
+        if (atoi(command[0][0])-i>=0) {
+            memcpy(appended_command + sum, command[0][i], strlen(command[0][i]));
+            sum += strlen(command[0][i]);
+        }
+        
+        
+        if (atoi(command[2][0])-i>=0) {
+            memcpy(appended_command + sum, command[2][i], strlen(command[2][i]));
+            sum += strlen(command[2][i]);
+        }
+
+
+    }
+    
+    uart_print_string(appended_command);
 }
 
-bool verify_sent_command(char * received, char * command){
+bool verify_sent_command(char * received, char ** command){
+    int count = 0;
+    int count1 = 0;
+    int number_of_matching_chars = 0;
+    char expected[200] = "";
+    int sum = 0;
     
+    // assemble messeage
+    for (int i = 1; i < atoi(command[1][0])+1; i++){
+        
+        memcpy(expected + sum, command[0][i], strlen(command[0][i]));
+        sum += strlen(command[0][i]);
+    }
+    
+
+    while(count<strlen(received)){
+        if(received[count]==expected[0]){ // compare what is inside of the recieved character to the expected character
+            while (count1<strlen(expected)) {
+                if (received[count+count1]==expected[count1]) {
+                    ++number_of_matching_chars;
+                    if (number_of_matching_chars == strlen(expected)) {
+                        return true;
+                    }
+                }
+                else{
+                    // failed
+                    number_of_matching_chars = 0;
+                    count1 = 0;
+                    break;
+                }
+                ++count1;
+            }
+        }
+        ++count;
+    }
+    return false;
 }
 
-bool check_command_queue(char * commands){
-    if (0 < strlen(commands)) {
-        return true;
-    }
-    else{
-        return false;
-    }
-}
+
 
 
 
@@ -144,6 +196,7 @@ bool verify_command_mode(char * received){
     }
     return false;
 }
+
 
 
 
@@ -205,114 +258,6 @@ void exit_command_mode(){
 //    (*countP)++;
 }
 
-void exit_command_mode_robustly(char * received){
-    int count = 0; // used for keeping track of which element of received we are on.
-    int count1 = 0; // counts through the elements of expected.
-    int count2 = 0; // counts how many times we have looped through the received data.
-    int temp = 0;
-    int16_t count3 = 0; // counts the matching characters between expected and received.
-    bool finished = false;
-    bool false_alarm = false;
-    bool found_expected = false;
-    char expected[10] = "END\r\n";
-    char cmd[3] = "-";
-    
-    memset(received, 0, sizeof(received)); // clear the buffer
-    //_delay_ms(50);
-    while ((!finished)) {
-        count2 = 0;
-        //_delay_ms(50);
-        uart_print_string(cmd);
-        _delay_ms(50);  /* max is 262.14 ms / F_CPU in MHz */
-        uart_print_string(cmd);
-        _delay_ms(50);  /* max is 262.14 ms / F_CPU in MHz */
-        uart_print_string(cmd);
-        _delay_ms(50);  /* max is 262.14 ms / F_CPU in MHz */
-        uart_print_string("\r");
-        _delay_ms(50);  /* max is 262.14 ms / F_CPU in MHz */
-//        uart_print_string("abc\r");
-//        uart_print_string(received);
-        //uart_print_string("HEY2\r");
-        uart_print_string(received);
-         
-        while ((count2<50) && (!finished)) {
-            count = 0;
-            count3 = 0;
-            
-            //            found_expected = false;
-            //            false_alarm = false;
-            
-            while((count < strlen(received)) && (!finished)){ //} && !found_expected && !false_alarm){
-                count1 = 0;
-                
-                if(received[(count+count1)]==expected[count1]){ // compare what is inside of the recieved character to the expected character
-
-                    //                    uart_print_string("HEY3\r");
-                    //                    USART_Transmit(received[count]);
-                    //uart_print_string("HEY3\r");
-                    //                    count3++; // because there was a match increment count3
-                    //                    count1++; // increment because we need to check for the next match
-                    //                    if ((count+count1)>strlen(received)) {
-                    //                        uart_print_string("Fail\r");
-                    //                    }
-                    while (count1 < strlen(expected)) {
-                        //                        USART_Transmit(received[count+count1]);
-                        //uart_print_string("HEY4\r");
-                        temp = count + count1;
-                        USART_Transmit(received[temp]);
-                        if (received[(count+count1)]==expected[count1]) { // check for a match
-                            //uart_print_int((count+count1));
-//                            uart_print_string("HEY0\r");
-//                            uart_print_int(count1);
-//                            uart_print_string("HEY1\r");
-//                            uart_print_int(count);
-//                            uart_print_string("HEY2\r");
-//                            temp = count + count1;
-//                            USART_Transmit(received[temp]);
-                            //uart_print_string("HEY3\r");
-                            
-                            count3++;
-                        }
-                        //                        else{
-                        //                            //false_alarm = true;
-                        //                            count3 = 0;
-                        //                            break;
-                        //                        }
-                        count1++;
-                    }
-//                    uart_print_int(count3);
-//                    uart_print_int(strlen(expected));
-                    if (count3 == strlen(expected)) {
-                        memset(received, 0, sizeof(received)); // clear the buffer
-                        uart_print_string("HEY3\r");
-                        finished = true;
-                        //break;
-                    }
-                    else{
-                        count3 = 0;
-                        //break;
-                    }
-                    //uart_print_string("\r");
-                    //found_expected = true;
-                }
-                
-                ++count;
-            }
-            //            if (count3 == strlen(expected)) {
-            //                memset(received, 0, sizeof(received)); // clear the buffer
-            //                finished = true;
-            //                break;
-            //            }
-            //            else{
-            //                count3 = 0;
-            //            }
-            _delay_ms(10);
-            count2++;
-        }
-        //finished = false;
-    }
-    memset(received, 0, sizeof(received)); // clear the buffer
-}
 
 void get_BLE_info(){
     char cmd[5] = "D\r";
@@ -471,9 +416,6 @@ bool start_advertisement(char * address){ // the signal strength in dBm.
     }
     
     return false;
-
-
-    
 }
 
 bool stop_advertisement(char * address){

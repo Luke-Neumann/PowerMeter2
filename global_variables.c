@@ -11,7 +11,8 @@
 
 uint16_t overFlowCount = 0;
 uint16_t overFlowCount1 = 0;
-char commands[10][50];
+
+
 char received[512] = "";
 char UUID[130] = "2D8E217F7D1B4C5A8A970D122F6DCD8B"; // random service identifier no dashes
 char UUID_1[130] = "ED220715B3BD49558B0D8D6A794D876A"; // random service identifier for server BLE address
@@ -38,8 +39,8 @@ char device_address[50] = "801F12B4BDBF";
 char server_address[50] = "75B9550FC5CE"; // my phone
 char server_address_type[5] = "1"; // phone
 char password[30] = "0000";
-uint32_t sample_interval = 60; // default to 60 seconds
-int32_t number_of_samples_per_interva = 12; // default to 12 samples
+char sample_interval[20] = "60"; // default to 60 seconds
+char number_of_samples_per_interval[20] = "12"; // default to 12 samples
 
 
 const float VPS = PROG_GAIN_AMP_CONFIG_3/ (32768.0*VOLTAGE_DIVIDER); // volts per step. Use this conversion in place of Amps per step.
@@ -63,3 +64,44 @@ int wait_for_user_config_flag = 0;
 int disconnect_flag = 0;
 int connect_flag = 0;
 int send_data_flag = 0;
+
+int global_command_count_sequence = 1;
+
+
+char * commandPtr[15] = {
+    device_name,
+    device_address,
+    server_address,
+    server_address_type,
+    password,
+    sample_interval,
+    number_of_samples_per_interval
+};
+
+// special command pointer tree
+/*...............................................................................*/
+// commands
+char start_AD_cmd0[20] = "1"; // indicates size of this command branch
+char start_AD_cmd1[20] = "A,0014\r";
+// expected return values
+char start_AD_exp0[20] = "1"; // indicates size of this expected values branch
+char start_AD_exp1[20] = "AOK\r";
+// read and writable data
+char start_AD_spec0[20] = "0"; // indicates size of this data branch
+
+// combine into pointer array
+char * start_AD_cmd_ptr[5] = {start_AD_cmd0,start_AD_cmd1};
+char * start_AD_exp_ptr[5] = {start_AD_exp0,start_AD_exp1};
+char * start_AD_spec_ptr[5] = {start_AD_spec0};
+// combine into a pointer of a pointer array
+char ** start_AD_dptr[5] = {
+    start_AD_cmd_ptr,
+    start_AD_exp_ptr,
+    start_AD_spec_ptr,
+};
+/*...............................................................................*/
+
+
+char *** command_queue[5] = {
+    start_AD_dptr // first in line
+};
