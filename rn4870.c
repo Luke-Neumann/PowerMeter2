@@ -166,6 +166,10 @@ void enter_command_mode(){
     uart_print_string(cmd);
 }
 
+
+
+
+
 bool verify_exit_command_mode(char * received){
     int count = 0;
     int number_of_matching_chars = 0;

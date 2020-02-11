@@ -82,6 +82,7 @@ void verifyCmdModeControl_tick(){
             break;
         case verify_cmd_start_st:
             if (global_cmd_start_flag) {
+                global_cmd_start_flag = 0;
                 global_verify_cmd_flag = 0;
                 outer_count = 0;
                 inner_count = 0;
