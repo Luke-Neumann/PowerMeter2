@@ -130,6 +130,6 @@ char ** set_name_dptr[5] = {
 
 
 char *** command_queue[5] = {
-    start_AD_dptr, // first in line
-    set_name_dptr
+    set_name_dptr,
+    start_AD_dptr
 };

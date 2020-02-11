@@ -165,7 +165,7 @@ void commandControl_tick(){
         case check_limit2:
             if (count2>limit2){
                 global_cmd_start_flag = 1; // start the verify cmd mode process
-                commandState = verify_command_mode_st;
+                commandState = check_limit1;
             }
             else{
                 commandState = send_command_st;
