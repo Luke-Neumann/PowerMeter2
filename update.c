@@ -10,42 +10,42 @@
 
 
 
-int hex_to_int(char c){
-        int first = c / 16 - 3;
-        int second = c % 16;
-        int result = first*10 + second;
-        if(result > 9) result--;
-        return result;
-}
-
-int hex_to_ascii(char c, char d){
-        int high = hex_to_int(c) * 16;
-        int low = hex_to_int(d);
-        return high+low;
-}
-
-void convert_hex_to_char(char * Hex_address){
-    
-    int length = strlen(Hex_address);
-    char address[50] = "";
-    int i;
-    int temp;
-    char value_holder[5];
-    char buf = 0;
-
-    for(i = 0; i < length; i++){
-        if(i % 2 != 0){
-            temp = hex_to_ascii(buf, Hex_address[i]);
-            sprintf(value_holder, "%c", temp);
-            strncat(address, value_holder, strlen(value_holder));
-        }else{
-            buf = Hex_address[i];
-        }
-    }
-    memset(Hex_address, 0, strlen(Hex_address)); // clear the old address
-    memcpy(Hex_address, address, strlen(address)); // copy the converted value to Hex address
-    
-}
+//int hex_to_int(char c){
+//        int first = c / 16 - 3;
+//        int second = c % 16;
+//        int result = first*10 + second;
+//        if(result > 9) result--;
+//        return result;
+//}
+//
+//int hex_to_ascii(char c, char d){
+//        int high = hex_to_int(c) * 16;
+//        int low = hex_to_int(d);
+//        return high+low;
+//}
+//
+//void convert_hex_to_char(char * Hex_address){
+//    
+//    int length = strlen(Hex_address);
+//    char address[50] = "";
+//    int i;
+//    int temp;
+//    char value_holder[5];
+//    char buf = 0;
+//
+//    for(i = 0; i < length; i++){
+//        if(i % 2 != 0){
+//            temp = hex_to_ascii(buf, Hex_address[i]);
+//            sprintf(value_holder, "%c", temp);
+//            strncat(address, value_holder, strlen(value_holder));
+//        }else{
+//            buf = Hex_address[i];
+//        }
+//    }
+//    memset(Hex_address, 0, strlen(Hex_address)); // clear the old address
+//    memcpy(Hex_address, address, strlen(address)); // copy the converted value to Hex address
+//    
+//}
 
 
 bool set_server_address(char * server_address, char * received){

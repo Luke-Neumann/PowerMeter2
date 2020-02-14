@@ -418,21 +418,21 @@ char ** create_updated_char_dptr[10] = {
 };
 /*...............................................................................*/
 
-char initialize_sequence_size[10] = "9"; // stores how many commands are in init sequence
+char initialize_sequence_size[10] = "1"; // stores how many commands are in init sequence
 char * initialize_sequence_size_ptr[10] = {initialize_sequence_size};
 char ** initialize_sequence_size_dptr[10] = {initialize_sequence_size_ptr};
 char *** initialize_sequence[20] = {
     initialize_sequence_size_dptr,
-    set_name_dptr, // #1
+    //set_name_dptr, // #1
     set_update_ser_dptr, // #2
-    set_update_address_char_dptr, // #3
-    set_update_address_type_char_dptr, // #4
-    create_dev_name_char_dptr, // # 5
-    create_password_char_dptr, // # 6
-    create_smp_int_char_dptr, // # 7
-    create_smp_per_int_char_dptr, // # 8
-    create_updated_char_dptr, // # 9
-    start_AD_dptr // # 9
+//    set_update_address_char_dptr, // #3
+//    set_update_address_type_char_dptr, // #4
+//    create_dev_name_char_dptr, // # 5
+//    create_password_char_dptr, // # 6
+//    create_smp_int_char_dptr, // # 7
+//    create_smp_per_int_char_dptr, // # 8
+//    create_updated_char_dptr, // # 9
+//    start_AD_dptr // # 9
 };
 
 char **** master_command[10] = {
