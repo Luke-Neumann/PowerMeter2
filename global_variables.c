@@ -217,7 +217,7 @@ char set_update_address_char_spec0[20] = "3"; // indicates size of this data bra
 char set_update_address_char_set0[20] = "0";
 
 // combine into pointer array
-char * set_update_address_char_cmd_ptr[5] = {set_update_address_char_cmd0,set_update_address_char_cmd1, set_update_address_char_cmd2};
+char * set_update_address_char_cmd_ptr[5] = {set_update_address_char_cmd0,set_update_address_char_cmd1, set_update_address_char_cmd2,set_update_address_char_cmd3,set_update_address_char_cmd4};
 char * set_update_address_char_exp_ptr[5] = {set_update_address_char_exp0,set_update_address_char_exp1};
 char * set_update_address_char_spec_ptr[5] = {set_update_address_char_spec0, UUID_1, property_bitmap1, data_size};
 char * set_update_address_char_set_ptr[5] = {set_update_address_char_set0};
@@ -248,7 +248,7 @@ char set_update_address_type_char_spec0[20] = "3"; // indicates size of this dat
 char set_update_address_type_char_set0[20] = "0";
 
 // combine into pointer array
-char * set_update_address_type_char_cmd_ptr[5] = {set_update_address_type_char_cmd0,set_update_address_type_char_cmd1, set_update_address_type_char_cmd2};
+char * set_update_address_type_char_cmd_ptr[5] = {set_update_address_type_char_cmd0,set_update_address_type_char_cmd1, set_update_address_type_char_cmd2,set_update_address_type_char_cmd3,set_update_address_type_char_cmd4};
 char * set_update_address_type_char_exp_ptr[5] = {set_update_address_type_char_exp0,set_update_address_type_char_exp1};
 char * set_update_address_type_char_spec_ptr[5] = {set_update_address_type_char_spec0, UUID_2, property_bitmap2, data_size};
 char * set_update_address_type_char_set_ptr[5] = {set_update_address_type_char_set0};
@@ -279,7 +279,7 @@ char create_dev_name_char_spec0[20] = "3"; // indicates size of this data branch
 char create_dev_name_char_set0[20] = "0";
 
 // combine into pointer array
-char * create_dev_name_char_cmd_ptr[5] = {create_dev_name_char_cmd0,create_dev_name_char_cmd1, create_dev_name_char_cmd2};
+char * create_dev_name_char_cmd_ptr[5] = {create_dev_name_char_cmd0,create_dev_name_char_cmd1, create_dev_name_char_cmd2,create_dev_name_char_cmd3,create_dev_name_char_cmd4};
 char * create_dev_name_char_exp_ptr[5] = {create_dev_name_char_exp0,create_dev_name_char_exp1};
 char * create_dev_name_char_spec_ptr[5] = {create_dev_name_char_spec0, UUID_3, property_bitmap3, data_size};
 char * create_dev_name_char_set_ptr[5] = {create_dev_name_char_set0};
@@ -310,7 +310,7 @@ char create_password_char_spec0[20] = "3"; // indicates size of this data branch
 char create_password_char_set0[20] = "0";
 
 // combine into pointer array
-char * create_password_char_cmd_ptr[5] = {create_password_char_cmd0,create_password_char_cmd1, create_password_char_cmd2};
+char * create_password_char_cmd_ptr[5] = {create_password_char_cmd0,create_password_char_cmd1, create_password_char_cmd2,create_password_char_cmd3,create_password_char_cmd4};
 char * create_password_char_exp_ptr[5] = {create_password_char_exp0,create_password_char_exp1};
 char * create_password_char_spec_ptr[5] = {create_password_char_spec0, UUID_4, property_bitmap4, data_size};
 char * create_password_char_set_ptr[5] = {create_password_char_set0};
@@ -341,7 +341,7 @@ char create_smp_int_char_spec0[20] = "3"; // indicates size of this data branch
 char create_smp_int_char_set0[20] = "0";
 
 // combine into pointer array
-char * create_smp_int_char_cmd_ptr[5] = {create_smp_int_char_cmd0,create_smp_int_char_cmd1, create_smp_int_char_cmd2};
+char * create_smp_int_char_cmd_ptr[5] = {create_smp_int_char_cmd0,create_smp_int_char_cmd1, create_smp_int_char_cmd2,create_smp_int_char_cmd3,create_smp_int_char_cmd4};
 char * create_smp_int_char_exp_ptr[5] = {create_smp_int_char_exp0,create_smp_int_char_exp1};
 char * create_smp_int_char_spec_ptr[5] = {create_smp_int_char_spec0, UUID_5, property_bitmap5, data_size};
 char * create_smp_int_char_set_ptr[5] = {create_smp_int_char_set0};
@@ -372,7 +372,7 @@ char create_smp_per_int_char_spec0[20] = "3"; // indicates size of this data bra
 char create_smp_per_int_char_set0[20] = "0";
 
 // combine into pointer array
-char * create_smp_per_int_char_cmd_ptr[5] = {create_smp_per_int_char_cmd0,create_smp_per_int_char_cmd1, create_smp_per_int_char_cmd2};
+char * create_smp_per_int_char_cmd_ptr[5] = {create_smp_per_int_char_cmd0,create_smp_per_int_char_cmd1, create_smp_per_int_char_cmd2,create_smp_per_int_char_cmd3,create_smp_per_int_char_cmd4};
 char * create_smp_per_int_char_exp_ptr[5] = {create_smp_per_int_char_exp0,create_smp_per_int_char_exp1};
 char * create_smp_per_int_char_spec_ptr[5] = {create_smp_per_int_char_spec0, UUID_6, property_bitmap6, data_size};
 char * create_smp_per_int_char_set_ptr[5] = {create_smp_per_int_char_set0};
@@ -404,7 +404,7 @@ char create_updated_char_spec0[20] = "3"; // indicates size of this data branch
 char create_updated_char_set0[20] = "0";
 
 // combine into pointer array
-char * create_updated_char_cmd_ptr[5] = {create_updated_char_cmd0,create_updated_char_cmd1, create_updated_char_cmd2};
+char * create_updated_char_cmd_ptr[5] = {create_updated_char_cmd0,create_updated_char_cmd1, create_updated_char_cmd2,create_updated_char_cmd3,create_updated_char_cmd4};
 char * create_updated_char_exp_ptr[5] = {create_updated_char_exp0,create_updated_char_exp1};
 char * create_updated_char_spec_ptr[5] = {create_updated_char_spec0, UUID_7, property_bitmap7, data_size};
 char * create_updated_char_set_ptr[5] = {create_updated_char_set0};
@@ -418,21 +418,21 @@ char ** create_updated_char_dptr[10] = {
 };
 /*...............................................................................*/
 
-char initialize_sequence_size[10] = "1"; // stores how many commands are in init sequence
+char initialize_sequence_size[10] = "9"; // stores how many commands are in init sequence
 char * initialize_sequence_size_ptr[10] = {initialize_sequence_size};
 char ** initialize_sequence_size_dptr[10] = {initialize_sequence_size_ptr};
 char *** initialize_sequence[20] = {
     initialize_sequence_size_dptr,
-    //set_name_dptr, // #1
+    set_name_dptr, // #1
     set_update_ser_dptr, // #2
-//    set_update_address_char_dptr, // #3
-//    set_update_address_type_char_dptr, // #4
-//    create_dev_name_char_dptr, // # 5
-//    create_password_char_dptr, // # 6
-//    create_smp_int_char_dptr, // # 7
-//    create_smp_per_int_char_dptr, // # 8
-//    create_updated_char_dptr, // # 9
-//    start_AD_dptr // # 9
+    set_update_address_char_dptr, // #3
+    set_update_address_type_char_dptr, // #4
+    create_dev_name_char_dptr, // # 5
+    create_password_char_dptr, // # 6
+    create_smp_int_char_dptr, // # 7
+    create_smp_per_int_char_dptr, // # 8
+    create_updated_char_dptr, // # 9
+    start_AD_dptr // # 9
 };
 
 char **** master_command[10] = {

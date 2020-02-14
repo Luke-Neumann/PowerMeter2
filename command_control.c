@@ -85,8 +85,9 @@ enum commandStates {init_st, // This is the initial state of the state Machine.
 
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
 static uint32_t count1, count2, count3, count4,enter_cmd_count, exit_cmd_count = INITIALIZE_TO_ZERO;
-static uint32_t limit1, limit2, limit3, limit4 = 5;
+static uint32_t limit1, limit2, limit3= 5;
 static uint32_t count5= 1;
+static uint32_t limit4= 50;
 // Standard tick function.
 void commandControl_tick(){
     //debugStatePrint(); // this prints the current state to make it easier to debug the SM.
