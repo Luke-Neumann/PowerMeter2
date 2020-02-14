@@ -84,10 +84,9 @@ enum commandStates {init_st, // This is the initial state of the state Machine.
 } commandState;
 
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
-static uint32_t count1, count2, count3, count4, count5,enter_cmd_count, exit_cmd_count = INITIALIZE_TO_ZERO;
+static uint32_t count1, count2, count3, count4,enter_cmd_count, exit_cmd_count = INITIALIZE_TO_ZERO;
 static uint32_t limit1, limit2, limit3, limit4 = 5;
-
-
+static uint32_t count5= 1;
 // Standard tick function.
 void commandControl_tick(){
     //debugStatePrint(); // this prints the current state to make it easier to debug the SM.
@@ -138,7 +137,7 @@ void commandControl_tick(){
             }
             break;
         case check_for_commands:
-            if (global_command_count_sequence > count5){
+            if (atoi(master_command[global_command_count_sequence][0][0][0]) >= count5){
                 
                 memset(received, 0, sizeof(received)); // clear the buffer
                 commandState = send_command_st;
@@ -150,11 +149,11 @@ void commandControl_tick(){
             break;
         case send_command_st:
                 // call send command
-                send_command(command_queue[count5]);
+                send_command(master_command[global_command_count_sequence][count5]);
                 commandState = verify_command_received;
             break;
         case verify_command_received:
-            if (verify_sent_command(received, command_queue[count5])){
+            if (verify_sent_command(received, master_command[global_command_count_sequence][count5])){
                 count5++;
                 commandState = check_for_more_commands;
             }
@@ -172,7 +171,7 @@ void commandControl_tick(){
             }
             break;
         case check_for_more_commands:
-            if (global_command_count_sequence > count5) {
+            if (atoi(master_command[global_command_count_sequence][0][0][0]) >= count5) {
                 
                 commandState = send_command_st;
             }

@@ -22,7 +22,10 @@ bool verify_exit_command_mode(char * received);
 void send_command(char *** command);
 bool verify_sent_command(char * received, char *** command);
 
+int hex_to_int(char c);
 
+int hex_to_ascii(char c, char d);
+void convert_hex_to_char(char * Hex_address);
 
 
 

@@ -14,66 +14,45 @@
 
 
 
-//
-//void processCommands(char * received, char * commands){
-//    
-//    int count1 = 0;
-//    int count2 = 0;
-//    int count3 = 0;
-//    int * count1p = &count1;
-//    int * count2p = &count2;
-//    int * count3p = &count3;
-//    int limit1 = 100;
-//    int limit2 = 100;
-//    int limit3 = 100;
-//    bool reset = false;
-//    // start
-//    
-//    while (1) {
-//        // enter command mode
-//        enter_command_mode(count1p);
-//        // verify that command mode has been entered
-//        if (verify_command_mode(received)) {
-//            break;
-//        }
-//        if (count1 > limit1) {
-//            reset = true;
-//            break;
-//        }
-//    }
-//    
-//    if (reset) {
-//        // reset the device - unavailable with version 2.0 of the device.
-//        return;
-//    }
-//    else{
-//        
-//        // Check if there are any Commands to send
-//        if (check_command_queue(commands)) {
-//            // Send Command
-//            // Verify Command has bee Received
-//            
-//            // Check if More Commands are to be sent
-//        }
-//        
-//        
-//        while (1) {
-//            // Exit command Mode
-//            exit_command_mode(count3p);
-//            // Verify that command mode has been Exited
-//            if (verify_exit_command_mode(received)) {
-//                break;
-//            }
-//            if (count1 > limit1) {
-//                reset = true;
-//                break;
-//            }
-//        }
-//
-//        // Finished process
-//        
-//    }
-//}
+int hex_to_int(char c){
+        int first = c / 16 - 3;
+        int second = c % 16;
+        int result = first*10 + second;
+        if(result > 9) result--;
+        return result;
+}
+
+int hex_to_ascii(char c, char d){
+        int high = hex_to_int(c) * 16;
+        int low = hex_to_int(d);
+        return high+low;
+}
+
+void convert_hex_to_char(char * Hex_address){
+    
+    int length = strlen(Hex_address);
+    char address[50] = "";
+    int i;
+    int temp;
+    char value_holder[5];
+    char buf = 0;
+
+    for(i = 0; i < length; i++){
+        if(i % 2 != 0){
+            temp = hex_to_ascii(buf, Hex_address[i]);
+            sprintf(value_holder, "%c", temp);
+            strncat(address, value_holder, strlen(value_holder));
+        }else{
+            buf = Hex_address[i];
+        }
+    }
+    memset(Hex_address, 0, strlen(Hex_address)); // clear the old address
+    memcpy(Hex_address, address, strlen(address)); // copy the converted value to Hex address
+    
+}
+
+
+
 
 void send_command(char *** command){
     int sum = 0;
@@ -105,6 +84,10 @@ void send_command(char *** command){
 }
 
 bool verify_sent_command(char * received, char *** command){
+    
+    char * address_holder1 = received;
+    char * address_holder2 = command[3][1];
+    
     int count = 0;
     int count1 = 0;
     int number_of_matching_chars = 0;
@@ -119,52 +102,58 @@ bool verify_sent_command(char * received, char *** command){
         sum += strlen(command[1][i]);
     }
     
+    
+    if (atoi(command[3][0])) {
+        
 
-    while(count<strlen(received)){
-        if(received[count]==expected[0]){ // compare what is inside of the recieved character to the expected character
-            while (count1<strlen(expected)) {
-                if (received[count+count1]==expected[count1]) {
-                    ++number_of_matching_chars;
-                    if (number_of_matching_chars == strlen(expected)) {
-                        return true;
-                    }
-                }
-                else{
-                    // failed
-                    number_of_matching_chars = 0;
-                    count1 = 0;
-                    break;
-                }
-                ++count1;
-            }
+        memset(command[3][1], 0, strlen(command[3][1])); // clear the old
+        while ((*received != '\r')&&(*received != '\0')) {
+            *command[3][1] = *received;
+            command[3][1]++;
+            received++;
         }
-        ++count;
+        received = address_holder1;
+        command[3][1] = address_holder2;
+        convert_hex_to_char(command[3][1]);
+         memcpy(command[3][2], "1", strlen("1")); // write a one to indicate the default is changed at least once.
+
+        
+        return true;
+        
+        
+        
+        
+        
     }
-    return false;
+    else{
+        while(count<strlen(received)){
+            if(received[count]==expected[0]){ // compare what is inside of the recieved character to the expected character
+                while (count1<strlen(expected)) {
+                    if (received[count+count1]==expected[count1]) {
+                        ++number_of_matching_chars;
+                        if (number_of_matching_chars == strlen(expected)) {
+                            return true;
+                        }
+                    }
+                    else{
+                        // failed
+                        number_of_matching_chars = 0;
+                        count1 = 0;
+                        break;
+                    }
+                    ++count1;
+                }
+            }
+            ++count;
+        }
+        return false;
+    }
+
+
 }
 
 
 
-
-
-//bool verify_command_mode(char * received){
-//    int count = 0;
-//    int number_of_matching_chars = 0;
-//    char expected[20] = "Err\r\nCMD> ";
-//
-//
-//    while(count<strlen(expected)){
-//        if(received[count]==expected[count]){ // compare what is inside of the recieved character to the expected character
-//            ++number_of_matching_chars;
-//        }
-//        ++count;
-//    }
-//
-//    if (number_of_matching_chars == strlen(expected)) {
-//        return true;
-//    }
-//    return false;
-//}
 
 
 bool verify_command_mode(char * received){
@@ -200,11 +189,8 @@ bool verify_command_mode(char * received){
 
 
 
-
-
-
 void print_invalid_command(char * received){
-    char cmd[10] = "p\r";
+    char cmd[10] = "test\r";
     uart_print_string(cmd);
 }
 
@@ -248,15 +234,7 @@ bool verify_exit_command_mode(char * received){
 }
 
 void exit_command_mode(){
-   // char cmd[3] = "-";
     uart_print_string("-");
-//    _delay_ms(50);  /* max is 262.14 ms / F_CPU in MHz */
-//    uart_print_string(cmd);
-//    _delay_ms(50);  /* max is 262.14 ms / F_CPU in MHz */
-//    uart_print_string(cmd);
-//    _delay_ms(50);  /* max is 262.14 ms / F_CPU in MHz */
-//    uart_print_string("\r");
-//    (*countP)++;
 }
 
 

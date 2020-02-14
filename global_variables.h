@@ -104,34 +104,274 @@ extern char * start_AD_cmd_ptr[5];
 extern char * start_AD_exp_ptr[5];
 extern char * start_AD_spec_ptr[5];
 
-extern char ** start_AD_dptr[5];
+extern char ** start_AD_dptr[10];
 /*................................*/
 
 
 // special command pointer tree for setting device name
 /*...............................................................................*/
 // commands
-char set_name_cmd0[20];
-char set_name_cmd1[20];
-char set_name_cmd2[20];
+extern char set_name_cmd0[20];
+extern char set_name_cmd1[20];
+extern char set_name_cmd2[20];
 // expected return values
-char set_name_exp0[20];
-char set_name_exp1[20];
+extern char set_name_exp0[20];
+extern char set_name_exp1[20];
 // read and writable data
-char set_name_spec0[20];
+extern char set_name_spec0[20];
 
 
 // combine into pointer array
-char * set_name_cmd_ptr[5];
-char * set_name_exp_ptr[5];
-char * set_name_spec_ptr[5];
+extern char * set_name_cmd_ptr[5];
+extern char * set_name_exp_ptr[5];
+extern char * set_name_spec_ptr[5];
 
 // combine into a pointer of a pointer array
-char ** set_name_dptr[5];
+extern char ** set_name_dptr[10];
 /*...............................................................................*/
 
 
 
-extern char *** command_queue[5];
+// special command pointer tree for setting device name
+/*...............................................................................*/
+// commands
+extern char set_ser_address_cmd0[20];
+extern char set_ser_address_cmd1[20];
+
+// expected return values
+extern char set_ser_address_exp0[20];
+extern char set_ser_address_exp1[20];
+// read and writable data
+extern char set_ser_address_spec0[20];
+// sets values from BLE
+extern char set_ser_address_set0[20];
+extern char set_ser_address_set1[20];
+
+// combine into pointer array
+extern char * set_ser_address_cmd_ptr[5];
+extern char * set_ser_address_exp_ptr[5];
+extern char * set_ser_address_spec_ptr[5];
+extern char * set_ser_address_set_ptr[5];
+
+// combine into a pointer of a pointer array
+extern char ** set_ser_address_dptr[10];
+/*...............................................................................*/
+
+
+// special command pointer tree for creating update service
+/*...............................................................................*/
+// commands
+char set_update_ser_cmd0[20];
+char set_update_ser_cmd1[20];
+char set_update_ser_cmd2[20];
+// expected return values
+char set_update_ser_exp0[20];
+char set_update_ser_exp1[20];
+// read and writable data
+char set_update_ser_spec0[20];
+// sets values from BLE
+char set_update_ser_set0[20];
+
+// combine into pointer array
+char * set_update_ser_cmd_ptr[5];
+char * set_update_ser_exp_ptr[5];
+char * set_update_ser_spec_ptr[5];
+char * set_update_ser_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** set_update_ser_dptr[10];
+/*...............................................................................*/
+
+// special command pointer tree for creating server address characteristic
+/*...............................................................................*/
+// commands
+char set_update_address_char_cmd0[20];
+char set_update_address_char_cmd1[20];
+char set_update_address_char_cmd2[20];
+char set_update_address_char_cmd3[20];
+char set_update_address_char_cmd4[20];
+// expected return values
+char set_update_address_char_exp0[20];
+char set_update_address_char_exp1[20];
+// read and writable data
+char set_update_address_char_spec0[20];
+// sets values from BLE
+char set_update_address_char_set0[20];
+
+// combine into pointer array
+char * set_update_address_char_cmd_ptr[5];
+char * set_update_address_char_exp_ptr[5];
+char * set_update_address_char_spec_ptr[5];
+char * set_update_address_char_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** set_update_address_char_dptr[10];
+/*...............................................................................*/
+
+// special command pointer tree for creating server address type characteristic
+/*...............................................................................*/
+// commands
+char set_update_address_type_char_cmd0[20];
+char set_update_address_type_char_cmd1[20];
+char set_update_address_type_char_cmd2[20];
+char set_update_address_type_char_cmd3[20];
+char set_update_address_type_char_cmd4[20];
+// expected return values
+char set_update_address_type_char_exp0[20];
+char set_update_address_type_char_exp1[20];
+// read and writable data
+char set_update_address_type_char_spec0[20];
+// sets values from BLE
+char set_update_address_type_char_set0[20];
+
+// combine into pointer array
+char * set_update_address_type_char_cmd_ptr[5];
+char * set_update_address_type_char_exp_ptr[5];
+char * set_update_address_type_char_spec_ptr[5];
+char * set_update_address_type_char_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** set_update_address_type_char_dptr[10];
+/*...............................................................................*/
+
+// special command pointer tree for creating device name characteristic
+/*...............................................................................*/
+// commands
+char create_dev_name_char_cmd0[20];
+char create_dev_name_char_cmd1[20];
+char create_dev_name_char_cmd2[20];
+char create_dev_name_char_cmd3[20];
+char create_dev_name_char_cmd4[20];
+// expected return values
+char create_dev_name_char_exp0[20];
+char create_dev_name_char_exp1[20];
+// read and writable data
+char create_dev_name_char_spec0[20];
+// sets values from BLE
+char create_dev_name_char_set0[20];
+
+// combine into pointer array
+char * create_dev_name_char_cmd_ptr[5];
+char * create_dev_name_char_exp_ptr[5];
+char * create_dev_name_char_spec_ptr[5];
+char * create_dev_name_char_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** create_dev_name_char_dptr[10];
+/*...............................................................................*/
+
+// special command pointer tree for a password characteristic
+/*...............................................................................*/
+// commands
+char create_password_char_cmd0[20];
+char create_password_char_cmd1[20];
+char create_password_char_cmd2[20];
+char create_password_char_cmd3[20];
+char create_password_char_cmd4[20];
+// expected return values
+char create_password_char_exp0[20];
+char create_password_char_exp1[20];
+// read and writable data
+char create_password_char_spec0[20];
+// sets values from BLE
+char create_password_char_set0[20];
+
+// combine into pointer array
+char * create_password_char_cmd_ptr[5];
+char * create_password_char_exp_ptr[5];
+char * create_password_char_spec_ptr[5];
+char * create_password_char_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** create_password_char_dptr[10];
+/*...............................................................................*/
+
+// special command pointer tree for a sample interval characteristic
+/*...............................................................................*/
+// commands
+char create_smp_int_char_cmd0[20];
+char create_smp_int_char_cmd1[20];
+char create_smp_int_char_cmd2[20];
+char create_smp_int_char_cmd3[20];
+char create_smp_int_char_cmd4[20];
+// expected return values
+char create_smp_int_char_exp0[20];
+char create_smp_int_char_exp1[20];
+// read and writable data
+char create_smp_int_char_spec0[20];
+// sets values from BLE
+char create_smp_int_char_set0[20];
+
+// combine into pointer array
+char * create_smp_int_char_cmd_ptr[5];
+char * create_smp_int_char_exp_ptr[5];
+char * create_smp_int_char_spec_ptr[5];
+char * create_smp_int_char_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** create_smp_int_char_dptr[10];
+/*...............................................................................*/
+
+// special command pointer tree for a number of samples per interval characteristic
+/*...............................................................................*/
+// commands
+char create_smp_per_int_char_cmd0[20];
+char create_smp_per_int_char_cmd1[20];
+char create_smp_per_int_char_cmd2[20];
+char create_smp_per_int_char_cmd3[20];
+char create_smp_per_int_char_cmd4[20];
+// expected return values
+char create_smp_per_int_char_exp0[20];
+char create_smp_per_int_char_exp1[20];
+// read and writable data
+char create_smp_per_int_char_spec0[20];
+// sets values from BLE
+char create_smp_per_int_char_set0[20];
+
+// combine into pointer array
+char * create_smp_per_int_char_cmd_ptr[5];
+char * create_smp_per_int_char_exp_ptr[5];
+char * create_smp_per_int_char_spec_ptr[5];
+char * create_smp_per_int_char_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** create_smp_per_int_char_dptr[10];
+/*...............................................................................*/
+
+
+// special command pointer tree for a update complete characteristic
+/*...............................................................................*/
+// commands
+char create_updated_char_cmd0[20];
+char create_updated_char_cmd1[20];
+char create_updated_char_cmd2[20] ;
+char create_updated_char_cmd3[20];
+char create_updated_char_cmd4[20];
+// expected return values
+char create_updated_char_exp0[20];
+char create_updated_char_exp1[20];
+// read and writable data
+char create_updated_char_spec0[20];
+// sets values from BLE
+char create_updated_char_set0[20];
+
+// combine into pointer array
+char * create_updated_char_cmd_ptr[5];
+char * create_updated_char_exp_ptr[5];
+char * create_updated_char_spec_ptr[5];
+char * create_updated_char_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** create_updated_char_dptr[10];
+/*...............................................................................*/
+
+
+extern char initialize_sequence_size[10];
+extern char * initialize_sequence_size_ptr[10];
+extern char ** initialize_sequence_size_dptr[10];
+extern char *** initialize_sequence[20];
+
+
+extern char **** master_command[10];
 
 #endif /* global_variables_h */
