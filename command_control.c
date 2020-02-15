@@ -18,48 +18,6 @@
 
 
 
-//// This is a debug state print routine. It will print the names of the states each
-//// time tick() is called. It only prints states if they are different than the
-//// previous state.
-//void debugStatePrint() {
-//  static commandStates previousState;
-//  static bool firstPass = true;
-//  // Only print the message if:
-//  // 1. This the first pass and the value for previousState is unknown.
-//  // 2. previousState != currentState - this prevents reprinting the same state name over and over.
-//  if (previousState != commandState || firstPass) {
-//    firstPass = false;                // previousState will be defined, firstPass is false.
-//    previousState = commandState;     // keep track of the last state that you were in.
-//    printf("secondsCounter:%d\n\r", (int)secondsCounter);
-//    switch(clockState) {            // This prints messages based upon the state that you were in.
-//      case init_st: // prints the init state
-//        printf("init_st\n\r");
-//        break;
-//      case never_touched_st: // prints the never touched state
-//        printf("never_touched_st\n\r");
-//        break;
-//      case waiting_for_touch_st: // prints the wait for touch state
-//        printf("waiting_for_touch_st\n\r");
-//        break;
-//      case adc_Counter_running_st: // prints the adc counter running state
-//        printf("adc_Counter_running_st\n\r");
-//        break;
-//      case auto_Counter_running_st: // prints the auto counter running state state
-//        printf("auto_Counter_running_st\n\r");
-//        break;
-//      case rate_Counter_runnning_st: // prints the rate counter running state
-//        printf("rate_Counter_runnning_st\n\r");
-//        break;
-//      case rate_Counter_expired_st: // prints the rate counter expired state
-//        printf("rate_Counter_expired_st\n\r");
-//        break;
-//      case add_second_to_clock_st: // prints the add second to clock state
-//          printf("add_second_to_clock_st\n\r");
-//          break;
-//     }
-//  }
-//}
-
 
 
 
@@ -83,9 +41,157 @@ enum commandStates {init_st, // This is the initial state of the state Machine.
     reset_module
 } commandState;
 
+
+
+
+// This is a debug state print routine. It will print the names of the states each
+// time tick() is called. It only prints states if they are different than the
+// previous state.
+void debugStatePrint() {
+    
+    int j = 0;
+    char init_st_print[50] = "init_st";
+    char enter_command_mode_st_print[50] = "enter_command_mode_st";
+    char verify_command_mode_st_print[50] = "verify_command_mode_st";
+    char check_limit1_print[50] = "check_limit1";
+    char check_for_commands_print[50] = "check_for_commands";
+    char send_command_st_print[50] = "send_command_st";
+    char verify_command_received_print[50] = "verify_command_received";
+    char check_limit2_print[50] = "check_limit2";
+    char check_for_more_commands_print[50] = "check_for_more_commands";
+    char exit_command_mode_st_print[50] = "exit_command_mode_st";
+    char check_limit3_print[50] = "check_limit3";
+    char check_limit4_print[50] = "check_limit4";
+    char verify_command_mode_exited_print[50] = "verify_command_mode_exited";
+    char reset_module_print[50] = "reset_module";
+    
+    
+    static enum commandStates previousState;
+    static bool firstPass = true;
+    // Only print the message if:
+    // 1. This the first pass and the value for previousState is unknown.
+    // 2. previousState != currentState - this prevents reprinting the same state name over and over.
+    if (previousState != commandState || firstPass) {
+        firstPass = false;                // previousState will be defined, firstPass is false.
+        previousState = commandState;     // keep track of the last state that you were in.
+        //printf("secondsCounter:%d\n\r", (int)secondsCounter);
+        switch(commandState) {            // This prints messages based upon the state that you were in.
+            case init_st: // prints the init state
+                j = 0;
+                while(j<strlen(init_st_print)){
+                    debug_data[debug_commandStates_counter][j] = init_st_print[j];
+                    j++;
+                }
+                
+                
+                break;
+            case enter_command_mode_st: // prints the never touched state
+                j = 0;
+                while(j<strlen(enter_command_mode_st_print)){
+                    debug_data[debug_commandStates_counter][j] = enter_command_mode_st_print[j];
+                    j++;
+                }
+                break;
+            case verify_command_mode_st: // prints the wait for touch state
+                j = 0;
+                while(j<strlen(verify_command_mode_st_print)){
+                    debug_data[debug_commandStates_counter][j] = verify_command_mode_st_print[j];
+                    j++;
+                }
+                break;
+            case check_limit1: // prints the adc counter running state
+                j = 0;
+                while(j<strlen(check_limit1_print)){
+                    debug_data[debug_commandStates_counter][j] = check_limit1_print[j];
+                    j++;
+                }
+                break;
+            case check_for_commands: // prints the auto counter running state state
+                j = 0;
+                while(j<strlen(check_for_commands_print)){
+                    debug_data[debug_commandStates_counter][j] = check_for_commands_print[j];
+                    j++;
+                }
+                break;
+            case send_command_st: // prints the rate counter running state
+                j = 0;
+                while(j<strlen(send_command_st_print)){
+                    debug_data[debug_commandStates_counter][j] = send_command_st_print[j];
+                    j++;
+                }
+                break;
+            case verify_command_received: // prints the rate counter expired state
+                j = 0;
+                while(j<strlen(verify_command_received_print)){
+                    debug_data[debug_commandStates_counter][j] = verify_command_received_print[j];
+                    j++;
+                }
+                break;
+            case check_limit2: // prints the add second to clock state
+                j = 0;
+                while(j<strlen(check_limit2_print)){
+                    debug_data[debug_commandStates_counter][j] = check_limit2_print[j];
+                    j++;
+                }
+                break;
+            case check_for_more_commands: // prints the add second to clock state
+                j = 0;
+                while(j<strlen(check_for_more_commands_print)){
+                    debug_data[debug_commandStates_counter][j] = check_for_more_commands_print[j];
+                    j++;
+                }
+                break;
+            case exit_command_mode_st: // prints the add second to clock state
+               j = 0;
+               while(j<strlen(exit_command_mode_st_print)){
+                   debug_data[debug_commandStates_counter][j] = exit_command_mode_st_print[j];
+                   j++;
+               }
+               break;
+            case check_limit3: // prints the add second to clock state
+                j = 0;
+                while(j<strlen(check_limit3_print)){
+                    debug_data[debug_commandStates_counter][j] = check_limit3_print[j];
+                    j++;
+                }
+                break;
+            case check_limit4: // prints the add second to clock state
+                j = 0;
+                while(j<strlen(check_limit4_print)){
+                    debug_data[debug_commandStates_counter][j] = check_limit4_print[j];
+                    j++;
+                }
+                break;
+            case verify_command_mode_exited: // prints the add second to clock state
+                j = 0;
+                while(j<strlen(verify_command_mode_exited_print)){
+                    debug_data[debug_commandStates_counter][j] = verify_command_mode_exited_print[j];
+                    j++;
+                }
+                break;
+            case reset_module: // prints the add second to clock state
+                j = 0;
+                while(j<strlen(reset_module_print)){
+                    debug_data[debug_commandStates_counter][j] = reset_module_print[j];
+                    j++;
+                }
+                break;
+        }
+        
+        
+        debug_commandStates_counter++;
+  }
+}
+
+
+
+
+
+
+
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
 static uint32_t count1, count2, count3, count4,enter_cmd_count, exit_cmd_count = INITIALIZE_TO_ZERO;
-static uint32_t limit1, limit2, limit3= 5;
+static uint32_t limit1, limit2, limit3= 20;
 static uint32_t count5= 1;
 static uint32_t limit4= 200;
 // Standard tick function.
@@ -202,6 +308,7 @@ void commandControl_tick(){
                 global_verify_exit_cmd_flag = 0;
                 global_exit_cmd_start_flag = 0;
                 global_open_start_gate = 0;
+                debug_test_print = true;
                 commandState = start_gate;
             }
             else if ((global_verify_exit_cmd_flag == 2)&&(global_exit_cmd_start_flag==0)){

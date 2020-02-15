@@ -13,6 +13,11 @@ uint16_t overFlowCount = 0;
 uint16_t overFlowCount1 = 0;
 
 
+char debug_data[5000][100];
+bool debug_test_print = false;
+uint32_t debug_commandStates_counter = 0;
+
+
 char received[512] = "";
 char UUID[130] = "2D8E217F7D1B4C5A8A970D122F6DCD8B"; // random service identifier no dashes
 char UUID_1[130] = "ED220715B3BD49558B0D8D6A794D876A"; // random service identifier for server BLE address

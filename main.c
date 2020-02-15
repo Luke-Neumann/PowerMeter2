@@ -662,6 +662,17 @@ int main(void)
             global_open_start_gate = 1;
         }
         
+        if (debug_test_print == true) {
+            for (int i = 0; i<debug_commandStates_counter;i++){
+                uart_print_string("index ");
+                uart_print_int(i);
+                uart_print_string(": ");
+                uart_print_string(debug_data[i]);
+                uart_print_string("\r\n");
+            }
+            debug_test_print = false;
+        }
+        
         //global_open_start_gate = 1;
        // _delay_ms(5000);
         //generate_message();
