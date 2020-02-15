@@ -137,6 +137,65 @@ char ** set_name_dptr[10] = {
 };
 /*...............................................................................*/
 
+
+// special command pointer tree for setting the default services
+/*...............................................................................*/
+// commands
+char set_default_cmd0[20] = "1"; // indicates size of this command branch
+char set_default_cmd1[20] = "SS,C0\r";
+
+// expected return values
+char set_default_exp0[20] = "1"; // indicates size of this expected values branch
+char set_default_exp1[20] = "AOK\r\nCMD> ";
+// read and writable data
+char set_default_spec0[20] = "0"; // indicates size of this data branch
+// sets values from BLE
+char set_default_set0[20] = "0";
+
+// combine into pointer array
+char * set_default_cmd_ptr[5] = {set_default_cmd0,set_default_cmd1};
+char * set_default_exp_ptr[5] = {set_default_exp0,set_default_exp1};
+char * set_default_spec_ptr[5] = {set_default_spec0};
+char * set_default_set_ptr[5] = {set_default_set0};
+
+// combine into a pointer of a pointer array
+char ** set_default_dptr[10] = {
+    set_default_cmd_ptr,
+    set_default_exp_ptr,
+    set_default_spec_ptr,
+    set_default_set_ptr
+};
+/*...............................................................................*/
+
+// special command pointer tree for rebooting the module
+/*...............................................................................*/
+// commands
+char reboot_cmd0[20] = "1"; // indicates size of this command branch
+char reboot_cmd1[20] = "R,1\r";
+
+// expected return values
+char reboot_exp0[20] = "1"; // indicates size of this expected values branch
+char reboot_exp1[20] = "Rebooting\r\n%REBOOT%";
+// read and writable data
+char reboot_spec0[20] = "0"; // indicates size of this data branch
+// sets values from BLE
+char reboot_set0[20] = "0";
+
+// combine into pointer array
+char * reboot_cmd_ptr[5] = {reboot_cmd0,reboot_cmd1};
+char * reboot_exp_ptr[5] = {reboot_exp0,reboot_exp1};
+char * reboot_spec_ptr[5] = {reboot_spec0};
+char * reboot_set_ptr[5] = {reboot_set0};
+
+// combine into a pointer of a pointer array
+char ** reboot_dptr[10] = {
+    reboot_cmd_ptr,
+    reboot_exp_ptr,
+    reboot_spec_ptr,
+    reboot_set_ptr
+};
+/*...............................................................................*/
+
 // special command pointer tree for reading server address from bluetooth.
 /*...............................................................................*/
 // commands #0
@@ -418,11 +477,13 @@ char ** create_updated_char_dptr[10] = {
 };
 /*...............................................................................*/
 
-char initialize_sequence_size[10] = "10"; // stores how many commands are in init sequence
+char initialize_sequence_size[10] = "12"; // stores how many commands are in init sequence
 char * initialize_sequence_size_ptr[10] = {initialize_sequence_size};
 char ** initialize_sequence_size_dptr[10] = {initialize_sequence_size_ptr};
 char *** initialize_sequence[20] = {
     initialize_sequence_size_dptr,
+    set_default_dptr, // clear old services
+    reboot_dptr, // reboot
     set_name_dptr, // #1
     set_update_ser_dptr, // #2
     set_update_address_char_dptr, // #3

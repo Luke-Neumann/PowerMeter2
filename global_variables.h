@@ -130,6 +130,54 @@ extern char * set_name_spec_ptr[5];
 extern char ** set_name_dptr[10];
 /*...............................................................................*/
 
+// special command pointer tree for setting the default services
+/*...............................................................................*/
+// commands
+char set_default_cmd0[20];
+char set_default_cmd1[20];
+
+// expected return values
+char set_default_exp0[20];
+char set_default_exp1[20];
+// read and writable data
+char set_default_spec0[20];
+// sets values from BLE
+char set_default_set0[20];
+
+// combine into pointer array
+char * set_default_cmd_ptr[5];
+char * set_default_exp_ptr[5];
+char * set_default_spec_ptr[5];
+char * set_default_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** set_default_dptr[10];
+/*...............................................................................*/
+
+// special command pointer tree for rebooting the module
+/*...............................................................................*/
+// commands
+char reboot_cmd0[20];
+char reboot_cmd1[20];
+
+// expected return values
+char reboot_exp0[20];
+char reboot_exp1[20];
+// read and writable data
+char reboot_spec0[20];
+// sets values from BLE
+char reboot_set0[20];
+
+// combine into pointer array
+char * reboot_cmd_ptr[5];
+char * reboot_exp_ptr[5];
+char * reboot_spec_ptr[5];
+char * reboot_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** reboot_dptr[10];
+/*...............................................................................*/
+
 
 
 // special command pointer tree for setting device name
