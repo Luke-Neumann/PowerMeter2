@@ -87,7 +87,7 @@ enum commandStates {init_st, // This is the initial state of the state Machine.
 static uint32_t count1, count2, count3, count4,enter_cmd_count, exit_cmd_count = INITIALIZE_TO_ZERO;
 static uint32_t limit1, limit2, limit3= 5;
 static uint32_t count5= 1;
-static uint32_t limit4= 100;
+static uint32_t limit4= 200;
 // Standard tick function.
 void commandControl_tick(){
     //debugStatePrint(); // this prints the current state to make it easier to debug the SM.
@@ -179,7 +179,7 @@ void commandControl_tick(){
                 commandState = send_command_st;
             }
             else{
-                count5 = 0;
+                count5 = 1;
                 global_command_count_status = false;
                 memset(received, 0, sizeof(received)); // clear the buffer
                 commandState = exit_command_mode_st;
