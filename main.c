@@ -661,9 +661,9 @@ int main(void)
         if (global_command_count_status&&(global_open_start_gate == 0)) {
             global_open_start_gate = 1;
         }
-        
+        int i;
         if (debug_test_print == true) {
-            for (int i = 0; i<debug_commandStates_counter;i++){
+            for (i = 0; i<debug_commandStates_counter;i++){
                 uart_print_string("index ");
                 uart_print_int(i);
                 uart_print_string(": ");

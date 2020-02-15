@@ -276,7 +276,7 @@ void commandControl_tick(){
             }
             else{
                 count2 = 0;
-                commandState = check_limit1;
+                commandState = exit_command_mode_st;
             }
             break;
         case check_for_more_commands:

@@ -13,7 +13,7 @@ uint16_t overFlowCount = 0;
 uint16_t overFlowCount1 = 0;
 
 
-char debug_data[5000][100];
+char debug_data[][100];
 bool debug_test_print = false;
 uint32_t debug_commandStates_counter = 0;
 
