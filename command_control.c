@@ -39,9 +39,24 @@ enum commandStates {init_st, // This is the initial state of the state Machine.
     check_limit4,
     verify_command_mode_exited,
     reset_module
-} commandState;
+} commandState, previousState;
 
-
+bool firstPass = true;
+int j = 0;
+char init_st_print[50] = "init_st";
+char enter_command_mode_st_print[50] = "enter_command_mode_st";
+char verify_command_mode_st_print[50] = "verify_command_mode_st";
+char check_limit1_print[50] = "check_limit1";
+char check_for_commands_print[50] = "check_for_commands";
+char send_command_st_print[50] = "send_command_st";
+char verify_command_received_print[50] = "verify_command_received";
+char check_limit2_print[50] = "check_limit2";
+char check_for_more_commands_print[50] = "check_for_more_commands";
+char exit_command_mode_st_print[50] = "exit_command_mode_st";
+char check_limit3_print[50] = "check_limit3";
+char check_limit4_print[50] = "check_limit4";
+char verify_command_mode_exited_print[50] = "verify_command_mode_exited";
+char reset_module_print[50] = "reset_module";
 
 
 // This is a debug state print routine. It will print the names of the states each
@@ -49,25 +64,7 @@ enum commandStates {init_st, // This is the initial state of the state Machine.
 // previous state.
 void debugStatePrint() {
     
-    int j = 0;
-    char init_st_print[50] = "init_st";
-    char enter_command_mode_st_print[50] = "enter_command_mode_st";
-    char verify_command_mode_st_print[50] = "verify_command_mode_st";
-    char check_limit1_print[50] = "check_limit1";
-    char check_for_commands_print[50] = "check_for_commands";
-    char send_command_st_print[50] = "send_command_st";
-    char verify_command_received_print[50] = "verify_command_received";
-    char check_limit2_print[50] = "check_limit2";
-    char check_for_more_commands_print[50] = "check_for_more_commands";
-    char exit_command_mode_st_print[50] = "exit_command_mode_st";
-    char check_limit3_print[50] = "check_limit3";
-    char check_limit4_print[50] = "check_limit4";
-    char verify_command_mode_exited_print[50] = "verify_command_mode_exited";
-    char reset_module_print[50] = "reset_module";
-    
-    
-    static enum commandStates previousState;
-    static bool firstPass = true;
+
     // Only print the message if:
     // 1. This the first pass and the value for previousState is unknown.
     // 2. previousState != currentState - this prevents reprinting the same state name over and over.

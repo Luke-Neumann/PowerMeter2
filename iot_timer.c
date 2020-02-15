@@ -50,7 +50,7 @@ void start_timer0(){
 	SREG = SREG | 0x80; // this turns on global interrupts in the status register
 	TIMSK0 = 0x01; // enables overflow interrupt for timer 0
 	TCCR0A = 0x00; // timer/counter control register A
-    TCCR0B = 0x04; // gives a prescalar of 256 // this gives a prescaler of 8 0x02; // timer/counter control register B
+    TCCR0B = 0x05; // gives a prescalar of 256 // this gives a prescaler of 8 0x02; // timer/counter control register B
 }
 
 void stop_timer0(){
