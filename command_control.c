@@ -196,7 +196,7 @@ static uint32_t count5= 1;
 static uint32_t limit4= 200;
 // Standard tick function.
 void commandControl_tick(){
-    //debugStatePrint(); // this prints the current state to make it easier to debug the SM.
+    debugStatePrint(); // this prints the current state to make it easier to debug the SM.
     switch(commandState) { // transitions
         case init_st: // This state will immediately set the current state to the never touched state.
             commandState = start_gate;
