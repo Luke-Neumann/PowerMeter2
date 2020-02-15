@@ -164,7 +164,7 @@ void commandControl_tick(){
             }
             break;
         case check_limit2:
-            if (count2>limit2){
+            if (count2<limit2){
                 memset(received, 0, sizeof(received)); // clear the buffer
                 commandState = send_command_st;  
             }
