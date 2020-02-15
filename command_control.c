@@ -225,6 +225,7 @@ void commandControl_tick(){
                 commandState = verify_command_received;
             }
             else{
+                count4 = 0;
                 commandState = check_limit2;
             }
             break;
