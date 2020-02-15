@@ -175,7 +175,7 @@ void commandControl_tick(){
             break;
         case check_for_more_commands:
             if (atoi(master_command[global_command_count_sequence][0][0][0]) >= count5) {
-                
+                memset(received, 0, sizeof(received)); // clear the buffer
                 commandState = send_command_st;
             }
             else{
