@@ -652,7 +652,7 @@ int main(void)
     
 
     start_timer0();
-    global_open_start_gate = 1;
+    global_open_start_gate = 0;
     
 
     /* insert your hardware initialization here */
@@ -663,7 +663,7 @@ int main(void)
         }
         else if ((global_open_start_gate == 2)&&(global_command_count_sequence < global_command_sequence_limit)) {
             global_command_count_sequence++;
-            global_open_start_gate == 0;
+            global_open_start_gate = 0;
         }
         
 //        int i;

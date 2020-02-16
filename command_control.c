@@ -356,7 +356,7 @@ void commandControl_tick(){
             break;
         case reset_module:
             // print error message
-            global_open_start_gate == 0;
+            global_open_start_gate = 2;
             uart_print_string("error reset called\r");
             commandState = init_st;
             break;

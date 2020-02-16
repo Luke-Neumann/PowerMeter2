@@ -540,7 +540,7 @@ char ** create_updated_char_dptr[10] = {
 };
 /*...............................................................................*/
 
-char initialize_sequence_size[10] = "9"; // stores how many commands are in init sequence
+char initialize_sequence_size[10] = "10"; // stores how many commands are in init sequence
 char * initialize_sequence_size_ptr[10] = {initialize_sequence_size};
 char ** initialize_sequence_size_dptr[10] = {initialize_sequence_size_ptr};
 char *** initialize_sequence[20] = {
