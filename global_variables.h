@@ -77,6 +77,7 @@ extern int global_exit_cmd_start_flag;
 extern int global_verify_exit_cmd_flag;
 
 extern int global_open_start_gate;
+extern int global_sequence_gate;
 
 
 extern int global_init_ble_module_flag;

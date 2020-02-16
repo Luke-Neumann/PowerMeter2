@@ -62,6 +62,7 @@ int global_exit_cmd_start_flag = 0;
 int global_verify_exit_cmd_flag = 0;
 
 int global_open_start_gate = 0;
+int global_sequence_gate = 0;
 
 
 int global_init_ble_module_flag = 0;
