@@ -219,8 +219,6 @@ void commandControl_tick(){
             }
             break;
         case verify_command_mode_st:
-
-
             if (global_verify_cmd_flag==1){
                 global_verify_cmd_flag = 0;
                 commandState = check_for_commands;
@@ -349,6 +347,8 @@ void commandControl_tick(){
         case check_limit6:
             if (count6>limit6) {
                 count6 = 0;
+                global_open_start_gate = 0;
+                global_sequence_gate = 2;
                 commandState = start_gate;
             }
             else{
