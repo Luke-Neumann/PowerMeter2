@@ -658,20 +658,25 @@ int main(void)
     /* insert your hardware initialization here */
     while(1){
         
-        if (global_command_count_status&&(global_open_start_gate == 0)) {
+        if (global_open_start_gate == 0) {
             global_open_start_gate = 1;
         }
-        int i;
-        if (debug_test_print == true) {
-            for (i = 0; i<debug_commandStates_counter;i++){
-                uart_print_string("index ");
-                uart_print_int(i);
-                uart_print_string(": ");
-                uart_print_string(debug_data[i]);
-                uart_print_string("\r\n");
-            }
-            debug_test_print = false;
+        else if ((global_open_start_gate == 2)&&(global_command_count_sequence < global_command_sequence_limit)) {
+            global_command_count_sequence++;
+            global_open_start_gate == 0;
         }
+        
+//        int i;
+//        if (debug_test_print == true) {
+//            for (i = 0; i<debug_commandStates_counter;i++){
+//                uart_print_string("index ");
+//                uart_print_int(i);
+//                uart_print_string(": ");
+//                uart_print_string(debug_data[i]);
+//                uart_print_string("\r\n");
+//            }
+//            debug_test_print = false;
+//        }
         
         //global_open_start_gate = 1;
        // _delay_ms(5000);

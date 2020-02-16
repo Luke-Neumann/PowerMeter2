@@ -37,6 +37,7 @@ enum commandStates {init_st, // This is the initial state of the state Machine.
     exit_command_mode_st,
     check_limit3,
     check_limit4,
+    check_limit6,
     verify_command_mode_exited,
     reset_module
 } commandState, previousState;
@@ -63,7 +64,7 @@ enum commandStates {init_st, // This is the initial state of the state Machine.
 //// time tick() is called. It only prints states if they are different than the
 //// previous state.
 //void debugStatePrint() {
-//    
+//
 //
 //    // Only print the message if:
 //    // 1. This the first pass and the value for previousState is unknown.
@@ -79,8 +80,8 @@ enum commandStates {init_st, // This is the initial state of the state Machine.
 //                    debug_data[debug_commandStates_counter][j] = init_st_print[j];
 //                    j++;
 //                }
-//                
-//                
+//
+//
 //                break;
 //            case enter_command_mode_st: // prints the never touched state
 //                j = 0;
@@ -174,8 +175,8 @@ enum commandStates {init_st, // This is the initial state of the state Machine.
 //                }
 //                break;
 //        }
-//        
-//        
+//
+//
 //        debug_commandStates_counter++;
 //  }
 //}
@@ -187,19 +188,20 @@ enum commandStates {init_st, // This is the initial state of the state Machine.
 
 
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
-static uint32_t count1, count2, count3, count4,enter_cmd_count, exit_cmd_count = INITIALIZE_TO_ZERO;
+static uint32_t count1, count2, count3, count4, count6, enter_cmd_count, exit_cmd_count = INITIALIZE_TO_ZERO;
 static uint32_t limit1, limit2, limit3= 20;
+static uint32_t limit6 = 300;
 static uint32_t count5= 1;
 static uint32_t limit4= 200;
 // Standard tick function.
 void commandControl_tick(){
-    debugStatePrint(); // this prints the current state to make it easier to debug the SM.
+    //debugStatePrint(); // this prints the current state to make it easier to debug the SM.
     switch(commandState) { // transitions
         case init_st: // This state will immediately set the current state to the never touched state.
             commandState = start_gate;
             break;
         case start_gate:
-            if (global_open_start_gate) {
+            if (global_open_start_gate == 1) {
                 
                 memset(received, 0, sizeof(received)); // clear the buffer
                 commandState = enter_command_mode_st;
@@ -254,8 +256,15 @@ void commandControl_tick(){
             break;
         case send_command_st:
                 // call send command
+            if (global_command_count_sequence == 1) {
+                send_command(master_command[global_command_count_sequence][count5]);
+                commandState = check_limit6;
+            }
+            else{
                 send_command(master_command[global_command_count_sequence][count5]);
                 commandState = verify_command_received;
+            }
+            
             break;
         case verify_command_received:
             if (verify_sent_command(received, master_command[global_command_count_sequence][count5])){
@@ -283,7 +292,7 @@ void commandControl_tick(){
             }
             else{
                 count5 = 1;
-                global_command_count_status = false;
+                //global_command_count_status = false;
                 memset(received, 0, sizeof(received)); // clear the buffer
                 commandState = exit_command_mode_st;
             }
@@ -304,7 +313,7 @@ void commandControl_tick(){
             if ((global_verify_exit_cmd_flag==1)&&(global_exit_cmd_start_flag==0)){
                 global_verify_exit_cmd_flag = 0;
                 global_exit_cmd_start_flag = 0;
-                global_open_start_gate = 0;
+                global_open_start_gate = 2;
                 debug_test_print = true;
                 commandState = start_gate;
             }
@@ -334,6 +343,15 @@ void commandControl_tick(){
             else{
                 count4 = 0;
                 commandState = check_limit2;
+            }
+            break;
+        case check_limit6:
+            if (count6>limit6) {
+                count6 = 0;
+                commandState = start_gate;
+            }
+            else{
+                commandState = check_limit6;
             }
             break;
         case reset_module:
@@ -382,6 +400,9 @@ void commandControl_tick(){
             break;
         case check_limit4:
             count4++;
+            break;
+        case check_limit6:
+            count6++;
             break;
         case reset_module:
             break;

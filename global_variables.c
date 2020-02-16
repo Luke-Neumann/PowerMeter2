@@ -73,7 +73,8 @@ int connect_flag = 0;
 int send_data_flag = 0;
 
 int global_command_count_sequence = 0;
-bool global_command_count_status = true;
+int global_command_sequence_limit = 3;
+//bool global_command_count_status = true;
 
 char * commandPtr[15] = {
     device_name,
@@ -539,14 +540,12 @@ char ** create_updated_char_dptr[10] = {
 };
 /*...............................................................................*/
 
-char initialize_sequence_size[10] = "12"; // stores how many commands are in init sequence
+char initialize_sequence_size[10] = "9"; // stores how many commands are in init sequence
 char * initialize_sequence_size_ptr[10] = {initialize_sequence_size};
 char ** initialize_sequence_size_dptr[10] = {initialize_sequence_size_ptr};
 char *** initialize_sequence[20] = {
     initialize_sequence_size_dptr,
     clear_ser_char_dptr,
-    //set_default_dptr, // clear old services
-    //reboot_dptr, // reboot
     set_name_dptr, // #1
     set_update_ser_dptr, // #2
     set_update_address_char_dptr, // #3
@@ -556,10 +555,32 @@ char *** initialize_sequence[20] = {
     create_smp_int_char_dptr, // # 7
     create_smp_per_int_char_dptr, // # 8
     create_updated_char_dptr, // # 9
-    list_ser_char_dptr,
-    start_AD_dptr // # 10
 };
 
+
+
+char reboot_sequence_size[10] = "1"; // stores how many commands are in init sequence
+char * reboot_sequence_size_ptr[10] = {reboot_sequence_size};
+char ** reboot_sequence_size_dptr[10] = {reboot_sequence_size_ptr};
+char *** reboot_sequence[20] = {
+    reboot_sequence_size_dptr,
+    reboot_dptr // reboot
+};
+
+char advertise_sequence_size[10] = "2"; // stores how many commands are in init sequence
+char * advertise_sequence_size_ptr[10] = {advertise_sequence_size};
+char ** advertise_sequence_size_dptr[10] = {advertise_sequence_size_ptr};
+char *** advertise_sequence[20] = {
+    advertise_sequence_size_dptr,
+    list_ser_char_dptr,
+    start_AD_dptr
+};
+
+
+
+
 char **** master_command[10] = {
-    initialize_sequence
+    initialize_sequence,
+    reboot_sequence,
+    advertise_sequence
 };

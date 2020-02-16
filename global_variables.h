@@ -89,7 +89,8 @@ extern int send_data_flag;
 
 
 extern int global_command_count_sequence;
-extern bool global_command_count_status;
+extern int global_command_sequence_limit;
+//extern bool global_command_count_status;
 extern char * commandPtr[15];
 
 
@@ -202,7 +203,7 @@ char * list_ser_char_spec_ptr[5];
 char * list_ser_char_set_ptr[5];
 
 // combine into a pointer of a pointer array
-char ** list_ser_char_dptr[10]
+char ** list_ser_char_dptr[10];
 /*...............................................................................*/
 
 // special command pointer tree for rebooting the module
@@ -469,6 +470,21 @@ extern char initialize_sequence_size[10];
 extern char * initialize_sequence_size_ptr[10];
 extern char ** initialize_sequence_size_dptr[10];
 extern char *** initialize_sequence[20];
+
+
+
+extern char reboot_sequence_size[10];
+extern char * reboot_sequence_size_ptr[10];
+extern char ** reboot_sequence_size_dptr[10];
+extern char *** reboot_sequence[20];
+
+
+extern char advertise_sequence_size[10];
+extern char * advertise_sequence_size_ptr[10];
+extern char ** advertise_sequence_size_dptr[10];
+extern char *** advertise_sequence[20];
+
+
 
 
 extern char **** master_command[10];
