@@ -157,6 +157,54 @@ char * set_default_set_ptr[5];
 char ** set_default_dptr[10];
 /*...............................................................................*/
 
+// special command pointer tree for setting the default services
+/*...............................................................................*/
+// commands
+char clear_ser_char_cmd0[20];
+char clear_ser_char_cmd1[20];
+
+// expected return values
+char clear_ser_char_exp0[20];
+char clear_ser_char_exp1[20];
+// read and writable data
+char clear_ser_char_spec0[20];
+// sets values from BLE
+char clear_ser_char_set0[20];
+
+// combine into pointer array
+char * clear_ser_char_cmd_ptr[5];
+char * clear_ser_char_exp_ptr[5];
+char * clear_ser_char_spec_ptr[5];
+char * clear_ser_char_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** clear_ser_char_dptr[10];
+/*...............................................................................*/
+
+
+// special command pointer tree for listing services and characteristics
+/*...............................................................................*/
+// commands
+char list_ser_char_cmd0[20];
+char list_ser_char_cmd1[20];
+
+// expected return values
+char list_ser_char_exp0[20];
+// read and writable data
+char list_ser_char_spec0[20];
+// sets values from BLE
+char list_ser_char_set0[20];
+
+// combine into pointer array
+char * list_ser_char_cmd_ptr[5];
+char * list_ser_char_exp_ptr[5];
+char * list_ser_char_spec_ptr[5];
+char * list_ser_char_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** list_ser_char_dptr[10]
+/*...............................................................................*/
+
 // special command pointer tree for rebooting the module
 /*...............................................................................*/
 // commands

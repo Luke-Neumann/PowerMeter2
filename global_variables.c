@@ -172,6 +172,63 @@ char ** set_default_dptr[10] = {
 };
 /*...............................................................................*/
 
+// special command pointer tree for clearing and services and characteristics
+/*...............................................................................*/
+// commands
+char clear_ser_char_cmd0[20] = "1"; // indicates size of this command branch
+char clear_ser_char_cmd1[20] = "PZ\r";
+
+// expected return values
+char clear_ser_char_exp0[20] = "1"; // indicates size of this expected values branch
+char clear_ser_char_exp1[20] = "AOK\r\nCMD> ";
+// read and writable data
+char clear_ser_char_spec0[20] = "0"; // indicates size of this data branch
+// sets values from BLE
+char clear_ser_char_set0[20] = "0";
+
+// combine into pointer array
+char * clear_ser_char_cmd_ptr[5] = {clear_ser_char_cmd0,clear_ser_char_cmd1};
+char * clear_ser_char_exp_ptr[5] = {clear_ser_char_exp0,clear_ser_char_exp1};
+char * clear_ser_char_spec_ptr[5] = {clear_ser_char_spec0};
+char * clear_ser_char_set_ptr[5] = {clear_ser_char_set0};
+
+// combine into a pointer of a pointer array
+char ** clear_ser_char_dptr[10] = {
+    clear_ser_char_cmd_ptr,
+    clear_ser_char_exp_ptr,
+    clear_ser_char_spec_ptr,
+    clear_ser_char_set_ptr
+};
+/*...............................................................................*/
+
+// special command pointer tree for listing services and characteristics
+/*...............................................................................*/
+// commands
+char list_ser_char_cmd0[20] = "1"; // indicates size of this command branch
+char list_ser_char_cmd1[20] = "LS\r";
+
+// expected return values
+char list_ser_char_exp0[20] = "1"; // indicates size of this expected values branch
+// read and writable data
+char list_ser_char_spec0[20] = "0"; // indicates size of this data branch
+// sets values from BLE
+char list_ser_char_set0[20] = "0";
+
+// combine into pointer array
+char * list_ser_char_cmd_ptr[5] = {list_ser_char_cmd0,list_ser_char_cmd1};
+char * list_ser_char_exp_ptr[5] = {list_ser_char_exp0,UUID};
+char * list_ser_char_spec_ptr[5] = {list_ser_char_spec0};
+char * list_ser_char_set_ptr[5] = {list_ser_char_set0};
+
+// combine into a pointer of a pointer array
+char ** list_ser_char_dptr[10] = {
+    list_ser_char_cmd_ptr,
+    list_ser_char_exp_ptr,
+    list_ser_char_spec_ptr,
+    list_ser_char_set_ptr
+};
+/*...............................................................................*/
+
 // special command pointer tree for rebooting the module
 /*...............................................................................*/
 // commands
@@ -487,8 +544,9 @@ char * initialize_sequence_size_ptr[10] = {initialize_sequence_size};
 char ** initialize_sequence_size_dptr[10] = {initialize_sequence_size_ptr};
 char *** initialize_sequence[20] = {
     initialize_sequence_size_dptr,
-    set_default_dptr, // clear old services
-    reboot_dptr, // reboot
+    clear_ser_char_dptr,
+    //set_default_dptr, // clear old services
+    //reboot_dptr, // reboot
     set_name_dptr, // #1
     set_update_ser_dptr, // #2
     set_update_address_char_dptr, // #3
@@ -498,6 +556,7 @@ char *** initialize_sequence[20] = {
     create_smp_int_char_dptr, // # 7
     create_smp_per_int_char_dptr, // # 8
     create_updated_char_dptr, // # 9
+    list_ser_char_dptr,
     start_AD_dptr // # 10
 };
 
