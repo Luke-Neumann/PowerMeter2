@@ -13,7 +13,7 @@ uint16_t overFlowCount = 0;
 uint16_t overFlowCount1 = 0;
 
 
-char debug_data[][100];
+char debug_data[500];
 bool debug_test_print = false;
 uint32_t debug_commandStates_counter = 0;
 
@@ -803,11 +803,12 @@ char *** reboot_sequence[20] = {
 };
 
 
-char write_default_values_sequence_size[10] = "7"; // stores how many commands are in init sequence
+char write_default_values_sequence_size[10] = "8"; // stores how many commands are in init sequence
 char * write_default_values_sequence_size_ptr[10] = {write_default_values_sequence_size};
 char ** write_default_values_sequence_size_dptr[10] = {write_default_values_sequence_size_ptr};
 char *** write_default_values_sequence[20] = {
     write_default_values_sequence_size_dptr,
+    list_ser_char_dptr,
     write_server_address_dptr,
     write_server_address_type_dptr,
     write_device_name_dptr,
@@ -817,12 +818,11 @@ char *** write_default_values_sequence[20] = {
     write_update_dptr
 };
 
-char advertise_sequence_size[10] = "2"; // stores how many commands are in init sequence
+char advertise_sequence_size[10] = "1"; // stores how many commands are in init sequence
 char * advertise_sequence_size_ptr[10] = {advertise_sequence_size};
 char ** advertise_sequence_size_dptr[10] = {advertise_sequence_size_ptr};
 char *** advertise_sequence[20] = {
     advertise_sequence_size_dptr,
-    list_ser_char_dptr,
     start_AD_dptr
 };
 
