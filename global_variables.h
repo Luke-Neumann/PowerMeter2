@@ -33,7 +33,7 @@
 extern uint16_t overFlowCount;
 extern uint16_t overFlowCount1;
 
-extern char debug_data[400];
+extern char debug_data[100];
 uint32_t debug_commandStates_counter;
 bool debug_test_print;
 
