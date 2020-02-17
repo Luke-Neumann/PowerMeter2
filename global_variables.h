@@ -30,7 +30,7 @@
 #define SHUNT_AMP_LIMIT 200 // This is the shunts rated amperage.
 #define BIAS 0.0 //0.16677 // Can be used to correct biased data.
 
-extern uint16_t overFlowCount;
+extern uint32_t overFlowCount;
 extern uint16_t overFlowCount1;
 
 extern char debug_data[100];

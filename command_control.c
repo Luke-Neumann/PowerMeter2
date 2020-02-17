@@ -149,13 +149,13 @@ void debugStatePrint() {
 
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
 static uint32_t count1, count2, count3, count4, count6, enter_cmd_count, exit_cmd_count = INITIALIZE_TO_ZERO;
-static uint32_t limit1, limit2, limit3= 20;
-static uint32_t limit6 = 300;
-static uint32_t count5= 1;
-static uint32_t limit4= 200;
+static uint32_t limit1, limit2, limit3= 3;
+static uint32_t limit6 = 3;
+static uint32_t count5= 2;
+static uint32_t limit4= 2;
 // Standard tick function.
 void commandControl_tick(){
-    //debugStatePrint(); // this prints the current state to make it easier to debug the SM.
+    debugStatePrint(); // this prints the current state to make it easier to debug the SM.
     switch(commandState) { // transitions
         case init_st: // This state will immediately set the current state to the never touched state.
             commandState = start_gate;

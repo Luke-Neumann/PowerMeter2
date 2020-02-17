@@ -46,12 +46,15 @@ ISR(USART1_RX_vect){
 }
 ISR(TIMER0_OVF_vect) // interrupt for timer 0
 {
+    if (!(overFlowCount%10)) {
+        commandControl_tick();
+        verifyCmdModeControl_tick();
+        verifyCmdModeExitControl_tick();
+    }
     ++overFlowCount; // increment value when the timer register overflows and is reset to zero.
     //PINA = (PINA ^ 0xFF); // inverts the PA2 pin
     //PORTA = PORTA ^ 0x04;
-    commandControl_tick();
-    verifyCmdModeControl_tick();
-    verifyCmdModeExitControl_tick();
+
     
 }
 ISR(TIMER1_OVF_vect) // interrupt for timer 1
