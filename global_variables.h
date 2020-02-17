@@ -54,6 +54,14 @@ extern char property_bitmap5[25];
 extern char property_bitmap6[25];
 extern char data_size[25];
 
+extern char handle1[10];
+extern char handle2[10];
+extern char handle3[10];
+extern char handle4[10];
+extern char handle5[10];
+extern char handle6[10];
+extern char handle7[10];
+
 
 
 extern char device_name[15];
@@ -63,6 +71,7 @@ extern char server_address_type[5];
 extern char password[30];
 extern char sample_interval[20];
 extern char number_of_samples_per_interval[20];
+char update[10];
 
 
 extern const float VPS;
@@ -465,6 +474,186 @@ char * create_updated_char_set_ptr[5];
 // combine into a pointer of a pointer array
 char ** create_updated_char_dptr[10];
 /*...............................................................................*/
+
+
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+extern char write_server_address_cmd0[20]; // indicates size of this command branch
+extern char write_server_address_cmd1[20];
+extern char write_server_address_cmd2[20];
+extern char write_server_address_cmd3[20];
+// expected return values
+extern char write_server_address_exp0[20]; // indicates size of this expected values branch
+extern char write_server_address_exp1[20];
+// read and writable data
+extern char write_server_address_spec0[20];// indicates size of this data branch
+// when this is high it means to set values from BLE module into the microcontroller
+extern char write_server_address_set0[20];
+
+// combine into pointer array
+extern char * write_server_address_cmd_ptr[5];
+extern char * write_server_address_exp_ptr[5];
+extern char * write_server_address_spec_ptr[5];
+extern char * write_server_address_set_ptr[5];
+
+// combine into a pointer of a pointer array
+extern char ** write_server_address_dptr[10];
+/*...............................................................................*/
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+char write_server_address_type_cmd0[20];
+char write_server_address_type_cmd1[20];
+char write_server_address_type_cmd2[20];
+char write_server_address_type_cmd3[20];
+// expected return values
+char write_server_address_type_exp0[20];
+char write_server_address_type_exp1[20];
+// read and writable data
+char write_server_address_type_spec0[20];
+// when this is high it means to set values from BLE module into the microcontroller
+char write_server_address_type_set0[20];
+
+// combine into pointer array
+char * write_server_address_type_cmd_ptr[5];
+char * write_server_address_type_exp_ptr[5];
+char * write_server_address_type_spec_ptr[5];
+char * write_server_address_type_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** write_server_address_type_dptr[10];
+/*...............................................................................*/
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+char write_device_name_cmd0[20];
+char write_device_name_cmd1[20];
+char write_device_name_cmd2[20];
+char write_device_name_cmd3[20];
+// expected return values
+char write_device_name_exp0[20];
+char write_device_name_exp1[20];
+// read and writable data
+char write_device_name_spec0[20];
+// when this is high it means to set values from BLE module into the microcontroller
+char write_device_name_set0[20];
+
+// combine into pointer array
+char * write_device_name_cmd_ptr[5];
+char * write_device_name_exp_ptr[5];
+char * write_device_name_spec_ptr[5];
+char * write_device_name_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** write_device_name_dptr[10];
+/*...............................................................................*/
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+char write_password_cmd0[20];
+char write_password_cmd1[20];
+char write_password_cmd2[20];
+char write_password_cmd3[20];
+// expected return values
+char write_password_exp0[20];
+char write_password_exp1[20];
+// read and writable data
+char write_password_spec0[20];
+// when this is high it means to set values from BLE module into the microcontroller
+char write_password_set0[20];
+
+// combine into pointer array
+char * write_password_cmd_ptr[5];
+char * write_password_exp_ptr[5];
+char * write_password_spec_ptr[5];
+char * write_password_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** write_password_dptr[10];
+/*...............................................................................*/
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+char write_sample_interval_cmd0[20];
+char write_sample_interval_cmd1[20];
+char write_sample_interval_cmd2[20];
+char write_sample_interval_cmd3[20];
+// expected return values
+char write_sample_interval_exp0[20];
+char write_sample_interval_exp1[20];
+// read and writable data
+char write_sample_interval_spec0[20];
+// when this is high it means to set values from BLE module into the microcontroller
+char write_sample_interval_set0[20];
+
+// combine into pointer array
+char * write_sample_interval_cmd_ptr[5];
+char * write_sample_interval_exp_ptr[5];
+char * write_sample_interval_spec_ptr[5];
+char * write_sample_interval_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** write_sample_interval_dptr[10];
+/*...............................................................................*/
+
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+char write_number_of_samples_per_interval_cmd0[20];
+char write_number_of_samples_per_interval_cmd1[20];
+char write_number_of_samples_per_interval_cmd2[20];
+char write_number_of_samples_per_interval_cmd3[20];
+// expected return values
+char write_number_of_samples_per_interval_exp0[20];
+char write_number_of_samples_per_interval_exp1[20];
+// read and writable data
+char write_number_of_samples_per_interval_spec0[20];
+// when this is high it means to set values from BLE module into the microcontroller
+char write_number_of_samples_per_interval_set0[20];
+
+// combine into pointer array
+char * write_number_of_samples_per_interval_cmd_ptr[5];
+char * write_number_of_samples_per_interval_exp_ptr[5];
+char * write_number_of_samples_per_interval_spec_ptr[5];;
+
+// combine into a pointer of a pointer array
+char ** write_number_of_samples_per_interval_dptr[10];
+/*...............................................................................*/
+
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+char write_update_cmd0[20];
+char write_update_cmd1[20];
+char write_update_cmd2[20];
+char write_update_cmd3[20];
+// expected return values
+char write_update_exp0[20];
+char write_update_exp1[20];
+// read and writable data
+char write_update_spec0[20];
+// when this is high it means to set values from BLE module into the microcontroller
+char write_update_set0[20];
+
+// combine into pointer array
+char * write_update_cmd_ptr[5];
+char * write_update_exp_ptr[5];
+char * write_update_spec_ptr[5];
+char * write_update_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** write_update_dptr[10];
+/*...............................................................................*/
+
+
 
 
 extern char initialize_sequence_size[10];

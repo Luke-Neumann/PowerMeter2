@@ -35,6 +35,18 @@ char property_bitmap4[25] = "1C"; //The second parameter is a 8-bit property bit
 char property_bitmap5[25] = "1C"; //The second parameter is a 8-bit property bitmap of the characteristic
 char property_bitmap6[25] = "1C"; //The second parameter is a 8-bit property bitmap of the characteristic
 char property_bitmap7[25] = "1C"; //The second parameter is a 8-bit property bitmap of the characteristic
+
+char handle1[10] = "0072";
+char handle2[10] = "0075";
+char handle3[10] = "0078";
+char handle4[10] = "007B";
+char handle5[10] = "007E";
+char handle6[10] = "0081";
+char handle7[10] = "0084";
+
+
+
+
 char data_size[25] = "F0"; //The third parameter is an 8-bit value that indicates the maximum data size in octet
                          //where the value of the characteristic is held.
 
@@ -48,6 +60,7 @@ char server_address_type[5] = "1"; // phone
 char password[30] = "0000";
 char sample_interval[20] = "60"; // default to 60 seconds
 char number_of_samples_per_interval[20] = "12"; // default to 12 samples
+char update[10] = "0"; // this is initially zero meaning no update has been made yet.
 
 
 const float VPS = PROG_GAIN_AMP_CONFIG_3/ (32768.0*VOLTAGE_DIVIDER); // volts per step. Use this conversion in place of Amps per step.
@@ -74,7 +87,7 @@ int connect_flag = 0;
 int send_data_flag = 0;
 
 int global_command_count_sequence = 0;
-int global_command_sequence_limit = 3;
+int global_command_sequence_limit = 2;
 //bool global_command_count_status = true;
 
 char * commandPtr[15] = {
@@ -541,6 +554,227 @@ char ** create_updated_char_dptr[10] = {
 };
 /*...............................................................................*/
 
+
+
+
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+char write_server_address_cmd0[20] = "3"; // indicates size of this command branch
+char write_server_address_cmd1[20] = "SHW,";
+char write_server_address_cmd2[20] = ",";
+char write_server_address_cmd3[20] = "\r";
+// expected return values
+char write_server_address_exp0[20] = "1"; // indicates size of this expected values branch
+char write_server_address_exp1[20] = "AOK\r\nCMD> ";
+// read and writable data
+char write_server_address_spec0[20] = "2"; // indicates size of this data branch
+// when this is high it means to set values from BLE module into the microcontroller
+char write_server_address_set0[20] = "0";
+
+// combine into pointer array
+char * write_server_address_cmd_ptr[5] = {write_server_address_cmd0,write_server_address_cmd1, write_server_address_cmd2,write_server_address_cmd3};
+char * write_server_address_exp_ptr[5] = {write_server_address_exp0,write_server_address_exp1};
+char * write_server_address_spec_ptr[5] = {write_server_address_spec0, handle1, server_address};
+char * write_server_address_set_ptr[5] = {write_server_address_set0};
+
+// combine into a pointer of a pointer array
+char ** write_server_address_dptr[10] = {
+    write_server_address_cmd_ptr,
+    write_server_address_exp_ptr,
+    write_server_address_spec_ptr,
+    write_server_address_set_ptr
+};
+/*...............................................................................*/
+
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+char write_server_address_type_cmd0[20] = "3"; // indicates size of this command branch
+char write_server_address_type_cmd1[20] = "SHW,";
+char write_server_address_type_cmd2[20] = ",";
+char write_server_address_type_cmd3[20] = "\r";
+// expected return values
+char write_server_address_type_exp0[20] = "1"; // indicates size of this expected values branch
+char write_server_address_type_exp1[20] = "AOK\r\nCMD> ";
+// read and writable data
+char write_server_address_type_spec0[20] = "2"; // indicates size of this data branch
+// when this is high it means to set values from BLE module into the microcontroller
+char write_server_address_type_set0[20] = "0";
+
+// combine into pointer array
+char * write_server_address_type_cmd_ptr[5] = {write_server_address_type_cmd0,write_server_address_type_cmd1, write_server_address_type_cmd2,write_server_address_type_cmd3};
+char * write_server_address_type_exp_ptr[5] = {write_server_address_type_exp0,write_server_address_type_exp1};
+char * write_server_address_type_spec_ptr[5] = {write_server_address_type_spec0, handle2, server_address_type};
+char * write_server_address_type_set_ptr[5] = {write_server_address_set0};
+
+// combine into a pointer of a pointer array
+char ** write_server_address_type_dptr[10] = {
+    write_server_address_type_cmd_ptr,
+    write_server_address_type_exp_ptr,
+    write_server_address_type_spec_ptr,
+    write_server_address_type_set_ptr
+};
+/*...............................................................................*/
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+char write_device_name_cmd0[20] = "3"; // indicates size of this command branch
+char write_device_name_cmd1[20] = "SHW,";
+char write_device_name_cmd2[20] = ",";
+char write_device_name_cmd3[20] = "\r";
+// expected return values
+char write_device_name_exp0[20] = "1"; // indicates size of this expected values branch
+char write_device_name_exp1[20] = "AOK\r\nCMD> ";
+// read and writable data
+char write_device_name_spec0[20] = "2"; // indicates size of this data branch
+// when this is high it means to set values from BLE module into the microcontroller
+char write_device_name_set0[20] = "0";
+
+// combine into pointer array
+char * write_device_name_cmd_ptr[5] = {write_device_name_cmd0,write_device_name_cmd1, write_device_name_cmd2,write_device_name_cmd3};
+char * write_device_name_exp_ptr[5] = {write_device_name_exp0,write_device_name_exp1};
+char * write_device_name_spec_ptr[5] = {write_device_name_spec0, handle3, device_name};
+char * write_device_name_set_ptr[5] = {write_device_name_set0};
+
+// combine into a pointer of a pointer array
+char ** write_device_name_dptr[10] = {
+    write_device_name_cmd_ptr,
+    write_device_name_exp_ptr,
+    write_device_name_spec_ptr,
+    write_device_name_set_ptr
+};
+/*...............................................................................*/
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+char write_password_cmd0[20] = "3"; // indicates size of this command branch
+char write_password_cmd1[20] = "SHW,";
+char write_password_cmd2[20] = ",";
+char write_password_cmd3[20] = "\r";
+// expected return values
+char write_password_exp0[20] = "1"; // indicates size of this expected values branch
+char write_password_exp1[20] = "AOK\r\nCMD> ";
+// read and writable data
+char write_password_spec0[20] = "2"; // indicates size of this data branch
+// when this is high it means to set values from BLE module into the microcontroller
+char write_password_set0[20] = "0";
+
+// combine into pointer array
+char * write_password_cmd_ptr[5] = {write_password_cmd0,write_password_cmd1, write_password_cmd2,write_password_cmd3};
+char * write_password_exp_ptr[5] = {write_password_exp0,write_password_exp1};
+char * write_password_spec_ptr[5] = {write_password_spec0, handle4, password};
+char * write_password_set_ptr[5] = {write_password_set0};
+
+// combine into a pointer of a pointer array
+char ** write_password_dptr[10] = {
+    write_password_cmd_ptr,
+    write_password_exp_ptr,
+    write_password_spec_ptr,
+    write_password_set_ptr
+};
+/*...............................................................................*/
+
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+char write_sample_interval_cmd0[20] = "3"; // indicates size of this command branch
+char write_sample_interval_cmd1[20] = "SHW,";
+char write_sample_interval_cmd2[20] = ",";
+char write_sample_interval_cmd3[20] = "\r";
+// expected return values
+char write_sample_interval_exp0[20] = "1"; // indicates size of this expected values branch
+char write_sample_interval_exp1[20] = "AOK\r\nCMD> ";
+// read and writable data
+char write_sample_interval_spec0[20] = "2"; // indicates size of this data branch
+// when this is high it means to set values from BLE module into the microcontroller
+char write_sample_interval_set0[20] = "0";
+
+// combine into pointer array
+char * write_sample_interval_cmd_ptr[5] = {write_sample_interval_cmd0,write_sample_interval_cmd1, write_sample_interval_cmd2,write_sample_interval_cmd3};
+char * write_sample_interval_exp_ptr[5] = {write_sample_interval_exp0,write_sample_interval_exp1};
+char * write_sample_interval_spec_ptr[5] = {write_sample_interval_spec0, handle5, sample_interval};
+char * write_sample_interval_set_ptr[5] = {write_sample_interval_set0};
+
+// combine into a pointer of a pointer array
+char ** write_sample_interval_dptr[10] = {
+    write_sample_interval_cmd_ptr,
+    write_sample_interval_exp_ptr,
+    write_sample_interval_spec_ptr,
+    write_sample_interval_set_ptr
+};
+/*...............................................................................*/
+
+
+
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+char write_number_of_samples_per_interval_cmd0[20] = "3"; // indicates size of this command branch
+char write_number_of_samples_per_interval_cmd1[20] = "SHW,";
+char write_number_of_samples_per_interval_cmd2[20] = ",";
+char write_number_of_samples_per_interval_cmd3[20] = "\r";
+// expected return values
+char write_number_of_samples_per_interval_exp0[20] = "1"; // indicates size of this expected values branch
+char write_number_of_samples_per_interval_exp1[20] = "AOK\r\nCMD> ";
+// read and writable data
+char write_number_of_samples_per_interval_spec0[20] = "2"; // indicates size of this data branch
+// when this is high it means to set values from BLE module into the microcontroller
+char write_number_of_samples_per_interval_set0[20] = "0";
+
+// combine into pointer array
+char * write_number_of_samples_per_interval_cmd_ptr[5] = {write_number_of_samples_per_interval_cmd0,write_number_of_samples_per_interval_cmd1, write_number_of_samples_per_interval_cmd2,write_number_of_samples_per_interval_cmd3};
+char * write_number_of_samples_per_interval_exp_ptr[5] = {write_number_of_samples_per_interval_exp0,write_number_of_samples_per_interval_exp1};
+char * write_number_of_samples_per_interval_spec_ptr[5] = {write_number_of_samples_per_interval_spec0, handle6, number_of_samples_per_interval};
+char * write_number_of_samples_per_interval_set_ptr[5] = {write_number_of_samples_per_interval_set0};
+
+// combine into a pointer of a pointer array
+char ** write_number_of_samples_per_interval_dptr[10] = {
+    write_number_of_samples_per_interval_cmd_ptr,
+    write_number_of_samples_per_interval_exp_ptr,
+    write_number_of_samples_per_interval_spec_ptr,
+    write_number_of_samples_per_interval_set_ptr
+};
+/*...............................................................................*/
+
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+char write_update_cmd0[20] = "3"; // indicates size of this command branch
+char write_update_cmd1[20] = "SHW,";
+char write_update_cmd2[20] = ",";
+char write_update_cmd3[20] = "\r";
+// expected return values
+char write_update_exp0[20] = "1"; // indicates size of this expected values branch
+char write_update_exp1[20] = "AOK\r\nCMD> ";
+// read and writable data
+char write_update_spec0[20] = "2"; // indicates size of this data branch
+// when this is high it means to set values from BLE module into the microcontroller
+char write_update_set0[20] = "0";
+
+// combine into pointer array
+char * write_update_cmd_ptr[5] = {write_update_cmd0,write_update_cmd1, write_update_cmd2,write_update_cmd3};
+char * write_update_exp_ptr[5] = {write_update_exp0,write_update_exp1};
+char * write_update_spec_ptr[5] = {write_update_spec0, handle7, update};
+char * write_update_set_ptr[5] = {write_update_set0};
+
+// combine into a pointer of a pointer array
+char ** write_update_dptr[10] = {
+    write_update_cmd_ptr,
+    write_update_exp_ptr,
+    write_update_spec_ptr,
+    write_update_set_ptr
+};
+/*...............................................................................*/
+
+
 char initialize_sequence_size[10] = "10"; // stores how many commands are in init sequence
 char * initialize_sequence_size_ptr[10] = {initialize_sequence_size};
 char ** initialize_sequence_size_dptr[10] = {initialize_sequence_size_ptr};
@@ -568,6 +802,21 @@ char *** reboot_sequence[20] = {
     reboot_dptr // reboot
 };
 
+
+char write_default_values_sequence_size[10] = "7"; // stores how many commands are in init sequence
+char * write_default_values_sequence_size_ptr[10] = {write_default_values_sequence_size};
+char ** write_default_values_sequence_size_dptr[10] = {write_default_values_sequence_size_ptr};
+char *** write_default_values_sequence[20] = {
+    write_default_values_sequence_size_dptr,
+    write_server_address_dptr,
+    write_server_address_type_dptr,
+    write_device_name_dptr,
+    write_password_dptr,
+    write_sample_interval_dptr,
+    write_number_of_samples_per_interval_dptr,
+    write_update_dptr
+};
+
 char advertise_sequence_size[10] = "2"; // stores how many commands are in init sequence
 char * advertise_sequence_size_ptr[10] = {advertise_sequence_size};
 char ** advertise_sequence_size_dptr[10] = {advertise_sequence_size_ptr};
@@ -580,8 +829,11 @@ char *** advertise_sequence[20] = {
 
 
 
+
+
 char **** master_command[10] = {
     initialize_sequence,
     reboot_sequence,
+    write_default_values_sequence,
     advertise_sequence
 };

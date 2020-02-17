@@ -659,6 +659,7 @@ int main(void)
     while(1){
         
         if (global_sequence_gate == 0) {
+            _delay_ms(100); // i dont know why it needs this.
             global_sequence_gate = 1;
             global_open_start_gate = 1;
         }
