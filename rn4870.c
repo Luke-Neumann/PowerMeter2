@@ -52,6 +52,17 @@ void convert_hex_to_char(char * Hex_address){
 }
 
 
+void char_to_hex(char * ascii_address, char * hex_address){
+    int i =0;
+    int j = 0;
+    for(i=0,j=0;i<strlen(ascii_address);i++,j+=2)
+    {
+        sprintf((char*)hex_address+j,"%02X", ascii_address[i]);
+    }
+    hex_address[j]='\0'; /*adding NULL in the end*/
+}
+
+
 
 
 void send_command(char *** command){
