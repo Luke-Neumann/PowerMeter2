@@ -148,11 +148,19 @@ void debugStatePrint() {
 
 
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
-static uint32_t count1, count2, count3, count4, count6, enter_cmd_count, exit_cmd_count = INITIALIZE_TO_ZERO;
-static uint32_t limit1, limit2, limit3= 3;
-static uint32_t limit6 = 3;
-static uint32_t count5= 2;
-static uint32_t limit4= 2;
+uint32_t count1 = 0;
+uint32_t count2 = 0;
+uint32_t count3 = 0;
+uint32_t count4 = 0;
+uint32_t count6 = 0;
+uint32_t enter_cmd_count = 0;
+uint32_t exit_cmd_count = 0;
+static int limit1= 3;
+static int limit2= 3;
+static int limit3= 3;
+static int limit6 = 30;
+static int count5= 1;
+static int limit4= 30;
 // Standard tick function.
 void commandControl_tick(){
     debugStatePrint(); // this prints the current state to make it easier to debug the SM.
@@ -219,6 +227,9 @@ void commandControl_tick(){
                 commandState = check_limit6;
             }
             else{
+                if((global_command_count_sequence==2)&&(count5>1)){
+                    char_to_hex(master_command[global_command_count_sequence][count5][2][4], master_command[global_command_count_sequence][count5][2][3]);
+                }
                 send_command(master_command[global_command_count_sequence][count5]);
                 commandState = verify_command_received;
             }
@@ -240,7 +251,7 @@ void commandControl_tick(){
             }
             else{
                 count2 = 0;
-                commandState = exit_command_mode_st;
+                commandState = check_limit1;
             }
             break;
         case check_for_more_commands:

@@ -73,6 +73,15 @@ extern char sample_interval[20];
 extern char number_of_samples_per_interval[20];
 char update[10];
 
+char device_name_hex[40];
+char device_address_hex[60];
+char server_address_hex[60];
+char server_address_type_hex[5];
+char password_hex[60];
+char sample_interval_hex[40];
+char number_of_samples_per_interval_hex[20];
+char update_hex[20];
+
 
 extern const float VPS;
 extern const float MVPS;

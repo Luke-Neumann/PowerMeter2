@@ -60,7 +60,15 @@ char server_address_type[5] = "1"; // phone
 char password[30] = "0000";
 char sample_interval[20] = "60"; // default to 60 seconds
 char number_of_samples_per_interval[20] = "12"; // default to 12 samples
-char update[10] = "0"; // this is initially zero meaning no update has been made yet.
+char update[10] = "1"; // this is initially zero meaning no update has been made yet.
+
+char device_name_hex[40] = "";
+char server_address_hex[60] = ""; // my phone
+char server_address_type_hex[5] = ""; // phone
+char password_hex[60 ] = "";
+char sample_interval_hex[40] = ""; // default to 60 seconds
+char number_of_samples_per_interval_hex[20] = ""; // default to 12 samples
+char update_hex[20] = ""; // this is initially zero meaning no update has been made yet.
 
 
 const float VPS = PROG_GAIN_AMP_CONFIG_3/ (32768.0*VOLTAGE_DIVIDER); // volts per step. Use this conversion in place of Amps per step.
@@ -558,6 +566,10 @@ char ** create_updated_char_dptr[10] = {
 
 
 
+
+
+
+
 // special command pointer tree for writing default server address value into BLE module
 /*...............................................................................*/
 // commands
@@ -576,7 +588,7 @@ char write_server_address_set0[20] = "0";
 // combine into pointer array
 char * write_server_address_cmd_ptr[5] = {write_server_address_cmd0,write_server_address_cmd1, write_server_address_cmd2,write_server_address_cmd3};
 char * write_server_address_exp_ptr[5] = {write_server_address_exp0,write_server_address_exp1};
-char * write_server_address_spec_ptr[5] = {write_server_address_spec0, handle1, server_address};
+char * write_server_address_spec_ptr[5] = {write_server_address_spec0, handle1, server_address_hex,server_address};
 char * write_server_address_set_ptr[5] = {write_server_address_set0};
 
 // combine into a pointer of a pointer array
@@ -607,7 +619,7 @@ char write_server_address_type_set0[20] = "0";
 // combine into pointer array
 char * write_server_address_type_cmd_ptr[5] = {write_server_address_type_cmd0,write_server_address_type_cmd1, write_server_address_type_cmd2,write_server_address_type_cmd3};
 char * write_server_address_type_exp_ptr[5] = {write_server_address_type_exp0,write_server_address_type_exp1};
-char * write_server_address_type_spec_ptr[5] = {write_server_address_type_spec0, handle2, server_address_type};
+char * write_server_address_type_spec_ptr[5] = {write_server_address_type_spec0, handle2, server_address_type_hex,server_address_type};
 char * write_server_address_type_set_ptr[5] = {write_server_address_set0};
 
 // combine into a pointer of a pointer array
@@ -637,7 +649,7 @@ char write_device_name_set0[20] = "0";
 // combine into pointer array
 char * write_device_name_cmd_ptr[5] = {write_device_name_cmd0,write_device_name_cmd1, write_device_name_cmd2,write_device_name_cmd3};
 char * write_device_name_exp_ptr[5] = {write_device_name_exp0,write_device_name_exp1};
-char * write_device_name_spec_ptr[5] = {write_device_name_spec0, handle3, device_name};
+char * write_device_name_spec_ptr[5] = {write_device_name_spec0, handle3, device_name_hex,device_name};
 char * write_device_name_set_ptr[5] = {write_device_name_set0};
 
 // combine into a pointer of a pointer array
@@ -667,7 +679,7 @@ char write_password_set0[20] = "0";
 // combine into pointer array
 char * write_password_cmd_ptr[5] = {write_password_cmd0,write_password_cmd1, write_password_cmd2,write_password_cmd3};
 char * write_password_exp_ptr[5] = {write_password_exp0,write_password_exp1};
-char * write_password_spec_ptr[5] = {write_password_spec0, handle4, password};
+char * write_password_spec_ptr[5] = {write_password_spec0, handle4, password_hex,password};
 char * write_password_set_ptr[5] = {write_password_set0};
 
 // combine into a pointer of a pointer array
@@ -698,7 +710,7 @@ char write_sample_interval_set0[20] = "0";
 // combine into pointer array
 char * write_sample_interval_cmd_ptr[5] = {write_sample_interval_cmd0,write_sample_interval_cmd1, write_sample_interval_cmd2,write_sample_interval_cmd3};
 char * write_sample_interval_exp_ptr[5] = {write_sample_interval_exp0,write_sample_interval_exp1};
-char * write_sample_interval_spec_ptr[5] = {write_sample_interval_spec0, handle5, sample_interval};
+char * write_sample_interval_spec_ptr[5] = {write_sample_interval_spec0, handle5, sample_interval_hex, sample_interval};
 char * write_sample_interval_set_ptr[5] = {write_sample_interval_set0};
 
 // combine into a pointer of a pointer array
@@ -731,7 +743,7 @@ char write_number_of_samples_per_interval_set0[20] = "0";
 // combine into pointer array
 char * write_number_of_samples_per_interval_cmd_ptr[5] = {write_number_of_samples_per_interval_cmd0,write_number_of_samples_per_interval_cmd1, write_number_of_samples_per_interval_cmd2,write_number_of_samples_per_interval_cmd3};
 char * write_number_of_samples_per_interval_exp_ptr[5] = {write_number_of_samples_per_interval_exp0,write_number_of_samples_per_interval_exp1};
-char * write_number_of_samples_per_interval_spec_ptr[5] = {write_number_of_samples_per_interval_spec0, handle6, number_of_samples_per_interval};
+char * write_number_of_samples_per_interval_spec_ptr[5] = {write_number_of_samples_per_interval_spec0, handle6, number_of_samples_per_interval_hex,number_of_samples_per_interval};
 char * write_number_of_samples_per_interval_set_ptr[5] = {write_number_of_samples_per_interval_set0};
 
 // combine into a pointer of a pointer array
@@ -762,7 +774,7 @@ char write_update_set0[20] = "0";
 // combine into pointer array
 char * write_update_cmd_ptr[5] = {write_update_cmd0,write_update_cmd1, write_update_cmd2,write_update_cmd3};
 char * write_update_exp_ptr[5] = {write_update_exp0,write_update_exp1};
-char * write_update_spec_ptr[5] = {write_update_spec0, handle7, update};
+char * write_update_spec_ptr[5] = {write_update_spec0, handle7, update_hex, update};
 char * write_update_set_ptr[5] = {write_update_set0};
 
 // combine into a pointer of a pointer array
