@@ -26,7 +26,7 @@ int hex_to_int(char c);
 
 int hex_to_ascii(char c, char d);
 void convert_hex_to_char(char * Hex_address);
-
+void char_to_hex(char * ascii_address, char * hex_address);
 
 
 void get_BLE_info();
