@@ -37,14 +37,14 @@ extern char debug_data[100];
 uint32_t debug_commandStates_counter;
 bool debug_test_print;
 
-extern char received[512];
-extern char UUID[130];
-extern char UUID_1[130];
-extern char UUID_2[130];
-extern char UUID_3[130];
-extern char UUID_4[130];
-extern char UUID_5[130];
-extern char UUID_6[130];
+extern char received[200];
+extern char UUID[50];
+extern char UUID_1[50];
+extern char UUID_2[50];
+extern char UUID_3[50];
+extern char UUID_4[50];
+extern char UUID_5[50];
+extern char UUID_6[50];
 
 extern char property_bitmap1[25];
 extern char property_bitmap2[25];

@@ -228,7 +228,7 @@ void commandControl_tick(){
             }
             else{
                 if((global_command_count_sequence==2)&&(count5>1)){
-                    char_to_hex(master_command[global_command_count_sequence][count5][2][4], master_command[global_command_count_sequence][count5][2][3]);
+                    char_to_hex(master_command[global_command_count_sequence][count5][2][3], master_command[global_command_count_sequence][count5][2][2]);
                 }
                 send_command(master_command[global_command_count_sequence][count5]);
                 commandState = verify_command_received;

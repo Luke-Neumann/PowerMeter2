@@ -29,21 +29,21 @@ void convert_hex_to_char(char * Hex_address);
 void char_to_hex(char * ascii_address, char * hex_address);
 
 
-void get_BLE_info();
-bool reboot_device(char * received);
-bool disconnect_device(char * received);
-void get_signal_strength(char * address, char * type); // the signal strength in dBm.
-bool start_advertisement(char * address);
-bool connect_to_device(char * address, char * type, char * received);
-bool create_BLE_service(char * received, char * UUID);
-bool create_BLE_characteristic(char * received, char * UUID,char * property_bitmap, char * data_size);
-bool clear_services_and_characteristics(char * received);
-void list_services_and_characteristics();
-bool set_default_services(char * received);
-bool set_device_name(char * received, char * name);
-void server_handel_read();
-bool get_connection_status(char * received);
-bool stop_advertisement(char * address);
+//void get_BLE_info();
+//bool reboot_device(char * received);
+//bool disconnect_device(char * received);
+//void get_signal_strength(char * address, char * type); // the signal strength in dBm.
+//bool start_advertisement(char * address);
+//bool connect_to_device(char * address, char * type, char * received);
+//bool create_BLE_service(char * received, char * UUID);
+//bool create_BLE_characteristic(char * received, char * UUID,char * property_bitmap, char * data_size);
+//bool clear_services_and_characteristics(char * received);
+//void list_services_and_characteristics();
+//bool set_default_services(char * received);
+//bool set_device_name(char * received, char * name);
+//void server_handel_read();
+//bool get_connection_status(char * received);
+//bool stop_advertisement(char * address);
 
 
 

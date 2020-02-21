@@ -46,7 +46,7 @@ ISR(USART1_RX_vect){
 }
 ISR(TIMER0_OVF_vect) // interrupt for timer 0
 {
-    if (!(overFlowCount%10)) {
+    if (!(overFlowCount%25)) {
         commandControl_tick();
         verifyCmdModeControl_tick();
         verifyCmdModeExitControl_tick();

@@ -18,23 +18,23 @@ bool debug_test_print = false;
 uint32_t debug_commandStates_counter = 0;
 
 
-char received[512] = "";
-char UUID[130] = "2D8E217F7D1B4C5A8A970D122F6DCD8B"; // random service identifier no dashes
-char UUID_1[130] = "ED220715B3BD49558B0D8D6A794D876A"; // random service identifier for server BLE address
-char UUID_2[130] = "6BB6DDA52DD24512B666BD5416882F68"; // random service identifier for server BLE type
-char UUID_3[130] = "CE90B8CE148D4BF8A2BB0DB2BF2A7EA9"; // random service identifier for device name
-char UUID_4[130] = "D64B24D5DD29443CAAADA1BB390B7BA6"; // random service identifier for password
-char UUID_5[130] = "D64B24D5DD29443CAAADA1BB390B7BA7"; // random service identifier for sample interval
-char UUID_6[130] = "D64B24D5DD29443CAAADA1BB390B7BA8"; // random service identifier for number of samples per interval
-char UUID_7[130] = "D64B24D5DD29443CAAADA1BB390B7BA9"; // random service identifier for updated_status
+char received[200] = "";
+char UUID[50] = "2D8E217F7D1B4C5A8A970D122F6DCD8B"; // random service identifier no dashes
+char UUID_1[50] = "ED220715B3BD49558B0D8D6A794D876A"; // random service identifier for server BLE address
+char UUID_2[50] = "6BB6DDA52DD24512B666BD5416882F68"; // random service identifier for server BLE type
+char UUID_3[50] = "CE90B8CE148D4BF8A2BB0DB2BF2A7EA9"; // random service identifier for device name
+char UUID_4[50] = "D64B24D5DD29443CAAADA1BB390B7BA6"; // random service identifier for password
+char UUID_5[50] = "D64B24D5DD29443CAAADA1BB390B7BA7"; // random service identifier for sample interval
+char UUID_6[50] = "D64B24D5DD29443CAAADA1BB390B7BA8"; // random service identifier for number of samples per interval
+char UUID_7[50] = "D64B24D5DD29443CAAADA1BB390B7BA9"; // random service identifier for updated_status
 
-char property_bitmap1[25] = "1C"; //The second parameter is a 8-bit property bitmap of the characteristic
-char property_bitmap2[25] = "1C"; //The second parameter is a 8-bit property bitmap of the characteristic
-char property_bitmap3[25] = "1C"; //The second parameter is a 8-bit property bitmap of the characteristic
-char property_bitmap4[25] = "1C"; //The second parameter is a 8-bit property bitmap of the characteristic
-char property_bitmap5[25] = "1C"; //The second parameter is a 8-bit property bitmap of the characteristic
-char property_bitmap6[25] = "1C"; //The second parameter is a 8-bit property bitmap of the characteristic
-char property_bitmap7[25] = "1C"; //The second parameter is a 8-bit property bitmap of the characteristic
+char property_bitmap1[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+char property_bitmap2[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+char property_bitmap3[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+char property_bitmap4[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+char property_bitmap5[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+char property_bitmap6[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+char property_bitmap7[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
 
 char handle1[10] = "0072";
 char handle2[10] = "0075";
@@ -60,7 +60,7 @@ char server_address_type[5] = "1"; // phone
 char password[30] = "0000";
 char sample_interval[20] = "60"; // default to 60 seconds
 char number_of_samples_per_interval[20] = "12"; // default to 12 samples
-char update[10] = "1"; // this is initially zero meaning no update has been made yet.
+char update[10] = "0"; // this is initially zero meaning no update has been made yet.
 
 char device_name_hex[40] = "";
 char server_address_hex[60] = ""; // my phone
@@ -95,7 +95,7 @@ int connect_flag = 0;
 int send_data_flag = 0;
 
 int global_command_count_sequence = 0;
-int global_command_sequence_limit = 2;
+int global_command_sequence_limit = 3;
 //bool global_command_count_status = true;
 
 char * commandPtr[15] = {
