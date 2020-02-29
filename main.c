@@ -641,6 +641,11 @@ int main(void)
 //    bool  success1 = 0;
 //    int count_test = 0;
     //DDRA = 0x04; // set pin 49 pa2 to an output pin.
+    
+    SPI_MasterInit();
+    _delay_ms(500);
+    
+    SPI_MasterTransmit("spi test\r");
 
 
     USART_Init(BAUD_RATE_REGISTER); // initialize the baudrate of the uart
