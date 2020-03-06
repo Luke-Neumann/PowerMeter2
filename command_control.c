@@ -282,8 +282,8 @@ void commandControl_tick(){
             if ((global_verify_exit_cmd_flag==1)&&(global_exit_cmd_start_flag==0)){
                 global_verify_exit_cmd_flag = 0;
                 global_exit_cmd_start_flag = 0;
-                global_open_start_gate = 0;
-                global_sequence_gate = 2;
+                global_open_start_gate = 2;
+                //global_sequence_gate = 2;
                 //debug_test_print = true;
                 uart_print_string("HEY:");
                 uart_print_string(debug_data);
@@ -321,8 +321,8 @@ void commandControl_tick(){
         case check_limit6:
             if (count6>limit6) {
                 count6 = 0;
-                global_open_start_gate = 0;
-                global_sequence_gate = 2;
+                global_open_start_gate = 2;
+                //global_sequence_gate = 2;
                 commandState = start_gate;
             }
             else{
@@ -331,7 +331,7 @@ void commandControl_tick(){
             break;
         case reset_module:
             // print error message
-            global_open_start_gate = 0;
+            global_open_start_gate = 2;
             uart_print_string("error reset called\r");
             commandState = init_st;
             break;

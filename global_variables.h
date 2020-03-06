@@ -73,6 +73,15 @@ extern char sample_interval[20];
 extern char number_of_samples_per_interval[20];
 char update[10];
 
+//char device_name_temp[15];
+//char device_address_temp[50];
+//char server_address_temp[50]; // my phone
+//char server_address_type_temp[5]; // phone
+//char password_temp[30];
+//char sample_interval_temp[20]; // default to 60 seconds
+//char number_of_samples_per_interval_temp[20]; // default to 12 samples
+//char update_temp[10]; // this is initially zero meaning no update has been made yet.
+
 char device_name_hex[40];
 char device_address_hex[60];
 char server_address_hex[60];
@@ -109,6 +118,13 @@ extern int send_data_flag;
 
 extern int global_command_count_sequence;
 extern int global_command_sequence_limit;
+
+extern int global_initialize_sequence_flag;
+extern int global_reboot_sequence_flag;
+extern int global_write_default_values_sequence_flag;
+extern int global_advertise_sequence_flag;
+
+
 //extern bool global_command_count_status;
 extern char * commandPtr[15];
 
@@ -251,30 +267,7 @@ char ** reboot_dptr[10];
 
 
 
-// special command pointer tree for setting device name
-/*...............................................................................*/
-// commands
-extern char set_ser_address_cmd0[20];
-extern char set_ser_address_cmd1[20];
 
-// expected return values
-extern char set_ser_address_exp0[20];
-extern char set_ser_address_exp1[20];
-// read and writable data
-extern char set_ser_address_spec0[20];
-// sets values from BLE
-extern char set_ser_address_set0[20];
-extern char set_ser_address_set1[20];
-
-// combine into pointer array
-extern char * set_ser_address_cmd_ptr[5];
-extern char * set_ser_address_exp_ptr[5];
-extern char * set_ser_address_spec_ptr[5];
-extern char * set_ser_address_set_ptr[5];
-
-// combine into a pointer of a pointer array
-extern char ** set_ser_address_dptr[10];
-/*...............................................................................*/
 
 
 // special command pointer tree for creating update service
@@ -662,8 +655,264 @@ char * write_update_set_ptr[5];
 char ** write_update_dptr[10];
 /*...............................................................................*/
 
+// special command pointer tree
+/*...............................................................................*/
+// commands
+char stop_AD_cmd0[20]; // indicates size of this command branch
+char stop_AD_cmd1[20];
+// expected return values
+char stop_AD_exp0[20]; // indicates size of this expected values branch
+char stop_AD_exp1[20];
+// read and writable data
+char stop_AD_spec0[20]; // indicates size of this data branch
+// sets values from BLE
+char stop_AD_set0[20];
+
+// combine into pointer array
+char * stop_AD_cmd_ptr[5];
+char * stop_AD_exp_ptr[5];
+char * stop_AD_spec_ptr[5];
+char * stop_AD_set_ptr[5];
+// combine into a pointer of a pointer array
+char ** stop_AD_dptr[10];
+/*...............................................................................*/
 
 
+
+// special command pointer tree for setting device name
+/*...............................................................................*/
+// commands
+extern char set_ser_address_cmd0[20];
+extern char set_ser_address_cmd1[20];
+
+// expected return values
+extern char set_ser_address_exp0[20];
+extern char set_ser_address_exp1[20];
+// read and writable data
+extern char set_ser_address_spec0[20];
+// sets values from BLE
+extern char set_ser_address_set0[20];
+extern char set_ser_address_set1[20];
+extern char set_ser_address_set2[20];
+
+// combine into pointer array
+extern char * set_ser_address_cmd_ptr[5];
+extern char * set_ser_address_exp_ptr[5];
+extern char * set_ser_address_spec_ptr[5];
+extern char * set_ser_address_set_ptr[5];
+
+// combine into a pointer of a pointer array
+extern char ** set_ser_address_dptr[10];
+/*...............................................................................*/
+
+
+// special command pointer tree for reading server address type from bluetooth.
+/*...............................................................................*/
+// commands #0
+char set_ser_address_type_cmd0[20];
+char set_ser_address_type_cmd1[20];
+char set_ser_address_type_cmd2[20];
+// expected return values #1
+char set_ser_address_type_exp0[20];
+char set_ser_address_type_exp1[20];
+// read and writable data #2
+char set_ser_address_type_spec0[20];
+// sets values from BLE #3
+char set_ser_address_type_set0[20];
+char set_ser_address_type_set1[20];
+char set_ser_address_type_set2[20];
+
+// combine into pointer array
+char * set_ser_address_type_cmd_ptr[5];
+char * set_ser_address_type_exp_ptr[5];
+char * set_ser_address_type_spec_ptr[5];
+char * set_ser_address_type_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** set_ser_address_type_dptr[10];
+/*...............................................................................*/
+
+
+// special command pointer tree for reading server address type from bluetooth.
+/*...............................................................................*/
+// commands #0
+char set_device_name_cmd0[20];
+char set_device_name_cmd1[20];
+char set_device_name_cmd2[20];
+// expected return values #1
+char set_device_name_exp0[20];
+char set_device_name_exp1[20];
+// read and writable data #2
+char set_device_name_spec0[20];
+// sets values from BLE #3
+char set_device_name_set0[20];
+char set_device_name_set1[20];
+char set_device_name_set2[20];
+
+// combine into pointer array
+char * set_device_name_cmd_ptr[5];
+char * set_device_name_exp_ptr[5];
+char * set_device_name_spec_ptr[5];
+char * set_device_name_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** set_device_name_dptr[10];
+/*...............................................................................*/
+
+
+
+// special command pointer tree for reading server address type from bluetooth.
+/*...............................................................................*/
+// commands #0
+char set_password_cmd0[20];
+char set_password_cmd1[20];
+char set_password_cmd2[20];
+// expected return values #1
+char set_password_exp0[20];
+char set_password_exp1[20];
+// read and writable data #2
+char set_password_spec0[20];
+// sets values from BLE #3
+char set_password_set0[20];
+char set_password_set1[20];
+char set_password_set2[20];
+
+// combine into pointer array
+char * set_password_cmd_ptr[5];
+char * set_password_exp_ptr[5];
+char * set_password_spec_ptr[5];
+char * set_password_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** set_password_dptr[10];
+/*...............................................................................*/
+
+
+// special command pointer tree for reading server address type from bluetooth.
+/*...............................................................................*/
+// commands #0
+char set_sample_interval_cmd0[20];
+char set_sample_interval_cmd1[20];
+char set_sample_interval_cmd2[20];
+// expected return values #1
+char set_sample_interval_exp0[20];
+char set_sample_interval_exp1[20];
+// read and writable data #2
+char set_sample_interval_spec0[20];
+// sets values from BLE #3
+char set_sample_interval_set0[20];
+char set_sample_interval_set1[20];
+char set_sample_interval_set2[20];
+
+// combine into pointer array
+char * set_sample_interval_cmd_ptr[5];
+char * set_sample_interval_exp_ptr[5];
+char * set_sample_interval_spec_ptr[5];
+char * set_sample_interval_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** set_sample_interval_dptr[10];
+/*...............................................................................*/
+
+
+
+// special command pointer tree for reading server address type from bluetooth.
+/*...............................................................................*/
+// commands #0
+char set_number_of_samples_per_interval_cmd0[20];
+char set_number_of_samples_per_interval_cmd1[20];
+char set_number_of_samples_per_interval_cmd2[20];
+// expected return values #1
+char set_number_of_samples_per_interval_exp0[20];
+char set_number_of_samples_per_interval_exp1[20];
+// read and writable data #2
+char set_number_of_samples_per_interval_spec0[20];
+// sets values from BLE #3
+char set_number_of_samples_per_interval_set0[20];
+char set_number_of_samples_per_interval_set1[20];
+char set_number_of_samples_per_interval_set2[20];
+
+// combine into pointer array
+char * set_number_of_samples_per_interval_cmd_ptr[5];
+char * set_number_of_samples_per_interval_exp_ptr[5];
+char * set_number_of_samples_per_interval_spec_ptr[5];
+char * set_number_of_samples_per_interval_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** set_number_of_samples_per_interval_dptr[10];
+/*...............................................................................*/
+
+
+// special command pointer tree for getting the update status from the ble device
+/*...............................................................................*/
+// commands #0
+char check_update_status_cmd0[20];
+char check_update_status_cmd1[20];
+char check_update_status_cmd2[20];
+// expected return values #1
+char check_update_status_exp0[20];
+char check_update_status_exp1[20];
+// read and writable data #2
+char check_update_status_spec0[20];
+// sets values from BLE #3
+char check_update_status_set0[20];
+char check_update_status_set1[20];
+
+// combine into pointer array
+char * check_update_status_cmd_ptr[5];
+char * check_update_status_exp_ptr[5];
+char * check_update_status_spec_ptr[5];
+char * check_update_status_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** check_update_status_dptr[10];
+/*...............................................................................*/
+
+
+/*...............................................................................*/
+// commands
+char disconnect_cmd0[20];
+char disconnect_cmd1[20];
+// expected return values
+char disconnect_exp0[20];
+char disconnect_exp1[25];
+// read and writable data
+char disconnect_spec0[20];
+// sets values from BLE
+char disconnect_set0[20];
+
+// combine into pointer array
+char * disconnect_cmd_ptr[5];
+char * disconnect_exp_ptr[5];
+char * disconnect_spec_ptr[5];
+char * disconnect_set_ptr[5];
+// combine into a pointer of a pointer array
+char ** disconnect_dptr[10];
+/*...............................................................................*/
+
+/*...............................................................................*/
+// commands
+char connect_cmd0[20];
+char connect_cmd1[20];
+char connect_cmd2[20];
+char connect_cmd3[20];
+
+// expected return values
+char connect_exp0[20];
+char connect_exp1[25];
+// read and writable data
+char connect_spec0[20];
+// sets values from BLE
+char connect_set0[20];
+
+// combine into pointer array
+char * connect_cmd_ptr[5];
+char * connect_exp_ptr[5];
+char * connect_spec_ptr[5];
+char * connect_set_ptr[5];
+// combine into a pointer of a pointer array
+char ** connect_dptr[10];
+/*...............................................................................*/
 
 extern char initialize_sequence_size[10];
 extern char * initialize_sequence_size_ptr[10];
@@ -684,8 +933,27 @@ extern char ** advertise_sequence_size_dptr[10];
 extern char *** advertise_sequence[20];
 
 
+char stop_advertise_sequence_size[10];
+char * stop_advertise_sequence_size_ptr[10];
+char ** stop_advertise_sequence_size_dptr[10];
+char *** stop_advertise_sequence[20];
 
 
-extern char **** master_command[10];
+char check_update_status_sequence_size[10];
+char * check_update_status_sequence_size_ptr[10];
+char ** check_update_status_sequence_size_dptr[10];
+char *** check_update_status_sequence[20];
+
+char disconnect_sequence_size[10];
+char * disconnect_sequence_size_ptr[10];
+char ** disconnect_sequence_size_dptr[10];
+char *** disconnect_sequence[20];
+
+char connect_sequence_size[10];
+char * connect_sequence_size_ptr[10];
+char ** connect_sequence_size_dptr[10];
+char *** connect_sequence[20];
+
+extern char **** master_command[15];
 
 #endif /* global_variables_h */

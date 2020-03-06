@@ -116,17 +116,37 @@ bool verify_sent_command(char * received, char *** command){
     
     if (atoi(command[3][0])) {
         
+        if (atoi(command[3][3]) == 1) {
+            
+            memset(command[3][1], 0, strlen(command[3][1])); // clear the old
+            while ((*received != '\r')&&(*received != '\0')) {
+                *command[3][1] = *received;
+                command[3][1]++;
+                received++;
+            }
+            received = address_holder1;
+            command[3][1] = address_holder2;
+            convert_hex_to_char(command[3][1]);
+            
 
-        memset(command[3][1], 0, strlen(command[3][1])); // clear the old
-        while ((*received != '\r')&&(*received != '\0')) {
-            *command[3][1] = *received;
-            command[3][1]++;
-            received++;
+
+
         }
-        received = address_holder1;
-        command[3][1] = address_holder2;
-        convert_hex_to_char(command[3][1]);
-         memcpy(command[3][2], "1", strlen("1")); // write a one to indicate the default is changed at least once.
+        else{
+            
+            memset(command[3][2], 0, strlen(command[3][2])); // clear the old
+            while ((*received != '\r')&&(*received != '\0')) {
+                *command[3][2] = *received;
+                command[3][2]++;
+                received++;
+            }
+            received = address_holder1;
+            command[3][2] = address_holder2;
+            convert_hex_to_char(command[3][2]);
+
+        }
+
+
 
         
         return true;
@@ -247,6 +267,60 @@ bool verify_exit_command_mode(char * received){
 void exit_command_mode(){
     uart_print_string("-");
 }
+
+
+
+bool quickly_check_if_connected_to_device(){
+
+    if (!(((PIND & 0x40)>>6) == 0) && (((PIND & 0x80)>>7) == 0)) {
+        return false;
+    }
+    else{
+        return true;
+    }
+
+}
+
+bool compare_ble_value(char *** command){
+    char * address_holder1 = command[3][1];
+    char * address_holder2 = command[3][2];
+    
+    while ((*command[3][1] != '\0')&&(command[3][2] != '\0')) {
+        if (!(*command[3][1] == *command[3][2])) {
+            command[3][1] = address_holder1;
+            command[3][2] = address_holder2;
+            
+            set_update_status(command);
+            
+//            memset(command[3][3], 0, strlen(command[3][3])); // clear the old address
+//            memcpy(command[3][3], "1", strlen("1")); // copy the converted value to Hex address
+            
+            return true; // this should mean the values are different
+        }
+
+        command[3][1]++;
+        command[3][2]++;
+
+    }
+    
+    
+    command[3][1] = address_holder1;
+    command[3][2] = address_holder2;
+    
+    
+    return false;
+}
+
+void set_update_status(char *** command){
+    memset(command[3][3], 0, strlen(command[3][3])); // clear the old address
+    memcpy(command[3][3], "1", strlen("1")); // copy the converted value to Hex address
+}
+
+void reset_update_status(char *** command){
+    memset(command[3][3], 0, strlen(command[3][3])); // clear the old address
+    memcpy(command[3][3], "0", strlen("0")); // copy the converted value to Hex address
+}
+
 
 
 //void get_BLE_info(){

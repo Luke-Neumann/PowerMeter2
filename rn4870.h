@@ -21,13 +21,16 @@ bool verify_command_mode(char * received);
 bool verify_exit_command_mode(char * received);
 void send_command(char *** command);
 bool verify_sent_command(char * received, char *** command);
+void reset_update_status(char *** command);
+void set_update_status(char *** command);
 
 int hex_to_int(char c);
 
 int hex_to_ascii(char c, char d);
 void convert_hex_to_char(char * Hex_address);
 void char_to_hex(char * ascii_address, char * hex_address);
-
+bool quickly_check_if_connected_to_device();
+bool compare_ble_value(char *** command);
 
 //void get_BLE_info();
 //bool reboot_device(char * received);

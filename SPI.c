@@ -7,9 +7,11 @@
 //
 
 #include "SPI.h"
+#include <avr/io.h>
 
-
-
+#define DD_MOSI     DDB2
+#define DD_SCK      DDB1
+#define DDR_SPI     DDRB
 
 void SPI_MasterInit(){
     

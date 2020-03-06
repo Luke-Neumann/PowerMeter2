@@ -13,8 +13,7 @@
 
 #include <stdio.h>
 
-#define DD_MOSI     DDB2
-#define DD_SCK      DDB1
+
 
 void SPI_MasterInit();
 

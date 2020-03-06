@@ -5,14 +5,14 @@
  *      Author: neumannl
  */
 
-#ifndef CLOCKCONTROL_H_
-#define CLOCKCONTROL_H_
+#ifndef CONTROL_H_
+#define CONTROL_H_
 
 // Standard tick function.
-void clockControl_tick();
+void MainCommandControl_tick();
 
 // Call this before you call clockControl_tick().
-void clockControl_init();
+void MainCommandControl_init();
 
 
-#endif /* CLOCKCONTROL_H_ */
+#endif /* CONTROL_H_ */
