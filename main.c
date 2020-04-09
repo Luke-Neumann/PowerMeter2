@@ -46,7 +46,7 @@ ISR(USART1_RX_vect){
 }
 ISR(TIMER0_OVF_vect) // interrupt for timer 0
 {
-    if (!(overFlowCount%25)) {
+    if (!(overFlowCount%50)) {
         MainCommandControl_tick();
         commandControl_tick();
         verifyCmdModeControl_tick();
@@ -643,11 +643,11 @@ int main(void)
     
     
     
-    char text0[8] = "Shunt: ";
-    char text1[15] = " A, Battery: ";
-    char text2[5] = " V\r";
-    float shunt_voltage;
-    float battery_voltage;
+//    char text0[8] = "Shunt: ";
+//    char text1[15] = " A, Battery: ";
+//    char text2[5] = " V\r";
+//    float shunt_voltage;
+//    float battery_voltage;
     
     
     
@@ -655,7 +655,7 @@ int main(void)
     
     
     
-    char signal_strength[100] = "";
+    //char signal_strength[100] = "";
     OSCCAL = 0x57; // this determines the frequency of the rc ocilator
     _delay_ms(1000);
 //    bool  success = 0;
@@ -697,17 +697,17 @@ int main(void)
                 
                 
                 
-                
-                shunt_voltage=getBatteryVoltage();
-                battery_voltage=getCurrent();
-                shunt_voltage *= APS; // convert value to milivolts
-                shunt_voltage += BIAS; // convert value to milivolts
-                battery_voltage *= VPS; // convert value to volts
-                uart_print_string(text0); // print message.
-                uart_print_float(shunt_voltage);
-                uart_print_string(text1);
-                uart_print_float(battery_voltage);
-                uart_print_string(text2);
+                sprintf(battery_voltage, "%c", getBatteryVoltage());
+                sprintf(battery_voltage, "%c", getCurrent());
+
+//                shunt_voltage *= APS; // convert value to milivolts
+//                shunt_voltage += BIAS; // convert value to milivolts
+//                battery_voltage *= VPS; // convert value to volts
+//                uart_print_string(text0); // print message.
+//                uart_print_float(shunt_voltage);
+//                uart_print_string(text1);
+//                uart_print_float(battery_voltage);
+//                uart_print_string(text2);
                 ++sampleCount;
                 global_send_data_to_BLE = 1; // tells control that data is ready to put into the BLE device.
             }
