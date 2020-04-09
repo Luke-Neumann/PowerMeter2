@@ -11,6 +11,8 @@
 
 uint32_t overFlowCount = 0;
 uint16_t overFlowCount1 = 0;
+uint32_t timeIntervalCount = 0;
+uint32_t sampleCount = 0;
 
 char debug_data[100];
 //char debug_data[][100];
@@ -28,6 +30,13 @@ char UUID_5[50] = "D64B24D5DD29443CAAADA1BB390B7BA7"; // random service identifi
 char UUID_6[50] = "D64B24D5DD29443CAAADA1BB390B7BA8"; // random service identifier for number of samples per interval
 char UUID_7[50] = "D64B24D5DD29443CAAADA1BB390B7BA9"; // random service identifier for updated_status
 
+char UUID_8[50] = "8b9b4c051b874f23be0ffe6162881a35"; // Data Service identifier
+char UUID_9[50] = "7bf3638be4ac498d97daf8802ea3c201"; // Battery voltage identifier
+char UUID_10[50] = "8ead23b48f014137aabc7dc3f826543e"; // Battery voltage identifier
+
+
+
+
 char property_bitmap1[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
 char property_bitmap2[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
 char property_bitmap3[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
@@ -35,6 +44,10 @@ char property_bitmap4[25] = "1E"; //The second parameter is a 8-bit property bit
 char property_bitmap5[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
 char property_bitmap6[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
 char property_bitmap7[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+
+char property_bitmap9[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+char property_bitmap10[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+
 
 char handle1[10] = "0072";
 char handle2[10] = "0075";
@@ -45,7 +58,8 @@ char handle6[10] = "0081";
 char handle7[10] = "0084";
 
 
-
+char handle9[10] = "";
+char handle10[10] = "";
 
 char data_size[25] = "F0"; //The third parameter is an 8-bit value that indicates the maximum data size in octet
                          //where the value of the characteristic is held.
@@ -61,6 +75,9 @@ char password[30] = "0000";
 char sample_interval[20] = "60"; // default to 60 seconds
 char number_of_samples_per_interval[20] = "12"; // default to 12 samples
 char update[10] = "0"; // this is initially zero meaning no update has been made yet.
+
+char battery_voltage[10] = "0000";
+char current[10] = "0000";
 
 //char device_name_temp[15] = "Alpha 5";
 //char device_address_temp[50] = "801F12B4BDBF";
@@ -79,6 +96,9 @@ char password_hex[60 ] = "";
 char sample_interval_hex[40] = ""; // default to 60 seconds
 char number_of_samples_per_interval_hex[20] = ""; // default to 12 samples
 char update_hex[20] = ""; // this is initially zero meaning no update has been made yet.
+
+char battery_voltage_hex[10] = "";
+char current_hex[10] = "";
 
 
 const float VPS = PROG_GAIN_AMP_CONFIG_3/ (32768.0*VOLTAGE_DIVIDER); // volts per step. Use this conversion in place of Amps per step.
@@ -112,8 +132,9 @@ int global_reboot_sequence_flag=0;
 int global_write_default_values_sequence_flag=0;
 int global_advertise_sequence_flag=0;
 
+int global_send_data_state=0;
 
-
+int global_send_data_to_BLE = 0;
 
 
 //bool global_command_count_status = true;
@@ -555,6 +576,172 @@ char ** create_updated_char_dptr[10] = {
 /*...............................................................................*/
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// special command pointer tree for creating update service
+/*...............................................................................*/
+// commands
+char set_data_ser_cmd0[20] = "2"; // indicates size of this command branch
+char set_data_ser_cmd1[20] = "PS,";
+char set_data_ser_cmd2[20] = "\r";
+// expected return values
+char set_data_ser_exp0[20] = "1"; // indicates size of this expected values branch
+char set_data_ser_exp1[20] = "AOK\r\nCMD> ";
+// read and writable data
+char set_data_ser_spec0[20] = "1"; // indicates size of this data branch
+// sets values from BLE
+char set_data_ser_set0[20] = "0";
+
+// combine into pointer array
+char * set_data_ser_cmd_ptr[5] = {set_data_ser_cmd0,set_data_ser_cmd1, set_data_ser_cmd2};
+char * set_data_ser_exp_ptr[5] = {set_data_ser_exp0,set_data_ser_exp1};
+char * set_data_ser_spec_ptr[5] = {set_data_ser_spec0, UUID_8};
+char * set_data_ser_set_ptr[5] = {set_data_ser_set0};
+
+// combine into a pointer of a pointer array
+char ** set_data_ser_dptr[10] = {
+    set_data_ser_cmd_ptr,
+    set_data_ser_exp_ptr,
+    set_data_ser_spec_ptr,
+    set_data_ser_set_ptr
+};
+
+// special command pointer tree for a battery voltage characteristic
+/*...............................................................................*/
+// commands
+char create_battery_voltage_char_cmd0[20] = "4"; // indicates size of this command branch
+char create_battery_voltage_char_cmd1[20] = "PC,";
+char create_battery_voltage_char_cmd2[20] = ",";
+char create_battery_voltage_char_cmd3[20] = ",";
+char create_battery_voltage_char_cmd4[20] = "\r";
+// expected return values
+char create_battery_voltage_char_exp0[20] = "1"; // indicates size of this expected values branch
+char create_battery_voltage_char_exp1[20] = "AOK\r\nCMD> ";
+// read and writable data
+char create_battery_voltage_char_spec0[20] = "3"; // indicates size of this data branch
+// sets values from BLE
+char create_battery_voltage_char_set0[20] = "0";
+
+// combine into pointer array
+char * create_battery_voltage_char_cmd_ptr[5] = {create_battery_voltage_char_cmd0,create_battery_voltage_char_cmd1, create_battery_voltage_char_cmd2,create_battery_voltage_char_cmd3,create_battery_voltage_char_cmd4};
+char * create_battery_voltage_char_exp_ptr[5] = {create_battery_voltage_char_exp0,create_battery_voltage_char_exp1};
+char * create_battery_voltage_char_spec_ptr[5] = {create_battery_voltage_char_spec0, UUID_9, property_bitmap9, data_size};
+char * create_battery_voltage_char_set_ptr[5] = {create_battery_voltage_char_set0};
+
+// combine into a pointer of a pointer array
+char ** create_battery_voltage_char_dptr[10] = {
+    create_battery_voltage_char_cmd_ptr,
+    create_battery_voltage_char_exp_ptr,
+    create_battery_voltage_char_spec_ptr,
+    create_battery_voltage_char_set_ptr
+};
+
+// special command pointer tree for a current characteristic
+/*...............................................................................*/
+// commands
+char create_current_char_cmd0[20] = "4"; // indicates size of this command branch
+char create_current_char_cmd1[20] = "PC,";
+char create_current_char_cmd2[20] = ",";
+char create_current_char_cmd3[20] = ",";
+char create_current_char_cmd4[20] = "\r";
+// expected return values
+char create_current_char_exp0[20] = "1"; // indicates size of this expected values branch
+char create_current_char_exp1[20] = "AOK\r\nCMD> ";
+// read and writable data
+char create_current_char_spec0[20] = "3"; // indicates size of this data branch
+// sets values from BLE
+char create_current_char_set0[20] = "0";
+
+// combine into pointer array
+char * create_current_char_cmd_ptr[5] = {create_current_char_cmd0,create_current_char_cmd1, create_current_char_cmd2,create_current_char_cmd3,create_current_char_cmd4};
+char * create_current_char_exp_ptr[5] = {create_current_char_exp0,create_current_char_exp1};
+char * create_current_char_spec_ptr[5] = {create_current_char_spec0, UUID_10, property_bitmap10, data_size};
+char * create_current_char_set_ptr[5] = {create_current_char_set0};
+
+// combine into a pointer of a pointer array
+char ** create_current_char_dptr[10] = {
+    create_current_char_cmd_ptr,
+    create_current_char_exp_ptr,
+    create_current_char_spec_ptr,
+    create_current_char_set_ptr
+};
+
+
+// special command pointer tree for writing battery voltage value into BLE module
+/*...............................................................................*/
+// commands
+char write_battery_voltage_cmd0[20] = "3"; // indicates size of this command branch
+char write_battery_voltage_cmd1[20] = "SHW,";
+char write_battery_voltage_cmd2[20] = ",";
+char write_battery_voltage_cmd3[20] = "\r";
+// expected return values
+char write_battery_voltage_exp0[20] = "1"; // indicates size of this expected values branch
+char write_battery_voltage_exp1[20] = "AOK\r\nCMD> ";
+// read and writable data
+char write_battery_voltage_spec0[20] = "2"; // indicates size of this data branch
+// when this is high it means to set values from BLE module into the microcontroller
+char write_battery_voltage_set0[20] = "0";
+
+// combine into pointer array
+char * write_battery_voltage_cmd_ptr[5] = {write_battery_voltage_cmd0,write_battery_voltage_cmd1, write_battery_voltage_cmd2,write_battery_voltage_cmd3};
+char * write_battery_voltage_exp_ptr[5] = {write_battery_voltage_exp0,write_battery_voltage_exp1};
+char * write_battery_voltage_spec_ptr[5] = {write_battery_voltage_spec0, handle9, battery_voltage_hex,battery_voltage};
+char * write_battery_voltage_set_ptr[5] = {write_battery_voltage_set0};
+
+// combine into a pointer of a pointer array
+char ** write_battery_voltage_dptr[10] = {
+    write_battery_voltage_cmd_ptr,
+    write_battery_voltage_exp_ptr,
+    write_battery_voltage_spec_ptr,
+    write_battery_voltage_set_ptr
+};
+
+
+// special command pointer tree for writing electric current value into BLE module
+/*...............................................................................*/
+// commands
+char write_current_cmd0[20] = "3"; // indicates size of this command branch
+char write_current_cmd1[20] = "SHW,";
+char write_current_cmd2[20] = ",";
+char write_current_cmd3[20] = "\r";
+// expected return values
+char write_current_exp0[20] = "1"; // indicates size of this expected values branch
+char write_current_exp1[20] = "AOK\r\nCMD> ";
+// read and writable data
+char write_current_spec0[20] = "2"; // indicates size of this data branch
+// when this is high it means to set values from BLE module into the microcontroller
+char write_current_set0[20] = "0";
+
+// combine into pointer array
+char * write_current_cmd_ptr[5] = {write_current_cmd0,write_current_cmd1, write_current_cmd2,write_current_cmd3};
+char * write_current_exp_ptr[5] = {write_current_exp0,write_current_exp1};
+char * write_current_spec_ptr[5] = {write_current_spec0, handle10, current_hex,current};
+char * write_current_set_ptr[5] = {write_current_set0};
+
+// combine into a pointer of a pointer array
+char ** write_current_dptr[10] = {
+    write_current_cmd_ptr,
+    write_current_exp_ptr,
+    write_current_spec_ptr,
+    write_current_set_ptr
+};
 
 
 
@@ -1041,8 +1228,8 @@ char ** check_update_status_dptr[10] = {
 char disconnect_cmd0[20] = "1"; // indicates size of this command branch
 char disconnect_cmd1[20] = "K,1\r";
 // expected return values
-char disconnect_exp0[20] = "1"; // indicates size of this expected values branch
-char disconnect_exp1[25] = "AOK\r\nCMD> %DISCONNECT%";
+char disconnect_exp0[20] = "0"; // indicates size of this expected values branch
+//char disconnect_exp1[25] = "AOK\r\nCMD> %DISCONNECT%";
 // read and writable data
 char disconnect_spec0[20] = "0"; // indicates size of this data branch
 // sets values from BLE
@@ -1071,8 +1258,12 @@ char connect_cmd2[20] = ",";
 char connect_cmd3[20] = "\r";
 
 // expected return values
-char connect_exp0[20] = "1"; // indicates size of this expected values branch
-char connect_exp1[25] = "AOK\r\nCMD> %DISCONNECT%";
+char connect_exp0[20] = "0"; // indicates size of this expected values branch
+//char connect_exp1[25] = "Trying\r\n%CONNECT,";
+//char connect_exp2[25] = ",";
+//char connect_exp3[25] = "%%";
+
+
 // read and writable data
 char connect_spec0[20] = "2"; // indicates size of this data branch
 // sets values from BLE
@@ -1093,7 +1284,7 @@ char ** connect_dptr[10] = {
 /*...............................................................................*/
 
 
-char initialize_sequence_size[10] = "10"; // stores how many commands are in init sequence
+char initialize_sequence_size[10] = "13"; // stores how many commands are in init sequence
 char * initialize_sequence_size_ptr[10] = {initialize_sequence_size};
 char ** initialize_sequence_size_dptr[10] = {initialize_sequence_size_ptr};
 char *** initialize_sequence[20] = {
@@ -1108,6 +1299,10 @@ char *** initialize_sequence[20] = {
     create_smp_int_char_dptr, // # 7
     create_smp_per_int_char_dptr, // # 8
     create_updated_char_dptr, // # 9
+    set_data_ser_dptr,
+    create_battery_voltage_char_dptr,
+    create_current_char_dptr
+    
 };
 
 
@@ -1192,6 +1387,21 @@ char *** connect_sequence[20] = {
 };
 
 
+
+char write_data_sequence_size[10] = "2"; // stores how many commands are in init sequence
+char * write_data_sequence_size_ptr[10] = {write_data_sequence_size};
+char ** write_data_sequence_size_dptr[10] = {write_data_sequence_size_ptr};
+char *** write_data_sequence[20] = {
+    write_data_sequence_size_dptr,
+    write_current_dptr,
+    write_battery_voltage_dptr
+};
+
+
+
+
+
+
 char **** master_command[15] = {
     initialize_sequence,
     reboot_sequence,
@@ -1201,5 +1411,6 @@ char **** master_command[15] = {
     check_update_status_sequence,
     write_updated_ble_values_sequence,
     disconnect_sequence,
-    connect_sequence
+    connect_sequence,
+    write_data_sequence
 };

@@ -92,4 +92,9 @@ void run_ads1115_test();
 uint8_t generate_upper_config_param(uint8_t OS, uint8_t MUX, uint8_t PGA, uint8_t MODE);
 uint8_t generate_lower_config_param(uint8_t DR, uint8_t COMP_MODE,uint8_t COMP_POL, uint8_t COMP_LAT, uint8_t COMP_QUE);
 
+int16_t getBatteryVoltage();
+int16_t getCurrent();
+
+
+
 #endif /* iot_ads1115_h */

@@ -4,6 +4,7 @@
 #include "rn4870.h"
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 #include "control.h"
 #include "global_variables.h"
 
@@ -29,7 +30,7 @@ enum MainCommandStates {main_init_st, // This is the initial state of the state 
 } MainCommandState;
 
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
-static uint32_t count1, count2, count3, limit1, limit2, limit3 = 0;
+static uint32_t count1, count2, count3, count4, limit1, limit2, limit3, limit4 = 0;
 
 
 
@@ -72,7 +73,7 @@ void MainCommandControl_tick(char * received, char * commands){
             }
             break;
         case check_if_connected_st:
-            if (quickly_check_if_connected_to_device()) {
+            if ((global_open_start_gate == 2)&&quickly_check_if_connected_to_device()) {
                 global_open_start_gate = 1;
                 global_command_count_sequence = 4;
                 MainCommandState = stop_advertising_st;
@@ -134,22 +135,51 @@ void MainCommandControl_tick(char * received, char * commands){
             }
             break;
         case connect_st:
-            if (global_open_start_gate == 2) {
+            if ((global_open_start_gate == 2)&&(quickly_check_if_connected_to_device())) {
                 
+                global_send_data_to_BLE = 0;
+                // now disable the command control machine
                 MainCommandState = send_data_st;
             }
             break;
         case send_data_st:
-            if (1) {
+            
+            if ((sampleCount > atoi(number_of_samples_per_interval)) &&
+                (timeIntervalCount > atoi(sample_interval))) {
+                sampleCount = 0;
+                timeIntervalCount = 0;
+                global_send_data_state = 0;
+                global_send_data_to_BLE = 0;
                 MainCommandState = wait_for_configuration_update_st;
+            }
+            else{
+                if (global_send_data_to_BLE == 1) { // this writes the data to the ble module
+                    global_send_data_state = 1;
+                    global_command_count_sequence = 9;
+                    global_send_data_to_BLE = 0;
+                }
+                MainCommandState = send_data_st;
             }
             break;
         case wait_for_configuration_update_st:
             break;
-            if (1) {
+            if (quickly_check_if_connected_to_device()&&(!compare_ble_value(master_command[5][1]))) {
                 MainCommandState = send_data_st;
             }
+            else{
+                global_open_start_gate = 1;
+                global_command_count_sequence = 8;
+                MainCommandState = connect_st;
+            }
         case main_reset_st:
+            
+            if (count4 > limit4) {
+                reset_BLE_Low();
+                MainCommandState = main_init_st;
+            }
+            else {
+                MainCommandState = main_reset_st;
+            }
             break;
         default:
             // This should never be reached and if it is it will print an message.

@@ -47,11 +47,13 @@ ISR(USART1_RX_vect){
 ISR(TIMER0_OVF_vect) // interrupt for timer 0
 {
     if (!(overFlowCount%25)) {
+        MainCommandControl_tick();
         commandControl_tick();
         verifyCmdModeControl_tick();
         verifyCmdModeExitControl_tick();
     }
     ++overFlowCount; // increment value when the timer register overflows and is reset to zero.
+    ++timeIntervalCount;
     //PINA = (PINA ^ 0xFF); // inverts the PA2 pin
     //PORTA = PORTA ^ 0x04;
 
@@ -634,6 +636,21 @@ void read_pin_test(){ // used for testing the pin inputs from the BLE module to 
 
 int main(void)
 {
+    
+    
+    
+    char text0[8] = "Shunt: ";
+    char text1[15] = " A, Battery: ";
+    char text2[5] = " V\r";
+    float shunt_voltage;
+    float battery_voltage;
+    
+    
+    
+    
+    
+    
+    
     char signal_strength[100] = "";
     OSCCAL = 0x57; // this determines the frequency of the rc ocilator
     _delay_ms(1000);
@@ -642,11 +659,11 @@ int main(void)
 //    int count_test = 0;
     //DDRA = 0x04; // set pin 49 pa2 to an output pin.
     
-    SPI_MasterInit();
+    //SPI_MasterInit();
     _delay_ms(500);
     
-    SPI_MasterTransmit("spi test\r");
-
+    //SPI_MasterTransmit("spi test\r");
+    reset_BLE_High();
 
     USART_Init(BAUD_RATE_REGISTER); // initialize the baudrate of the uart
 
@@ -666,15 +683,46 @@ int main(void)
     /* insert your hardware initialization here */
     while(1){
         
-        if (global_sequence_gate == 0) {
-            _delay_ms(100); // i dont know why it needs this.
-            global_sequence_gate = 1;
-            global_open_start_gate = 1;
+        
+        if (global_send_data_state) {
+            
+            
+            
+            if ((sampleCount*atoi(sample_interval)/atoi(number_of_samples_per_interval))<
+                (timeIntervalCount*COUNT_TO_SECONDS_RATIO)) {
+                
+                
+                
+                
+                shunt_voltage=getBatteryVoltage();
+                battery_voltage=getCurrent();
+                shunt_voltage *= APS; // convert value to milivolts
+                shunt_voltage += BIAS; // convert value to milivolts
+                battery_voltage *= VPS; // convert value to volts
+                uart_print_string(text0); // print message.
+                uart_print_float(shunt_voltage);
+                uart_print_string(text1);
+                uart_print_float(battery_voltage);
+                uart_print_string(text2);
+                ++sampleCount;
+                global_send_data_to_BLE = 1; // tells control that data is ready to put into the BLE device.
+            }
+            
+
+
         }
-        else if ((global_sequence_gate == 2)&&(global_command_count_sequence < global_command_sequence_limit)) {
-            global_command_count_sequence++;
-            global_sequence_gate = 0;
-        }
+        
+        
+        
+//        if (global_sequence_gate == 0) {
+//            _delay_ms(100); // i dont know why it needs this.
+//            global_sequence_gate = 1;
+//            global_open_start_gate = 1;
+//        }
+//        else if ((global_sequence_gate == 2)&&(global_command_count_sequence < global_command_sequence_limit)) {
+//            global_command_count_sequence++;
+//            global_sequence_gate = 0;
+//        }
         
 //        int i;
 //        if (debug_test_print == true) {

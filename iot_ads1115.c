@@ -69,3 +69,17 @@ int16_t get_conversion_register(){
 void run_ads1115_test(){
     
 }
+
+int16_t getBatteryVoltage(){
+    uint8_t upper_bits = generate_upper_config_param(OS_HIGH, MUX_0, FSR_5, MODE_0); // enter config values
+    uint8_t lower_bits = generate_lower_config_param(SPS_4, COMP_MODE_0, COMP_POL_0, COMP_LAT_0, COMP_QUE_3);
+    set_config_register(upper_bits, lower_bits); // sets ADC to read the data from pins a0 and a1
+    return get_conversion_register(); // read and return values
+}
+
+int16_t getCurrent(){
+    uint8_t upper_bits = generate_upper_config_param(OS_HIGH, MUX_3, FSR_2, MODE_0); // enter config values
+    uint8_t lower_bits = generate_lower_config_param(SPS_4, COMP_MODE_0, COMP_POL_0, COMP_LAT_0, COMP_QUE_3);
+    set_config_register(upper_bits, lower_bits); // sets ADC to read the data from pins a2 and a3
+    return get_conversion_register(); // read and return values
+}

@@ -24,6 +24,11 @@ bool verify_sent_command(char * received, char *** command);
 void reset_update_status(char *** command);
 void set_update_status(char *** command);
 
+void reset_BLE_High();
+
+
+void reset_BLE_Low();
+
 int hex_to_int(char c);
 
 int hex_to_ascii(char c, char d);

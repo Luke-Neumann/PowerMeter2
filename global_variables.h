@@ -13,7 +13,9 @@
 #include "iot_ads1115.h"
 
 #define F_CPU 8000000    // AVR clock frequency in Hz, used by util/delay.h
-#define ACUTAL_CLK_F 8000000 //7300000.0 // This is used for getting the correct frequency for the timer formula.
+#define ACUTAL_CLK_F 7300000.0 // This is used for getting the correct frequency for the timer formula.
+#define COUNT_TO_SECONDS_RATIO 0.00897753
+
 #define BAUD_RATE 115200 // This can be any other baud rate.
 #define BAUD_RATE_REGISTER 3//(F_CPU/(16*BAUD_RATE))-1 // formula to set the baud rate register
 
@@ -32,6 +34,8 @@
 
 extern uint32_t overFlowCount;
 extern uint16_t overFlowCount1;
+extern uint32_t timeIntervalCount;
+extern uint32_t sampleCount;
 
 extern char debug_data[100];
 uint32_t debug_commandStates_counter;
@@ -46,12 +50,24 @@ extern char UUID_4[50];
 extern char UUID_5[50];
 extern char UUID_6[50];
 
+extern char UUID_8[50];
+extern char UUID_9[50];
+extern char UUID_10[50];
+
+
 extern char property_bitmap1[25];
 extern char property_bitmap2[25];
 extern char property_bitmap3[25];
 extern char property_bitmap4[25];
 extern char property_bitmap5[25];
 extern char property_bitmap6[25];
+
+extern char property_bitmap7[25];
+
+extern char property_bitmap9[25];
+extern char property_bitmap10[25];
+
+
 extern char data_size[25];
 
 extern char handle1[10];
@@ -63,6 +79,9 @@ extern char handle6[10];
 extern char handle7[10];
 
 
+extern char handle9[10];
+extern char handle10[10];
+
 
 extern char device_name[15];
 extern char device_address[50];
@@ -71,7 +90,11 @@ extern char server_address_type[5];
 extern char password[30];
 extern char sample_interval[20];
 extern char number_of_samples_per_interval[20];
-char update[10];
+extern char update[10];
+
+
+extern char battery_voltage[10];
+extern char current[10];
 
 //char device_name_temp[15];
 //char device_address_temp[50];
@@ -90,6 +113,11 @@ char password_hex[60];
 char sample_interval_hex[40];
 char number_of_samples_per_interval_hex[20];
 char update_hex[20];
+
+
+char battery_voltage_hex[10];
+char current_hex[10];
+
 
 
 extern const float VPS;
@@ -124,6 +152,9 @@ extern int global_reboot_sequence_flag;
 extern int global_write_default_values_sequence_flag;
 extern int global_advertise_sequence_flag;
 
+
+extern int global_send_data_state;
+extern int global_send_data_to_BLE;
 
 //extern bool global_command_count_status;
 extern char * commandPtr[15];
@@ -476,6 +507,141 @@ char * create_updated_char_set_ptr[5];
 // combine into a pointer of a pointer array
 char ** create_updated_char_dptr[10];
 /*...............................................................................*/
+
+
+
+// special command pointer tree for creating update service
+/*...............................................................................*/
+// commands
+char set_data_ser_cmd0[20];
+char set_data_ser_cmd1[20];
+char set_data_ser_cmd2[20];
+// expected return values
+char set_data_ser_exp0[20];
+char set_data_ser_exp1[20];
+// read and writable data
+char set_data_ser_spec0[20];
+// sets values from BLE
+char set_data_ser_set0[20];
+
+// combine into pointer array
+char * set_data_ser_cmd_ptr[5];
+char * set_data_ser_exp_ptr[5];
+char * set_data_ser_spec_ptr[5];
+char * set_data_ser_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** set_data_ser_dptr[10];
+
+
+// special command pointer tree for a battery voltage characteristic
+/*...............................................................................*/
+// commands
+char create_battery_voltage_char_cmd0[20];
+char create_battery_voltage_char_cmd1[20];
+char create_battery_voltage_char_cmd2[20];
+char create_battery_voltage_char_cmd3[20];
+char create_battery_voltage_char_cmd4[20];
+// expected return values
+char create_battery_voltage_char_exp0[20];
+char create_battery_voltage_char_exp1[20];
+// read and writable data
+char create_battery_voltage_char_spec0[20];
+// sets values from BLE
+char create_battery_voltage_char_set0[20];
+
+// combine into pointer array
+char * create_battery_voltage_char_cmd_ptr[5];
+char * create_battery_voltage_char_exp_ptr[5];
+char * create_battery_voltage_char_spec_ptr[5];
+char * create_battery_voltage_char_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** create_battery_voltage_char_dptr[10];
+
+
+
+
+
+// special command pointer tree for a current characteristic
+/*...............................................................................*/
+// commands
+char create_current_char_cmd0[20];
+char create_current_char_cmd1[20];
+char create_current_char_cmd2[20];
+char create_current_char_cmd3[20];
+char create_current_char_cmd4[20];
+// expected return values
+char create_current_char_exp0[20];
+char create_current_char_exp1[20];
+// read and writable data
+char create_current_char_spec0[20];
+// sets values from BLE
+char create_current_char_set0[20];
+
+// combine into pointer array
+char * create_current_char_cmd_ptr[5];
+char * create_current_char_exp_ptr[5];
+char * create_current_char_spec_ptr[5];
+char * create_current_char_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** create_current_char_dptr[10];
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+char write_battery_voltage_cmd0[20];
+char write_battery_voltage_cmd1[20];
+char write_battery_voltage_cmd2[20];
+char write_battery_voltage_cmd3[20];
+// expected return values
+char write_battery_voltage_exp0[20];
+char write_battery_voltage_exp1[20];
+// read and writable data
+char write_battery_voltage_spec0[20];
+// when this is high it means to set values from BLE module into the microcontroller
+char write_battery_voltage_set0[20];
+
+// combine into pointer array
+char * write_battery_voltage_cmd_ptr[5];
+char * write_battery_voltage_exp_ptr[5];
+char * write_battery_voltage_spec_ptr[5];
+char * write_battery_voltage_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** write_battery_voltage_dptr[10];
+
+// special command pointer tree for writing default server address value into BLE module
+/*...............................................................................*/
+// commands
+char write_current_cmd0[20];
+char write_current_cmd1[20];
+char write_current_cmd2[20];
+char write_current_cmd3[20];
+// expected return values
+char write_current_exp0[20];
+char write_current_exp1[20];
+// read and writable data
+char write_current_spec0[20];
+// when this is high it means to set values from BLE module into the microcontroller
+char write_current_set0[20];
+
+// combine into pointer array
+char * write_current_cmd_ptr[5];
+char * write_current_exp_ptr[5];
+char * write_current_spec_ptr[5];
+char * write_current_set_ptr[5];
+
+// combine into a pointer of a pointer array
+char ** write_current_dptr[10];
+
+
+
+
+
+
+
 
 
 
@@ -953,6 +1119,12 @@ char connect_sequence_size[10];
 char * connect_sequence_size_ptr[10];
 char ** connect_sequence_size_dptr[10];
 char *** connect_sequence[20];
+
+
+char write_data_sequence_size[10];
+char * write_data_sequence_size_ptr[10];
+char ** write_data_sequence_size_dptr[10];
+char *** write_data_sequence[20];
 
 extern char **** master_command[15];
 

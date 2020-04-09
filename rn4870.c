@@ -105,6 +105,12 @@ bool verify_sent_command(char * received, char *** command){
     char expected[200] = "";
     int sum = 0;
     
+    // if the expected value size is 0 then we dont care about what is returned.
+    if (atoi(command[1][0]) == 0) {
+        return true;
+    }
+    
+    
     // assemble messeage
     int i;
     for (i = 1; i < atoi(command[1][0])+1; i++){
@@ -321,7 +327,16 @@ void reset_update_status(char *** command){
     memcpy(command[3][3], "0", strlen("0")); // copy the converted value to Hex address
 }
 
+void reset_BLE_High(){
+    DDRA = (1 << 6);           /* make the LED pin an output */
+    PORTA = (1 << 6);
+}
 
+
+void reset_BLE_Low(){
+    DDRA = (1 << 6);           /* make the LED pin an output */
+    PORTA = (0 << 6);
+}
 
 //void get_BLE_info(){
 //    char cmd[5] = "D\r";

@@ -202,6 +202,7 @@ void commandControl_tick(){
         case check_limit1:
             if (count1>limit1){
                 count1 = 0;
+                reset_BLE_Low();
                 commandState = reset_module;
             }
             else{
@@ -302,6 +303,7 @@ void commandControl_tick(){
         case check_limit3:
             if (count3>limit3) {
                 count3 = 0;
+                reset_BLE_Low();
                 commandState = reset_module;
             }
             else{
@@ -332,7 +334,7 @@ void commandControl_tick(){
         case reset_module:
             // print error message
             global_open_start_gate = 2;
-            uart_print_string("error reset called\r");
+            reset_BLE_High();
             commandState = init_st;
             break;
         default:
