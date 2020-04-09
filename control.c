@@ -35,7 +35,7 @@ static uint32_t count1, count2, count3, count4, limit1, limit2, limit3, limit4 =
 
 
 // Standard tick function.
-void MainCommandControl_tick(char * received, char * commands){
+void MainCommandControl_tick(){
     //debugStatePrint(); // this prints the current state to make it easier to debug the SM.
     switch(MainCommandState) { // transitions
         case main_init_st: // This state will immediately set the current
@@ -157,6 +157,15 @@ void MainCommandControl_tick(char * received, char * commands){
                     global_send_data_state = 1;
                     global_command_count_sequence = 9;
                     global_send_data_to_BLE = 0;
+//                    shunt_voltage *= APS; // convert value to milivolts
+//                    shunt_voltage += BIAS; // convert value to milivolts
+                    //battery_voltage *= VPS; // convert value to volts
+                    uart_print_string("Shunt: "); // print message.
+                    uart_print_string(current);
+                    uart_print_string(" A, Battery: ");
+                    uart_print_string(battery_voltage);
+                    uart_print_string(" V\r");
+                    
                 }
                 MainCommandState = send_data_st;
             }
