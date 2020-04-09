@@ -58,8 +58,8 @@ char handle6[10] = "0081";
 char handle7[10] = "0084";
 
 
-char handle9[10] = "";
-char handle10[10] = "";
+char handle9[10] = "0092";
+char handle10[10] = "0095";
 
 char data_size[25] = "F0"; //The third parameter is an 8-bit value that indicates the maximum data size in octet
                          //where the value of the characteristic is held.
