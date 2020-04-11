@@ -667,14 +667,14 @@ int main(void)
     _delay_ms(500);
     
     //SPI_MasterTransmit("spi test\r");
-    reset_BLE_High();
+    
 
     USART_Init(BAUD_RATE_REGISTER); // initialize the baudrate of the uart
 
     //enable_interrupt_PCINT0();  // enable the uart interrupts
     
     _delay_ms(500);
-    
+    reset_BLE_High();
     verifyCmdModeControl_init();
     verifyCmdModeExitControl_init();
     commandControl_init();
