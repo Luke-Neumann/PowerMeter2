@@ -33,72 +33,72 @@ enum MainCommandStates {main_init_st, // This is the initial state of the state 
 uint32_t count4_Main= 0;
 static uint32_t limit4_Main = 4;
 
-bool firstPass = true;
-
-void debugStatePrint() {
-
-
-    // Only print the message if:
-    // 1. This the first pass and the value for previousState is unknown.
-    // 2. previousState != currentState - this prevents reprinting the same state name over and over.
-    if (previousState != MainCommandState || firstPass) {
-        firstPass = false;                // previousState will be defined, firstPass is false.
-        previousState = MainCommandState;     // keep track of the last state that you were in.
-        //printf("secondsCounter:%d\n\r", (int)secondsCounter);
-        switch(MainCommandState) {            // This prints messages based upon the state that you were in.
-            case main_init_st: // prints the init state
-                uart_print_string("main_init_st\r\n");
-
-                break;
-            case configure_ble_module_st: // prints the never touched state
-                uart_print_string("configure_ble_module_st\r\n");
-                break;
-            case reboot_st: // prints the wait for touch state
-                uart_print_string("reboot_st\r\n");
-                break;
-            case set_default_values_state: // prints the adc counter running state
-                uart_print_string("set_default_values_state\r\n");
-                break;
-            case begin_advertising_st: // prints the auto counter running state state
-                uart_print_string("begin_advertising_st\r\n");
-                break;
-            case check_if_connected_st: // prints the rate counter running state
-                uart_print_string("check_if_connected_st\r\n");
-                break;
-            case stop_advertising_st: // prints the rate counter expired state
-                uart_print_string("stop_advertising_st\r\n");
-                break;
-            case wait_for_user_update_st: // prints the add second to clock state
-                uart_print_string("wait_for_user_update_st\r\n");
-                break;
-            case write_updated_values_st: // prints the add second to clock state
-                uart_print_string("write_updated_values_st\r\n");
-                break;
-            case disconnect_st: // prints the add second to clock state
-                uart_print_string("disconnect_st\r\n");
-               break;
-            case connect_st: // prints the add second to clock state
-                uart_print_string("connect_st\r\n");
-                break;
-            case send_data_st: // prints the add second to clock state
-                uart_print_string("send_data_st\r\n");
-                break;
-            case wait_for_configuration_update_st:
-
-                uart_print_string("wait_for_configuration_update_st\r\n");
-                break;
-            case main_reset_st: // prints the add second to clock state
-
-                uart_print_string("main_reset_st\r\n");
-                break;
-
-        }
-
-
-        //debug_commandStates_counter++;
-  }
-}
-
+//bool firstPass = true;
+//
+//void debugStatePrint() {
+//
+//
+//    // Only print the message if:
+//    // 1. This the first pass and the value for previousState is unknown.
+//    // 2. previousState != currentState - this prevents reprinting the same state name over and over.
+//    if (previousState != MainCommandState || firstPass) {
+//        firstPass = false;                // previousState will be defined, firstPass is false.
+//        previousState = MainCommandState;     // keep track of the last state that you were in.
+//        //printf("secondsCounter:%d\n\r", (int)secondsCounter);
+//        switch(MainCommandState) {            // This prints messages based upon the state that you were in.
+//            case main_init_st: // prints the init state
+//                uart_print_string("main_init_st\r\n");
+//
+//                break;
+//            case configure_ble_module_st: // prints the never touched state
+//                uart_print_string("configure_ble_module_st\r\n");
+//                break;
+//            case reboot_st: // prints the wait for touch state
+//                uart_print_string("reboot_st\r\n");
+//                break;
+//            case set_default_values_state: // prints the adc counter running state
+//                uart_print_string("set_default_values_state\r\n");
+//                break;
+//            case begin_advertising_st: // prints the auto counter running state state
+//                uart_print_string("begin_advertising_st\r\n");
+//                break;
+//            case check_if_connected_st: // prints the rate counter running state
+//                uart_print_string("check_if_connected_st\r\n");
+//                break;
+//            case stop_advertising_st: // prints the rate counter expired state
+//                uart_print_string("stop_advertising_st\r\n");
+//                break;
+//            case wait_for_user_update_st: // prints the add second to clock state
+//                uart_print_string("wait_for_user_update_st\r\n");
+//                break;
+//            case write_updated_values_st: // prints the add second to clock state
+//                uart_print_string("write_updated_values_st\r\n");
+//                break;
+//            case disconnect_st: // prints the add second to clock state
+//                uart_print_string("disconnect_st\r\n");
+//               break;
+//            case connect_st: // prints the add second to clock state
+//                uart_print_string("connect_st\r\n");
+//                break;
+//            case send_data_st: // prints the add second to clock state
+//                uart_print_string("send_data_st\r\n");
+//                break;
+//            case wait_for_configuration_update_st:
+//
+//                uart_print_string("wait_for_configuration_update_st\r\n");
+//                break;
+//            case main_reset_st: // prints the add second to clock state
+//
+//                uart_print_string("main_reset_st\r\n");
+//                break;
+//
+//        }
+//
+//
+//        //debug_commandStates_counter++;
+//  }
+//}
+//
 
 
 
