@@ -30,7 +30,8 @@ enum MainCommandStates {main_init_st, // This is the initial state of the state 
 } MainCommandState, previousState;
 
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
-static uint32_t count1, count2, count3, count4, limit1, limit2, limit3, limit4 = 0;
+uint32_t count4_Main= 0;
+static uint32_t limit4_Main = 4;
 
 bool firstPass = true;
 
@@ -238,7 +239,6 @@ void MainCommandControl_tick(){
             }
             break;
         case wait_for_configuration_update_st:
-            break;
             if (quickly_check_if_connected_to_device()&&(!compare_ble_value(master_command[5][1]))) {
                 MainCommandState = send_data_st;
             }
@@ -247,9 +247,11 @@ void MainCommandControl_tick(){
                 global_command_count_sequence = 8;
                 MainCommandState = connect_st;
             }
+            break;
         case main_reset_st:
             
-            if (count4 > limit4) {
+            if (count4_Main > limit4_Main) {
+                count4_Main = 0;
                 reset_BLE_Low();
                 MainCommandState = main_init_st;
             }
@@ -293,6 +295,7 @@ void MainCommandControl_tick(){
         case wait_for_configuration_update_st:
             break;
         case main_reset_st:
+            count4_Main++;
             break;
         default:
             // this default should never be reached.

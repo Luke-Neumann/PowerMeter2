@@ -8,6 +8,16 @@
 
 #include "global_variables.h"
 
+char hamp0[4] = "0\r\n";
+char hamp1[4] = "1\r\n";
+char hamp2[4] = "2\r\n";
+char hamp3[4] = "3\r\n";
+char hamp4[4] = "4\r\n";
+char hamp5[4] = "5\r\n";
+char hamp6[4] = "6\r\n";
+char hamp7[4] = "7\r\n";
+char hamp8[4] = "8\r\n";
+char hamp9[4] = "9\r\n";
 
 uint32_t overFlowCount = 0;
 uint16_t overFlowCount1 = 0;
@@ -20,64 +30,64 @@ bool debug_test_print = false;
 uint32_t debug_commandStates_counter = 0;
 
 
-char received[200] = "";
-char UUID[50] = "2D8E217F7D1B4C5A8A970D122F6DCD8B"; // random service identifier no dashes
-char UUID_1[50] = "ED220715B3BD49558B0D8D6A794D876A"; // random service identifier for server BLE address
-char UUID_2[50] = "6BB6DDA52DD24512B666BD5416882F68"; // random service identifier for server BLE type
-char UUID_3[50] = "CE90B8CE148D4BF8A2BB0DB2BF2A7EA9"; // random service identifier for device name
-char UUID_4[50] = "D64B24D5DD29443CAAADA1BB390B7BA6"; // random service identifier for password
-char UUID_5[50] = "D64B24D5DD29443CAAADA1BB390B7BA7"; // random service identifier for sample interval
-char UUID_6[50] = "D64B24D5DD29443CAAADA1BB390B7BA8"; // random service identifier for number of samples per interval
-char UUID_7[50] = "D64B24D5DD29443CAAADA1BB390B7BA9"; // random service identifier for updated_status
+char received[100] = "";
+char UUID[33] = "2D8E217F7D1B4C5A8A970D122F6DCD8B"; // random service identifier no dashes
+char UUID_1[33] = "ED220715B3BD49558B0D8D6A794D876A"; // random service identifier for server BLE address
+char UUID_2[33] = "6BB6DDA52DD24512B666BD5416882F68"; // random service identifier for server BLE type
+char UUID_3[33] = "CE90B8CE148D4BF8A2BB0DB2BF2A7EA9"; // random service identifier for device name
+char UUID_4[33] = "D64B24D5DD29443CAAADA1BB390B7BA6"; // random service identifier for password
+char UUID_5[33] = "D64B24D5DD29443CAAADA1BB390B7BA7"; // random service identifier for sample interval
+char UUID_6[33] = "D64B24D5DD29443CAAADA1BB390B7BA8"; // random service identifier for number of samples per interval
+char UUID_7[33] = "D64B24D5DD29443CAAADA1BB390B7BA9"; // random service identifier for updated_status
 
-char UUID_8[50] = "8b9b4c051b874f23be0ffe6162881a35"; // Data Service identifier
-char UUID_9[50] = "7bf3638be4ac498d97daf8802ea3c201"; // Battery voltage identifier
-char UUID_10[50] = "8ead23b48f014137aabc7dc3f826543e"; // Battery voltage identifier
-
-
+char UUID_8[33] = "8b9b4c051b874f23be0ffe6162881a35"; // Data Service identifier
+char UUID_9[33] = "7bf3638be4ac498d97daf8802ea3c201"; // Battery voltage identifier
+char UUID_10[33] = "8ead23b48f014137aabc7dc3f826543e"; // Battery voltage identifier
 
 
-char property_bitmap1[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
-char property_bitmap2[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
-char property_bitmap3[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
-char property_bitmap4[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
-char property_bitmap5[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
-char property_bitmap6[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
-char property_bitmap7[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
-
-char property_bitmap9[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
-char property_bitmap10[25] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
 
 
-char handle1[10] = "0072";
-char handle2[10] = "0075";
-char handle3[10] = "0078";
-char handle4[10] = "007B";
-char handle5[10] = "007E";
-char handle6[10] = "0081";
-char handle7[10] = "0084";
+char property_bitmap1[3] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+char property_bitmap2[3] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+char property_bitmap3[3] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+char property_bitmap4[3] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+char property_bitmap5[3] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+char property_bitmap6[3] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+char property_bitmap7[3] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+
+char property_bitmap9[3] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
+char property_bitmap10[3] = "1E"; //The second parameter is a 8-bit property bitmap of the characteristic
 
 
-char handle9[10] = "0092";
-char handle10[10] = "0095";
+char handle1[5] = "0072";
+char handle2[5] = "0075";
+char handle3[5] = "0078";
+char handle4[5] = "007B";
+char handle5[5] = "007E";
+char handle6[5] = "0081";
+char handle7[5] = "0084";
 
-char data_size[25] = "F0"; //The third parameter is an 8-bit value that indicates the maximum data size in octet
+
+char handle9[5] = "0092";
+char handle10[5] = "0095";
+
+char data_size[3] = "F0"; //The third parameter is an 8-bit value that indicates the maximum data size in octet
                          //where the value of the characteristic is held.
 
 
 //char server_address_type[5] = "0"; // not phone
 //char server_address[20] = "801F12B4BDCE";
 char device_name[15] = "Alpha 5";
-char device_address[50] = "801F12B4BDBF";
-char server_address[50] = "75B9550FC5CE"; // my phone
-char server_address_type[5] = "1"; // phone
-char password[30] = "0000";
-char sample_interval[20] = "60"; // default to 60 seconds
-char number_of_samples_per_interval[20] = "12"; // default to 12 samples
-char update[10] = "0"; // this is initially zero meaning no update has been made yet.
+char device_address[13] = "801F12B4BDBF";
+char server_address[13] = "75B9550FC5CE"; // my phone
+char server_address_type[1] = "1"; // phone
+char password[15] = "0000";
+char sample_interval[15] = "60"; // default to 60 seconds
+char number_of_samples_per_interval[15] = "12"; // default to 12 samples
+char update[1] = "0"; // this is initially zero meaning no update has been made yet.
 
-char battery_voltage[10] = "0000";
-char current[10] = "0000";
+char battery_voltage[16] = "0000";
+char current[16] = "0000";
 
 //char device_name_temp[15] = "Alpha 5";
 //char device_address_temp[50] = "801F12B4BDBF";
@@ -89,16 +99,17 @@ char current[10] = "0000";
 //char update_temp[10] = "0"; // this is initially zero meaning no update has been made yet.
 
 
-char device_name_hex[40] = "";
-char server_address_hex[60] = ""; // my phone
-char server_address_type_hex[5] = ""; // phone
-char password_hex[60 ] = "";
-char sample_interval_hex[40] = ""; // default to 60 seconds
-char number_of_samples_per_interval_hex[20] = ""; // default to 12 samples
-char update_hex[20] = ""; // this is initially zero meaning no update has been made yet.
+char device_name_hex[30] = "";
+char device_address_hex[26] ="";
+char server_address_hex[26] = ""; // my phone
+char server_address_type_hex[2] = ""; // phone
+char password_hex[30] = "";
+char sample_interval_hex[30] = ""; // default to 60 seconds
+char number_of_samples_per_interval_hex[30] = ""; // default to 12 samples
+char update_hex[2] = ""; // this is initially zero meaning no update has been made yet.
 
-char battery_voltage_hex[10] = "";
-char current_hex[10] = "";
+char battery_voltage_hex[32] = "";
+char current_hex[32] = "";
 
 
 const float VPS = PROG_GAIN_AMP_CONFIG_3/ (32768.0*VOLTAGE_DIVIDER); // volts per step. Use this conversion in place of Amps per step.
@@ -139,7 +150,7 @@ int global_send_data_to_BLE = 0;
 
 //bool global_command_count_status = true;
 
-char * commandPtr[15] = {
+char * commandPtr[8] = {
     device_name,
     device_address,
     server_address,
@@ -152,23 +163,23 @@ char * commandPtr[15] = {
 // special command pointer tree
 /*...............................................................................*/
 // commands
-char start_AD_cmd0[20] = "1"; // indicates size of this command branch
-char start_AD_cmd1[20] = "A,0014\r";
+char start_AD_cmd0[2] = "1"; // indicates size of this command branch
+char start_AD_cmd1[10] = "A,0014\r";
 // expected return values
-char start_AD_exp0[20] = "1"; // indicates size of this expected values branch
-char start_AD_exp1[20] = "AOK\r\nCMD> ";
+char start_AD_exp0[2] = "1"; // indicates size of this expected values branch
+char start_AD_exp1[12] = "AOK\r\nCMD> ";
 // read and writable data
-char start_AD_spec0[20] = "0"; // indicates size of this data branch
+char start_AD_spec0[2] = "0"; // indicates size of this data branch
 // sets values from BLE
-char start_AD_set0[20] = "0";
+char start_AD_set0[2] = "0";
 
 // combine into pointer array
-char * start_AD_cmd_ptr[5] = {start_AD_cmd0,start_AD_cmd1};
-char * start_AD_exp_ptr[5] = {start_AD_exp0,start_AD_exp1};
-char * start_AD_spec_ptr[5] = {start_AD_spec0};
-char * start_AD_set_ptr[5] = {start_AD_set0};
+char * start_AD_cmd_ptr[2] = {start_AD_cmd0,start_AD_cmd1};
+char * start_AD_exp_ptr[2] = {start_AD_exp0,start_AD_exp1};
+char * start_AD_spec_ptr[1] = {start_AD_spec0};
+char * start_AD_set_ptr[1] = {start_AD_set0};
 // combine into a pointer of a pointer array
-char ** start_AD_dptr[10] = {
+char ** start_AD_dptr[4] = {
     start_AD_cmd_ptr,
     start_AD_exp_ptr,
     start_AD_spec_ptr,
@@ -180,22 +191,22 @@ char ** start_AD_dptr[10] = {
 // special command pointer tree for setting device name
 /*...............................................................................*/
 // commands
-char set_name_cmd0[20] = "2"; // indicates size of this command branch
-char set_name_cmd1[20] = "SN,";
-char set_name_cmd2[20] = "\r";
+char set_name_cmd0[1] = "2"; // indicates size of this command branch
+char set_name_cmd1[4] = "SN,";
+char set_name_cmd2[2] = "\r";
 // expected return values
-char set_name_exp0[20] = "1"; // indicates size of this expected values branch
-char set_name_exp1[20] = "AOK\r\nCMD> ";
+char set_name_exp0[1] = "1"; // indicates size of this expected values branch
+char set_name_exp1[11] = "AOK\r\nCMD> ";
 // read and writable data
-char set_name_spec0[20] = "1"; // indicates size of this data branch
+char set_name_spec0[1] = "1"; // indicates size of this data branch
 // sets values from BLE
-char set_name_set0[20] = "0";
+char set_name_set0[1] = "0";
 
 // combine into pointer array
-char * set_name_cmd_ptr[5] = {set_name_cmd0,set_name_cmd1, set_name_cmd2};
-char * set_name_exp_ptr[5] = {set_name_exp0,set_name_exp1};
-char * set_name_spec_ptr[5] = {set_name_spec0, device_name};
-char * set_name_set_ptr[5] = {set_name_set0};
+char * set_name_cmd_ptr[3] = {set_name_cmd0,set_name_cmd1, set_name_cmd2};
+char * set_name_exp_ptr[2] = {set_name_exp0,set_name_exp1};
+char * set_name_spec_ptr[2] = {set_name_spec0, device_name};
+char * set_name_set_ptr[1] = {set_name_set0};
 
 // combine into a pointer of a pointer array
 char ** set_name_dptr[10] = {

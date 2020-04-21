@@ -32,6 +32,17 @@
 #define SHUNT_AMP_LIMIT 200 // This is the shunts rated amperage.
 #define BIAS 0.0 //0.16677 // Can be used to correct biased data.
 
+char hamp0[4];
+char hamp1[4];
+char hamp2[4];
+char hamp3[4];
+char hamp4[4];
+char hamp5[4];
+char hamp6[4];
+char hamp7[4];
+char hamp8[4];
+char hamp9[4];
+
 extern uint32_t overFlowCount;
 extern uint16_t overFlowCount1;
 extern uint32_t timeIntervalCount;
@@ -41,60 +52,60 @@ extern char debug_data[100];
 uint32_t debug_commandStates_counter;
 bool debug_test_print;
 
-extern char received[200];
-extern char UUID[50];
-extern char UUID_1[50];
-extern char UUID_2[50];
-extern char UUID_3[50];
-extern char UUID_4[50];
-extern char UUID_5[50];
-extern char UUID_6[50];
+extern char received[100];
+extern char UUID[33];
+extern char UUID_1[33];
+extern char UUID_2[33];
+extern char UUID_3[33];
+extern char UUID_4[33];
+extern char UUID_5[33];
+extern char UUID_6[33];
 
-extern char UUID_8[50];
-extern char UUID_9[50];
-extern char UUID_10[50];
-
-
-extern char property_bitmap1[25];
-extern char property_bitmap2[25];
-extern char property_bitmap3[25];
-extern char property_bitmap4[25];
-extern char property_bitmap5[25];
-extern char property_bitmap6[25];
-
-extern char property_bitmap7[25];
-
-extern char property_bitmap9[25];
-extern char property_bitmap10[25];
+extern char UUID_8[33];
+extern char UUID_9[33];
+extern char UUID_10[33];
 
 
-extern char data_size[25];
+extern char property_bitmap1[3];
+extern char property_bitmap2[3];
+extern char property_bitmap3[3];
+extern char property_bitmap4[3];
+extern char property_bitmap5[3];
+extern char property_bitmap6[3];
 
-extern char handle1[10];
-extern char handle2[10];
-extern char handle3[10];
-extern char handle4[10];
-extern char handle5[10];
-extern char handle6[10];
-extern char handle7[10];
+extern char property_bitmap7[3];
+
+extern char property_bitmap9[3];
+extern char property_bitmap10[3];
 
 
-extern char handle9[10];
-extern char handle10[10];
+extern char data_size[3];
+
+extern char handle1[5];
+extern char handle2[5];
+extern char handle3[5];
+extern char handle4[5];
+extern char handle5[5];
+extern char handle6[5];
+extern char handle7[5];
+
+
+extern char handle9[5];
+extern char handle10[5];
 
 
 extern char device_name[15];
-extern char device_address[50];
-extern char server_address[50];
-extern char server_address_type[5];
-extern char password[30];
-extern char sample_interval[20];
-extern char number_of_samples_per_interval[20];
-extern char update[10];
+extern char device_address[13];
+extern char server_address[13];
+extern char server_address_type[1];
+extern char password[15];
+extern char sample_interval[15];
+extern char number_of_samples_per_interval[15];
+extern char update[1];
 
 
-extern char battery_voltage[10];
-extern char current[10];
+extern char battery_voltage[16];
+extern char current[16];
 
 //char device_name_temp[15];
 //char device_address_temp[50];
@@ -105,18 +116,18 @@ extern char current[10];
 //char number_of_samples_per_interval_temp[20]; // default to 12 samples
 //char update_temp[10]; // this is initially zero meaning no update has been made yet.
 
-char device_name_hex[40];
-char device_address_hex[60];
-char server_address_hex[60];
-char server_address_type_hex[5];
-char password_hex[60];
-char sample_interval_hex[40];
-char number_of_samples_per_interval_hex[20];
-char update_hex[20];
+char device_name_hex[30];
+char device_address_hex[26];
+char server_address_hex[26];
+char server_address_type_hex[2];
+char password_hex[30];
+char sample_interval_hex[30];
+char number_of_samples_per_interval_hex[30];
+char update_hex[2];
 
 
-char battery_voltage_hex[10];
-char current_hex[10];
+char battery_voltage_hex[32];
+char current_hex[32];
 
 
 
@@ -157,44 +168,48 @@ extern int global_send_data_state;
 extern int global_send_data_to_BLE;
 
 //extern bool global_command_count_status;
-extern char * commandPtr[15];
+extern char * commandPtr[8];
 
 
 // special command cluster
 /*................................*/
-extern char start_AD_cmd0[20];
-extern char start_AD_cmd1[20];
+extern char start_AD_cmd0[2];
+extern char start_AD_cmd1[10];
 
-extern char start_AD_exp0[20];
-extern char start_AD_exp1[20];
+extern char start_AD_exp0[2];
+extern char start_AD_exp1[12];
 
-extern char start_AD_spec0[20];
+extern char start_AD_spec0[2];
+extern char start_AD_set0[2];
 
-extern char * start_AD_cmd_ptr[5];
-extern char * start_AD_exp_ptr[5];
-extern char * start_AD_spec_ptr[5];
+extern char * start_AD_cmd_ptr[2];
+extern char * start_AD_exp_ptr[2];
+extern char * start_AD_spec_ptr[1];
+extern char * start_AD_set_ptr[1];
 
-extern char ** start_AD_dptr[10];
+extern char ** start_AD_dptr[4];
 /*................................*/
 
 
 // special command pointer tree for setting device name
 /*...............................................................................*/
 // commands
-extern char set_name_cmd0[20];
-extern char set_name_cmd1[20];
-extern char set_name_cmd2[20];
+extern char set_name_cmd0[1];
+extern char set_name_cmd1[4];
+extern char set_name_cmd2[2];
 // expected return values
-extern char set_name_exp0[20];
-extern char set_name_exp1[20];
+extern char set_name_exp0[1];
+extern char set_name_exp1[11];
 // read and writable data
-extern char set_name_spec0[20];
-
+extern char set_name_spec0[1];
+// sets values from BLE
+extern char set_name_set0[1];
 
 // combine into pointer array
-extern char * set_name_cmd_ptr[5];
-extern char * set_name_exp_ptr[5];
-extern char * set_name_spec_ptr[5];
+extern char * set_name_cmd_ptr[3];
+extern char * set_name_exp_ptr[2];
+extern char * set_name_spec_ptr[2];
+extern char * set_name_set_ptr[1];
 
 // combine into a pointer of a pointer array
 extern char ** set_name_dptr[10];
