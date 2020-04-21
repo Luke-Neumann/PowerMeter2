@@ -804,7 +804,8 @@ char write_number_of_samples_per_interval_set0[2];
 // combine into pointer array
 char * write_number_of_samples_per_interval_cmd_ptr[4];
 char * write_number_of_samples_per_interval_exp_ptr[2];
-char * write_number_of_samples_per_interval_spec_ptr[1];
+char * write_number_of_samples_per_interval_spec_ptr[4];
+char * write_number_of_samples_per_interval_set_ptr[1];
 
 // combine into a pointer of a pointer array
 char ** write_number_of_samples_per_interval_dptr[4];

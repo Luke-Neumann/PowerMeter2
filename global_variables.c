@@ -480,7 +480,7 @@ char create_password_char_set0[2] = "0";
 // combine into pointer array
 char * create_password_char_cmd_ptr[5] = {create_password_char_cmd0,create_password_char_cmd1, create_password_char_cmd2,create_password_char_cmd3,create_password_char_cmd4};
 char * create_password_char_exp_ptr[2] = {create_password_char_exp0,create_password_char_exp1};
-char * create_password_char_spec_ptr[2] = {create_password_char_spec0, UUID_4, property_bitmap4, data_size};
+char * create_password_char_spec_ptr[4] = {create_password_char_spec0, UUID_4, property_bitmap4, data_size};
 char * create_password_char_set_ptr[1] = {create_password_char_set0};
 
 // combine into a pointer of a pointer array
