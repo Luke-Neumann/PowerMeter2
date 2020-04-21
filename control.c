@@ -104,7 +104,7 @@ void debugStatePrint() {
 
 // Standard tick function.
 void MainCommandControl_tick(){
-    debugStatePrint(); // this prints the current state to make it easier to debug the SM.
+    //debugStatePrint(); // this prints the current state to make it easier to debug the SM.
     switch(MainCommandState) { // transitions
         case main_init_st: // This state will immediately set the current
 //            global_sequence_gate = 1;

@@ -1248,7 +1248,7 @@ char disconnect_set0[2] = "0";
 
 // combine into pointer array
 char * disconnect_cmd_ptr[2] = {disconnect_cmd0,disconnect_cmd1};
-char * disconnect_exp_ptr[2] = {disconnect_exp0,disconnect_exp1};
+char * disconnect_exp_ptr[2] = {disconnect_exp0};
 char * disconnect_spec_ptr[1] = {disconnect_spec0};
 char * disconnect_set_ptr[1] = {disconnect_set0};
 // combine into a pointer of a pointer array
@@ -1282,7 +1282,7 @@ char connect_set0[2] = "0";
 
 // combine into pointer array
 char * connect_cmd_ptr[2] = {connect_cmd0,connect_cmd1};
-char * connect_exp_ptr[2] = {connect_exp0,connect_exp1};
+char * connect_exp_ptr[2] = {connect_exp0};
 char * connect_spec_ptr[3] = {connect_spec0,server_address_type,server_address};
 char * connect_set_ptr[1] = {connect_set0};
 // combine into a pointer of a pointer array
@@ -1318,7 +1318,7 @@ char *** initialize_sequence[15] = {
 
 
 
-char reboot_sequence_size[1] = "1"; // stores how many commands are in init sequence
+char reboot_sequence_size[2] = "1"; // stores how many commands are in init sequence
 char * reboot_sequence_size_ptr[1] = {reboot_sequence_size};
 char ** reboot_sequence_size_dptr[1] = {reboot_sequence_size_ptr};
 char *** reboot_sequence[2] = {
