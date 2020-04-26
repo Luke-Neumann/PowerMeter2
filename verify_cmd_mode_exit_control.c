@@ -32,8 +32,8 @@ enum verifyExitCmdModeStates {enter_exit_init_st, // This is the initial state o
 // here we assign the counter variables and set them to zero. it has been given a rather generous 32 bits.
 static uint32_t exit_outer_count, exit_inner_count, exit_buffer_count= INITIALIZE_TO_ZERO;
 static uint32_t exit_outer_limit = 10;
-static uint32_t exit_inner_limit = 100;
-static uint32_t exit_buffer_delay = 50;
+static uint32_t exit_inner_limit = 10;
+static uint32_t exit_buffer_delay = 5;
 
 //// This is a debug state print routine. It will print the names of the states each
 //// time tick() is called. It only prints states if they are different than the
@@ -105,7 +105,7 @@ void verifyCmdModeExitControl_tick(){
             verifyExitCmdModeState = verify_exit_cmd_mode_st;
             break;
         case verify_exit_cmd_mode_st:
-            if (verify_command_mode(received)) {
+            if (strlen(received)) {
                 verifyExitCmdModeState = inner_exit_delay_st;
             }
             else{
@@ -118,6 +118,7 @@ void verifyCmdModeExitControl_tick(){
                 verifyExitCmdModeState = verify_exit_cmd_mode_st;
             }
             else{
+                uart_print_string("---\r");
                 verifyExitCmdModeState = outer_exit_delay_st;
             }
             break;

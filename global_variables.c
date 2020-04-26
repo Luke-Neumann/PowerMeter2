@@ -19,6 +19,8 @@ char hamp7[4] = "7\r\n";
 char hamp8[4] = "8\r\n";
 char hamp9[4] = "9\r\n";
 
+int shr_count = 0;
+
 uint32_t overFlowCount = 0;
 uint16_t overFlowCount1 = 0;
 uint32_t timeIntervalCount = 0;
@@ -77,17 +79,17 @@ char data_size[3] = "F0"; //The third parameter is an 8-bit value that indicates
 
 //char server_address_type[5] = "0"; // not phone
 //char server_address[20] = "801F12B4BDCE";
-char device_name[15] = "Alpha 5";
-char device_address[13] = "801F12B4BDBF";
-char server_address[13] = "75B9550FC5CE"; // my phone
-char server_address_type[1] = "1"; // phone
-char password[15] = "0000";
-char sample_interval[15] = "60"; // default to 60 seconds
-char number_of_samples_per_interval[15] = "12"; // default to 12 samples
-char update[1] = "0"; // this is initially zero meaning no update has been made yet.
+char device_name[40] = "Alpha 5";
+char device_address[40] = "801F12B4BDCE";
+char server_address[40] = "801F12B4BDCE"; // my phone
+char server_address_type[5] = "1"; // phone
+char password[40] = "0000";
+char sample_interval[40] = "60"; // default to 60 seconds
+char number_of_samples_per_interval[40] = "12"; // default to 12 samples
+char update[5] = "0"; // this is initially zero meaning no update has been made yet.
 
-char battery_voltage[17] = "0000";
-char current[17] = "0000";
+char battery_voltage[40] = "0000";
+char current[40] = "0000";
 
 //char device_name_temp[15] = "Alpha 5";
 //char device_address_temp[50] = "801F12B4BDBF";
@@ -102,11 +104,11 @@ char current[17] = "0000";
 char device_name_hex[30] = "";
 char device_address_hex[26] ="";
 char server_address_hex[26] = ""; // my phone
-char server_address_type_hex[2] = ""; // phone
+char server_address_type_hex[5] = ""; // phone
 char password_hex[30] = "";
 char sample_interval_hex[30] = ""; // default to 60 seconds
 char number_of_samples_per_interval_hex[30] = ""; // default to 12 samples
-char update_hex[2] = ""; // this is initially zero meaning no update has been made yet.
+char update_hex[6] = ""; // this is initially zero meaning no update has been made yet.
 
 char battery_voltage_hex[34] = "";
 char current_hex[34] = "";
@@ -191,16 +193,16 @@ char ** start_AD_dptr[4] = {
 // special command pointer tree for setting device name
 /*...............................................................................*/
 // commands
-char set_name_cmd0[1] = "2"; // indicates size of this command branch
+char set_name_cmd0[2] = "2"; // indicates size of this command branch
 char set_name_cmd1[4] = "SN,";
 char set_name_cmd2[2] = "\r";
 // expected return values
-char set_name_exp0[1] = "1"; // indicates size of this expected values branch
+char set_name_exp0[2] = "1"; // indicates size of this expected values branch
 char set_name_exp1[11] = "AOK\r\nCMD> ";
 // read and writable data
-char set_name_spec0[1] = "1"; // indicates size of this data branch
+char set_name_spec0[2] = "1"; // indicates size of this data branch
 // sets values from BLE
-char set_name_set0[1] = "0";
+char set_name_set0[2] = "0";
 
 // combine into pointer array
 char * set_name_cmd_ptr[3] = {set_name_cmd0,set_name_cmd1, set_name_cmd2};
@@ -1026,7 +1028,7 @@ char set_ser_address_set1[2] = ""; // indicates that default was changed if a on
 char set_ser_address_set2[2] = "0"; // used as a boolean to indicate that data has changed.
 
 // combine into pointer array
-char * set_ser_address_cmd_ptr[2] = {set_ser_address_cmd0,set_ser_address_cmd1};
+char * set_ser_address_cmd_ptr[3] = {set_ser_address_cmd0,set_ser_address_cmd1,set_ser_address_cmd2};
 char * set_ser_address_exp_ptr[2] = {set_ser_address_exp0,set_ser_address_exp1};
 char * set_ser_address_spec_ptr[2] = {set_ser_address_spec0, handle1};
 char * set_ser_address_set_ptr[4] = {set_ser_address_set0, server_address, set_ser_address_set1, set_ser_address_set2};
@@ -1059,7 +1061,7 @@ char set_ser_address_type_set1[2] = ""; // indicates that default was changed if
 char set_ser_address_type_set2[2] = "0"; // used as a boolean to indicate that data has changed.
 
 // combine into pointer array
-char * set_ser_address_type_cmd_ptr[2] = {set_ser_address_type_cmd0,set_ser_address_type_cmd1};
+char * set_ser_address_type_cmd_ptr[3] = {set_ser_address_type_cmd0,set_ser_address_type_cmd1,set_ser_address_type_cmd2};
 char * set_ser_address_type_exp_ptr[2] = {set_ser_address_type_exp0,set_ser_address_type_exp1};
 char * set_ser_address_type_spec_ptr[2] = {set_ser_address_type_spec0, handle2};
 char * set_ser_address_type_set_ptr[4] = {set_ser_address_type_set0, server_address_type, set_ser_address_type_set1, set_ser_address_type_set2};
@@ -1090,7 +1092,7 @@ char set_device_name_set1[2] = ""; // indicates that default was changed if a on
 char set_device_name_set2[2] = "0"; // used as a boolean to indicate that data has changed.
 
 // combine into pointer array
-char * set_device_name_cmd_ptr[2] = {set_device_name_cmd0,set_device_name_cmd1};
+char * set_device_name_cmd_ptr[3] = {set_device_name_cmd0,set_device_name_cmd1,set_device_name_cmd2};
 char * set_device_name_exp_ptr[2] = {set_device_name_exp0,set_device_name_exp1};
 char * set_device_name_spec_ptr[2] = {set_device_name_spec0, handle3};
 char * set_device_name_set_ptr[4] = {set_device_name_set0, device_name, set_device_name_set1, set_device_name_set2};
@@ -1124,7 +1126,7 @@ char set_password_set1[2] = ""; // indicates that default was changed if a one i
 char set_password_set2[2] = "0"; // used as a boolean to indicate that data has changed.
 
 // combine into pointer array
-char * set_password_cmd_ptr[2] = {set_password_cmd0,set_password_cmd1};
+char * set_password_cmd_ptr[3] = {set_password_cmd0,set_password_cmd1,set_password_cmd2};
 char * set_password_exp_ptr[2] = {set_password_exp0,set_password_exp1};
 char * set_password_spec_ptr[2] = {set_password_spec0, handle4};
 char * set_password_set_ptr[4] = {set_password_set0, password, set_password_set1, set_password_set2};
@@ -1156,7 +1158,7 @@ char set_sample_interval_set1[2] = ""; // indicates that default was changed if 
 char set_sample_interval_set2[2] = "0"; // used as a boolean to indicate that data has changed.
 
 // combine into pointer array
-char * set_sample_interval_cmd_ptr[2] = {set_sample_interval_cmd0,set_sample_interval_cmd1};
+char * set_sample_interval_cmd_ptr[3] = {set_sample_interval_cmd0,set_sample_interval_cmd1,set_sample_interval_cmd2};
 char * set_sample_interval_exp_ptr[2] = {set_sample_interval_exp0,set_sample_interval_exp1};
 char * set_sample_interval_spec_ptr[2] = {set_sample_interval_spec0, handle5};
 char * set_sample_interval_set_ptr[4] = {set_sample_interval_set0, sample_interval, set_sample_interval_set1, set_sample_interval_set2};
@@ -1188,7 +1190,7 @@ char set_number_of_samples_per_interval_set1[2] = ""; // indicates that default 
 char set_number_of_samples_per_interval_set2[2] = "0"; // used as a boolean to indicate that data has changed.
 
 // combine into pointer array
-char * set_number_of_samples_per_interval_cmd_ptr[2] = {set_number_of_samples_per_interval_cmd0,set_number_of_samples_per_interval_cmd1};
+char * set_number_of_samples_per_interval_cmd_ptr[3] = {set_number_of_samples_per_interval_cmd0,set_number_of_samples_per_interval_cmd1,set_number_of_samples_per_interval_cmd2};
 char * set_number_of_samples_per_interval_exp_ptr[2] = {set_number_of_samples_per_interval_exp0,set_number_of_samples_per_interval_exp1};
 char * set_number_of_samples_per_interval_spec_ptr[2] = {set_number_of_samples_per_interval_spec0, handle6};
 char * set_number_of_samples_per_interval_set_ptr[4] = {set_number_of_samples_per_interval_set0, number_of_samples_per_interval, set_number_of_samples_per_interval_set1, set_number_of_samples_per_interval_set2};
@@ -1216,11 +1218,11 @@ char check_update_status_exp1[17] = "N/A\r\n\r\nCMD> ";
 char check_update_status_spec0[2] = "1"; // indicates size of this data branch
 // sets values from BLE #3
 char check_update_status_set0[2] = "1"; // indicates we are updating the server address
-char check_update_status_set1[2] = ""; // serves as a temporary variable to hold the ble data for comparison.
-char check_update_status_set2[2] = "0"; // used as a boolean to indicate that data has changed.
+char check_update_status_set1[6] = ""; // serves as a temporary variable to hold the ble data for comparison.
+char check_update_status_set2[6] = "0"; // used as a boolean to indicate that data has changed.
 
 // combine into pointer array
-char * check_update_status_cmd_ptr[2] = {check_update_status_cmd0,check_update_status_cmd1};
+char * check_update_status_cmd_ptr[3] = {check_update_status_cmd0,check_update_status_cmd1,check_update_status_cmd2};
 char * check_update_status_exp_ptr[2] = {check_update_status_exp0,check_update_status_exp1};
 char * check_update_status_spec_ptr[2] = {check_update_status_spec0, handle7};
 char * check_update_status_set_ptr[4] = {check_update_status_set0, update, check_update_status_set1,check_update_status_set2};
@@ -1281,7 +1283,7 @@ char connect_spec0[2] = "2"; // indicates size of this data branch
 char connect_set0[2] = "0";
 
 // combine into pointer array
-char * connect_cmd_ptr[2] = {connect_cmd0,connect_cmd1};
+char * connect_cmd_ptr[4] = {connect_cmd0,connect_cmd1,connect_cmd2,connect_cmd3};
 char * connect_exp_ptr[2] = {connect_exp0};
 char * connect_spec_ptr[3] = {connect_spec0,server_address_type,server_address};
 char * connect_set_ptr[1] = {connect_set0};

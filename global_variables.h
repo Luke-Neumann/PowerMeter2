@@ -43,6 +43,8 @@ char hamp7[4];
 char hamp8[4];
 char hamp9[4];
 
+int shr_count;
+
 extern uint32_t overFlowCount;
 extern uint16_t overFlowCount1;
 extern uint32_t timeIntervalCount;
@@ -94,18 +96,18 @@ extern char handle9[5];
 extern char handle10[5];
 
 
-extern char device_name[15];
-extern char device_address[13];
-extern char server_address[13];
-extern char server_address_type[1];
-extern char password[15];
-extern char sample_interval[15];
-extern char number_of_samples_per_interval[15];
-extern char update[1];
+extern char device_name[40];
+extern char device_address[40];
+extern char server_address[40];
+extern char server_address_type[5];
+extern char password[40];
+extern char sample_interval[40];
+extern char number_of_samples_per_interval[40];
+extern char update[5];
 
 
-extern char battery_voltage[17];
-extern char current[17];
+extern char battery_voltage[40];
+extern char current[40];
 
 //char device_name_temp[15];
 //char device_address_temp[50];
@@ -119,11 +121,11 @@ extern char current[17];
 char device_name_hex[30];
 char device_address_hex[26];
 char server_address_hex[26];
-char server_address_type_hex[2];
+char server_address_type_hex[5];
 char password_hex[30];
 char sample_interval_hex[30];
 char number_of_samples_per_interval_hex[30];
-char update_hex[2];
+char update_hex[6];
 
 
 char battery_voltage_hex[34];
@@ -194,16 +196,16 @@ extern char ** start_AD_dptr[4];
 // special command pointer tree for setting device name
 /*...............................................................................*/
 // commands
-extern char set_name_cmd0[1];
+extern char set_name_cmd0[2];
 extern char set_name_cmd1[4];
 extern char set_name_cmd2[2];
 // expected return values
-extern char set_name_exp0[1];
+extern char set_name_exp0[2];
 extern char set_name_exp1[11];
 // read and writable data
-extern char set_name_spec0[1];
+extern char set_name_spec0[2];
 // sets values from BLE
-extern char set_name_set0[1];
+extern char set_name_set0[2];
 
 // combine into pointer array
 extern char * set_name_cmd_ptr[3];
@@ -878,7 +880,7 @@ extern char set_ser_address_set1[2];
 extern char set_ser_address_set2[2];
 
 // combine into pointer array
-extern char * set_ser_address_cmd_ptr[2];
+extern char * set_ser_address_cmd_ptr[3];
 extern char * set_ser_address_exp_ptr[2];
 extern char * set_ser_address_spec_ptr[2];
 extern char * set_ser_address_set_ptr[4];
@@ -905,7 +907,7 @@ char set_ser_address_type_set1[2];
 char set_ser_address_type_set2[2];
 
 // combine into pointer array
-char * set_ser_address_type_cmd_ptr[2];
+char * set_ser_address_type_cmd_ptr[3];
 char * set_ser_address_type_exp_ptr[2];
 char * set_ser_address_type_spec_ptr[2];
 char * set_ser_address_type_set_ptr[4];
@@ -932,7 +934,7 @@ char set_device_name_set1[2];
 char set_device_name_set2[2];
 
 // combine into pointer array
-char * set_device_name_cmd_ptr[2];
+char * set_device_name_cmd_ptr[3];
 char * set_device_name_exp_ptr[2];
 char * set_device_name_spec_ptr[2];
 char * set_device_name_set_ptr[4];
@@ -960,7 +962,7 @@ char set_password_set1[2];
 char set_password_set2[2];
 
 // combine into pointer array
-char * set_password_cmd_ptr[2];
+char * set_password_cmd_ptr[3];
 char * set_password_exp_ptr[2];
 char * set_password_spec_ptr[2];
 char * set_password_set_ptr[4];
@@ -987,7 +989,7 @@ char set_sample_interval_set1[2];
 char set_sample_interval_set2[2];
 
 // combine into pointer array
-char * set_sample_interval_cmd_ptr[2];
+char * set_sample_interval_cmd_ptr[3];
 char * set_sample_interval_exp_ptr[2];
 char * set_sample_interval_spec_ptr[2];
 char * set_sample_interval_set_ptr[4];
@@ -1015,7 +1017,7 @@ char set_number_of_samples_per_interval_set1[2];
 char set_number_of_samples_per_interval_set2[2];
 
 // combine into pointer array
-char * set_number_of_samples_per_interval_cmd_ptr[2];
+char * set_number_of_samples_per_interval_cmd_ptr[3];
 char * set_number_of_samples_per_interval_exp_ptr[2];
 char * set_number_of_samples_per_interval_spec_ptr[2];
 char * set_number_of_samples_per_interval_set_ptr[4];
@@ -1038,11 +1040,11 @@ char check_update_status_exp1[17];
 char check_update_status_spec0[2];
 // sets values from BLE #3
 char check_update_status_set0[2];
-char check_update_status_set1[2];
-char check_update_status_set2[2];
+char check_update_status_set1[6];
+char check_update_status_set2[6];
 
 // combine into pointer array
-char * check_update_status_cmd_ptr[2];
+char * check_update_status_cmd_ptr[3];
 char * check_update_status_exp_ptr[2];
 char * check_update_status_spec_ptr[2];
 char * check_update_status_set_ptr[4];
@@ -1089,7 +1091,7 @@ char connect_spec0[2];
 char connect_set0[2];
 
 // combine into pointer array
-char * connect_cmd_ptr[2];
+char * connect_cmd_ptr[4];
 char * connect_exp_ptr[2];
 char * connect_spec_ptr[3];
 char * connect_set_ptr[1];

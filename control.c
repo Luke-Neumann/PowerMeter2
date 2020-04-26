@@ -141,7 +141,7 @@ void MainCommandControl_tick(){
             }
             break;
         case check_if_connected_st:
-            if ((global_open_start_gate == 2)&&quickly_check_if_connected_to_device()) {
+            if (quickly_check_if_connected_to_device()) {
                 global_open_start_gate = 1;
                 global_command_count_sequence = 4;
                 MainCommandState = stop_advertising_st;
@@ -156,6 +156,7 @@ void MainCommandControl_tick(){
             break;
         case wait_for_user_update_st:
             if (global_open_start_gate == 2) {
+                
                 
                 if(compare_ble_value(master_command[5][1])){
                     
@@ -189,25 +190,34 @@ void MainCommandControl_tick(){
                 reset_update_status(master_command[6][5]);
                 reset_update_status(master_command[6][6]);
                 reset_update_status(master_command[5][1]);
-                global_open_start_gate = 1;
-                global_command_count_sequence = 7;
+                //global_open_start_gate = 1;
+                global_command_count_sequence = 0;
                 
                 MainCommandState = disconnect_st;
             }
             break;
         case disconnect_st:
-            if (global_open_start_gate == 2) {
+            //if (global_open_start_gate == 2) {
+            if (!quickly_check_if_connected_to_device()) {
                 global_open_start_gate = 1;
                 global_command_count_sequence = 8;
                 MainCommandState = connect_st;
             }
             break;
         case connect_st:
-            if ((global_open_start_gate == 2)&&(quickly_check_if_connected_to_device())) {
-                
-                global_send_data_to_BLE = 0;
-                // now disable the command control machine
-                MainCommandState = send_data_st;
+            if (global_open_start_gate == 2) {
+                if(quickly_check_if_connected_to_device()){
+                    global_send_data_to_BLE = 0;
+                    global_send_data_state = 1;
+                    // now disable the command control machine
+                    MainCommandState = send_data_st;
+                }
+                else{
+                    global_open_start_gate = 1;
+                    global_command_count_sequence = 8;
+                    MainCommandState = connect_st;
+                }
+
             }
             break;
         case send_data_st:

@@ -32,7 +32,7 @@ enum verifyCmdModeStates {enter_init_st, // This is the initial state of the sta
 static uint32_t outer_count, inner_count, buffer_count= INITIALIZE_TO_ZERO;
 static uint32_t outer_limit = 10;
 static uint32_t inner_limit = 100;
-static uint32_t buffer_delay = 50;
+static uint32_t buffer_delay = 5;
 
 //// This is a debug state print routine. It will print the names of the states each
 //// time tick() is called. It only prints states if they are different than the

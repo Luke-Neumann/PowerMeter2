@@ -12,6 +12,8 @@
 
 #include "iot_uart.h"
 
+#include "global_variables.h"
+
 
 
 int hex_to_int(char c){
@@ -90,7 +92,7 @@ void send_command(char *** command){
 
 
     }
-    
+    memset(received, 0, strlen(received)); // clear the old
     uart_print_string(appended_command);
 }
 
@@ -98,7 +100,7 @@ bool verify_sent_command(char * received, char *** command){
     
     char * address_holder1 = received;
     char * address_holder2 = command[3][1];
-    
+    char * address_holder3 = command[3][2];
     int count = 0;
     int count1 = 0;
     int number_of_matching_chars = 0;
@@ -120,9 +122,9 @@ bool verify_sent_command(char * received, char *** command){
     }
     
     
-    if (atoi(command[3][0])) {
+    if (atoi(command[3][0])==1) { // indicates if we are checking to update the values from the ble device
         
-        if (atoi(command[3][3]) == 1) {
+        if (atoi(command[3][3]) == 1) { // indicates that the old value has changed.
             
             memset(command[3][1], 0, strlen(command[3][1])); // clear the old
             while ((*received != '\r')&&(*received != '\0')) {
@@ -147,15 +149,26 @@ bool verify_sent_command(char * received, char *** command){
                 received++;
             }
             received = address_holder1;
-            command[3][2] = address_holder2;
+            command[3][2] = address_holder3;
             convert_hex_to_char(command[3][2]);
 
         }
-
-
+        
+        
+        
+//        if (shr_count > 5) {
+//            shr_count = 0;
+//            return true;
+//        }
+//        else{
+//            shr_count++;
+//            return false;
+//        }
+            
+        return true;
 
         
-        return true;
+
         
         
         
@@ -226,7 +239,10 @@ bool verify_command_mode(char * received){
 
 
 
+
+
 void print_invalid_command(char * received){
+    memset(received, 0, strlen(received));
     char cmd[10] = "test\r";
     uart_print_string(cmd);
 }

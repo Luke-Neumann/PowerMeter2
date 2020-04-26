@@ -698,7 +698,7 @@ int main(void)
                 
                 
                 sprintf(battery_voltage, "%c", getBatteryVoltage());
-                sprintf(battery_voltage, "%c", getCurrent());
+                sprintf(current, "%c", getCurrent());
 
 //                shunt_voltage *= APS; // convert value to milivolts
 //                shunt_voltage += BIAS; // convert value to milivolts
